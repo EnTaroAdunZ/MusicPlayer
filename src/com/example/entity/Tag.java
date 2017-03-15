@@ -8,4 +8,10 @@ package com.example.entity;
 public class Tag {
 
 }
- 
+
+/**
+ * 测试能不能正常使用
+ */
+class test{
+	
+}
