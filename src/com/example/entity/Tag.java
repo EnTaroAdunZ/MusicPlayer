@@ -6,7 +6,7 @@ package com.example.entity;
 * @version 1.0 
 * @Description:   TAG½âÎöÊµÌå
 */
-public class TagMsg {
+public class Tag {
 
 }
  
