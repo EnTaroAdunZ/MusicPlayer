@@ -1,10 +1,9 @@
 package com.example.dao.impl; 
 
 /** 
-* @author ZTF  
-* @date 2017Äê3ÔÂ15ÈÕ ÏÂÎç2:27:26 
+* @date 2017å¹´3æœˆ15æ—¥ ä¸‹åˆ2:26:49 
 * @version 1.0 
-* @Description:   TODO(ÓÃÒ»¾ä»°ÃèÊö¸ÃÎÄ¼ş×öÊ²Ã´)
+* @Description:   TODO(ç”¨ä¸€å¥è¯æè¿°è¯¥æ–‡ä»¶åšä»€ä¹ˆ)
 */
 public class TagDaoImpl {
 

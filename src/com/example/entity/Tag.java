@@ -1,10 +1,9 @@
 package com.example.entity; 
 
 /** 
-* @author ZTF  
-* @date 2017Äê3ÔÂ15ÈÕ ÏÂÎç1:19:24 
+* @date 2017å¹´3æœˆ15æ—¥ ä¸‹åˆ2:26:49 
 * @version 1.0 
-* @Description:   TAG½âÎöÊµÌå
+* @Description:   TODO(ç”¨ä¸€å¥è¯æè¿°è¯¥æ–‡ä»¶åšä»€ä¹ˆ)
 */
 public class Tag {
 
