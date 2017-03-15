@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="52.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="137.0" text="MusicPlayer" />
+                  <TextField prefHeight="14.0" prefWidth="202.0">
+                     <HBox.margin>
+                        <Insets left="180.0" top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button mnemonicParsing="false" text="Search">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Setting">
+                     <HBox.margin>
+                        <Insets left="600.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="74.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="35.0" layoutY="18.0" prefHeight="92.0" prefWidth="1335.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="&lt;-" />
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="||" />
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="-&gt;" />
+                  <Label prefHeight="50.0" text="0:00">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Slider prefHeight="50.0" prefWidth="530.0" />
+                  <Label prefHeight="50.0" text="3:00">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Slider prefHeight="50.0" />
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="Switch" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <left>
+      <AnchorPane prefHeight="724.0" prefWidth="291.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="724.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="723.0" prefWidth="289.0">
+                     <children>
+                        <VBox prefHeight="722.0" prefWidth="272.0">
+                           <children>
+                              <ListView prefHeight="198.0" prefWidth="289.0" />
+                              <Label prefHeight="43.0" prefWidth="289.0" text="我的歌单：" />
+                              <ListView prefHeight="393.0" prefWidth="272.0" />
+                           </children>
+                        </VBox>
+                        <ScrollBar orientation="VERTICAL" prefHeight="615.0" prefWidth="18.0" />
+                     </children>
+                  </HBox>
+                  <AnchorPane prefHeight="227.0" prefWidth="289.0">
+                     <children>
+                        <HBox prefHeight="113.0" prefWidth="289.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fitHeight="114.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
+                              <VBox prefHeight="114.0" prefWidth="191.0">
+                                 <children>
+                                    <Label prefHeight="60.0" prefWidth="190.0" text="音乐标题" />
+                                    <Label prefHeight="60.0" prefWidth="190.0" text="歌手" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="732.0" prefWidth="820.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <TableView prefHeight="722.0" prefWidth="1312.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="ID" />
+                      <TableColumn prefWidth="366.0" text="音乐标题" />
+                        <TableColumn prefWidth="127.0" text="歌手" />
+                        <TableColumn prefWidth="180.0" text="专辑名称" />
+                        <TableColumn prefWidth="123.0" text="时长" />
+                        <TableColumn prefWidth="117.0" text="大小" />
+                    </columns>
+                  </TableView>
+                  <ScrollBar orientation="VERTICAL" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
