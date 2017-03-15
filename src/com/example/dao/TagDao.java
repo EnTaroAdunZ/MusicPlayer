@@ -6,7 +6,7 @@ package com.example.dao;
 * @version 1.0 
 * @Description:   TODO(用一句话描述该文件做什么)
 */
-public class TagDao {
+interface TagDao {
 
 }
  
