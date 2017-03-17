@@ -7,21 +7,22 @@ package com.example.entity;
 */
 public class Tag {
 	private String SongName;
-	private String getArtist;
+	private String Artist;
 	private String Album;
-	private String Year;
-	private String Comment;
 	public String getSongName() {
 		return SongName;
 	}
+	
+	public String getArtist() {
+		return Artist;
+	}
+
+	public void setArtist(String artist) {
+		Artist = artist;
+	}
+
 	public void setSongName(String songName) {
 		SongName = songName;
-	}
-	public String getGetArtist() {
-		return getArtist;
-	}
-	public void setGetArtist(String getArtist) {
-		this.getArtist = getArtist;
 	}
 	public String getAlbum() {
 		return Album;
@@ -29,18 +30,7 @@ public class Tag {
 	public void setAlbum(String album) {
 		Album = album;
 	}
-	public String getYear() {
-		return Year;
-	}
-	public void setYear(String year) {
-		Year = year;
-	}
-	public String getComment() {
-		return Comment;
-	}
-	public void setComment(String comment) {
-		Comment = comment;
-	}
+
 	
 	
 	

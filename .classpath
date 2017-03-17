@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="lib/jaudiotagger-2.2.6-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

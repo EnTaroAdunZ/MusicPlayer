@@ -13,7 +13,9 @@ import com.example.entity.Song;
 public interface SongDao {
 	void addSong(Song song);
 	//根据歌单名称获得歌曲列表
-	List<Song> getSong(String songSheet);
+	List<Song> getSongList(String songSheet);
+	Song getSongByName();
+	Song getSongByAr();
 	void deleteSong(String songPath);
 	void deleteSongWithFile(String songPath);
 	void changeSong(Song song);
