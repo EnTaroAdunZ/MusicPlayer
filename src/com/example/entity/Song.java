@@ -1,7 +1,6 @@
 package com.example.entity; 
 
-/** 
-* @author ZTF  
+/**
 * @date 2017年3月16日 下午9:10:38 
 * @version 1.0 
 * @Description:   歌曲的实体类
