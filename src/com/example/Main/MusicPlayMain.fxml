@@ -16,26 +16,36 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="com.example.Main.MainPageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="com.example.controller.MainPageController" fx:id="BorderPane_mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <AnchorPane prefHeight="52.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_top" prefHeight="52.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox fx:id="Hbox_topItemHbox" prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="137.0" text="MusicPlayer" />
+                  <Label fx:id="Label_FXName" alignment="CENTER" prefHeight="50.0" prefWidth="137.0" text="MusicPlayer" />
+                  <Button fx:id="Button_back" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="40.0" text="&lt;">
+                     <HBox.margin>
+                        <Insets left="150.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="Button_forward" mnemonicParsing="false" onAction="#onForward" prefHeight="30.0" prefWidth="40.0" text="&gt;">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
                   <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="202.0">
                      <HBox.margin>
-                        <Insets left="180.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
                   <Button fx:id="Button_search" mnemonicParsing="false" onAction="#onButtonSearch" text="Search">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="Button_setting" mnemonicParsing="false" onAction="#onButtonSetting" text="Setting">
                      <HBox.margin>
-                        <Insets left="600.0" top="10.0" />
+                        <Insets left="520.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
@@ -44,9 +54,9 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane prefHeight="74.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_bottom" prefHeight="74.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutX="35.0" layoutY="18.0" prefHeight="92.0" prefWidth="1335.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+            <HBox fx:id="HBox_bottomItems" layoutX="35.0" layoutY="18.0" prefHeight="92.0" prefWidth="1335.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                <children>
                   <Button fx:id="Button_last" mnemonicParsing="false" onAction="#onButtonLast" prefHeight="50.0" prefWidth="50.0" text="&lt;-" />
                   <Button fx:id="Button_pause" mnemonicParsing="false" onAction="#onButtonPause" prefHeight="50.0" prefWidth="50.0" text="||" />
@@ -70,25 +80,24 @@
       </AnchorPane>
    </bottom>
    <left>
-      <AnchorPane prefHeight="724.0" prefWidth="291.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_left" prefHeight="724.0" prefWidth="291.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="724.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox fx:id="VBox_leftItems" prefHeight="724.0" prefWidth="291.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox prefHeight="723.0" prefWidth="289.0">
+                  <HBox fx:id="HBox_leftButtonAndScroll" prefHeight="723.0" prefWidth="289.0">
                      <children>
-                        <VBox prefHeight="722.0" prefWidth="272.0">
+                        <VBox fx:id="VBox_leftMainField" prefHeight="722.0" prefWidth="272.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox fx:id="VBox_leftButtons" prefHeight="200.0" prefWidth="100.0">
                                  <children>
                                     <Button fx:id="Button_localMusic" mnemonicParsing="false" prefHeight="50.0" prefWidth="416.0" text="本地音乐" />
-                                    <ListView prefHeight="0.0" prefWidth="272.0" />
                                     <Button fx:id="Button_addLocalMusic" mnemonicParsing="false" onAction="#onAddLocalMusic" prefHeight="50.0" prefWidth="416.0" text="添加本地音乐" />
                                     <Button fx:id="Button_addLocalDirectory" mnemonicParsing="false" onAction="#onAddLocalDirectory" prefHeight="50.0" prefWidth="416.0" text="添加本地音乐文件夹" />
                                  </children>
                               </VBox>
-                              <HBox prefHeight="52.0" prefWidth="272.0">
+                              <HBox fx:id="HBox_leftManageField" prefHeight="52.0" prefWidth="272.0">
                                  <children>
-                                    <Label prefHeight="170.0" prefWidth="229.0" text="我的歌单：" />
+                                    <Label fx:id="Label_musicListTitle" prefHeight="170.0" prefWidth="229.0" text="我的歌单：" />
                                     <Button fx:id="Button_addMusicList" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onButtonAddMusicList" text="+">
                                        <HBox.margin>
                                           <Insets top="5.0" />
@@ -101,12 +110,12 @@
                         <ScrollBar fx:id="ScrollBar_musicList" orientation="VERTICAL" prefHeight="615.0" prefWidth="18.0" />
                      </children>
                   </HBox>
-                  <AnchorPane prefHeight="227.0" prefWidth="289.0">
+                  <AnchorPane fx:id="AnchorPane_CurrentSongInfo" prefHeight="227.0" prefWidth="289.0">
                      <children>
-                        <HBox prefHeight="113.0" prefWidth="289.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox fx:id="Hbox_leftImageAndTitle" prefHeight="113.0" prefWidth="289.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <ImageView fx:id="ImageView_albumCover" fitHeight="114.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" />
-                              <VBox prefHeight="114.0" prefWidth="191.0">
+                              <VBox fx:id="Vbox_leftTitleAndSinger" prefHeight="114.0" prefWidth="191.0">
                                  <children>
                                     <Label fx:id="Label_musicTitle" prefHeight="60.0" prefWidth="190.0" text="音乐标题" />
                                     <Label fx:id="Label_singer" prefHeight="60.0" prefWidth="190.0" text="歌手" />
@@ -122,14 +131,15 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="732.0" prefWidth="820.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_center" prefHeight="732.0" prefWidth="820.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox fx:id="HBox_centerMusicListAndScroll" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TableView fx:id="TableView_musicTable" prefHeight="722.0" prefWidth="1312.0">
                     <columns>
-                      <TableColumn fx:id="TableColumn_musicID" maxWidth="129.0" minWidth="-1.0" prefWidth="93.0" text="ID" />
-                      <TableColumn fx:id="TableColumn_musicTitle" prefWidth="339.0" text="音乐标题" />
+                        <TableColumn fx:id="TableColumn_musicButton" maxWidth="129.0" minWidth="-1.0" prefWidth="43.0" />
+                      <TableColumn fx:id="TableColumn_musicID" maxWidth="154.0" minWidth="-1.0" prefWidth="56.0" />
+                      <TableColumn fx:id="TableColumn_musicTitle" prefWidth="426.0" text="音乐标题" />
                         <TableColumn fx:id="TableColumn_musicSinger" prefWidth="178.0" text="歌手" />
                         <TableColumn fx:id="TableColumn_albumName" prefWidth="164.0" text="专辑名称" />
                         <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="120.0" text="时长" />
