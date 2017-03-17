@@ -115,13 +115,13 @@ public class TagInfoUtil {
 	public static Image getFlacPicture(String flacpath){
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
-			AudioFile read = fileReader.read(new File("D:\\李克勤 - 天梯.flac"));
+			AudioFile read = fileReader.read(new File(flacpath));
 			org.jaudiotagger.tag.Tag tag = read.getTag();
 			Artwork firstArtwork = tag.getFirstArtwork();
 			byte[] imageData = firstArtwork.getBinaryData();
 			Image image=Toolkit.getDefaultToolkit().createImage(imageData, 0,imageData.length);
 			ImageIcon icon = new ImageIcon(image);
-			String storePath="D:\\李克勤 - 天梯.flac";
+			String storePath=flacpath;
 			storePath = storePath.substring(0, storePath.length()-4);
 			storePath+="jpg";
 			System.out.println(storePath);
