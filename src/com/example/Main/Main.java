@@ -23,6 +23,9 @@ public class Main extends Application{
 	 */
     @Override  
     public void start(Stage stage) throws Exception { 
+    	
+    	
+    	
     	//装载fxml于fx主页面，fxml与当前类同一目录，将来可改位置
         Parent root = FXMLLoader.load(getClass().getResource("MusicPlayMain.fxml"));  
         
@@ -32,5 +35,7 @@ public class Main extends Application{
         stage.setScene(scene);  
         stage.setTitle("MusicPlay");  
         stage.show();
-    }  
+    }
+
+
 }

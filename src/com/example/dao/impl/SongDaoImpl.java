@@ -19,11 +19,7 @@ import com.example.util.XMLUtil;
 */
 public class SongDaoImpl implements SongDao{
 
-	@Override
-	public void addSong(Song song) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void deleteSong(String songPath) {
@@ -70,10 +66,24 @@ public class SongDaoImpl implements SongDao{
 	}
 
 	@Override
-	public Song getSongByAr() {
+	public Song getSongByArtist() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void addSong(Song song, String menuName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addSongWithFile(List<Song> songList, String menuName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }
  
