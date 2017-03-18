@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.dao.SongDao;
 import com.example.dao.impl.SongDaoImpl;
 import com.example.entity.Song;
+import com.example.entity.SongMenu;
 import com.example.entity.Tag;
 import com.example.util.TagInfoUtil;
 import com.sun.org.apache.bcel.internal.classfile.Field;
@@ -25,15 +26,24 @@ public class SongOperate {
 		songDao=new SongDaoImpl();
 	}
 	
-	public static void addSong(String path,String menuName){
+	
+	//添加一个song，并返回实体
+	public static Song addSong(String path,String menuName){
 		//此处判断是否为合法路径以及合法音频格式
 		
 		Song song=new Song();
 		song.setPath(path);
-		Tag tag = TagInfoUtil.Mp3InfoRead(path);
-		song.setTag(tag);
+		Tag tag;
+		if(path.endsWith(".flac")){
+			tag= TagInfoUtil.FlacInfoRead(path);
+			song.setTag(tag);
+		}
+		else{
+			tag = TagInfoUtil.Mp3InfoRead(path);
+			song.setTag(tag);
+		}
 		songDao.addSong(song,menuName);
-		
+		return song;
 	}
 	
 	public static void addSongWithFile(String filePath,String menuName){
@@ -56,6 +66,21 @@ public class SongOperate {
 		}
 		songDao.addSongWithFile(songList, menuName);
 	}
+	
+//	public static void main(String[] args) {
+//		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "每日循环");
+//		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
+//		for(SongMenu songMenu:allSongMenu){
+//			System.out.println(songMenu.getSongMenuName());
+//			List<Song> songList = songMenu.getSongList();
+//			for(Song song:songList){
+//				System.out.println("--"+song.getPath());
+//				System.out.println("--"+song.getTag().getAlbum());
+//				System.out.println("--"+song.getTag().getArtist());
+//				System.out.println("--"+song.getTag().getSongName());
+//			}
+//		}
+//	}
 	
 }
  

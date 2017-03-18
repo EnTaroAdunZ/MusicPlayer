@@ -2,6 +2,7 @@ package com.example.dao;
 
 import java.util.List;
 
+import com.example.entity.Song;
 import com.example.entity.SongMenu;
 
 /** 
@@ -15,5 +16,6 @@ public interface SongMenuDao {
 	void alterSongMenu(String new_songMenuName,String old_songMenuName);
 	List<SongMenu> getSongMenu();
 	List<SongMenu> getAllSongMenu();
+	List<Song> getSongByMenuName(String menuName);
 }
  

@@ -73,8 +73,15 @@ public class SongDaoImpl implements SongDao{
 
 	@Override
 	public void addSong(Song song, String menuName) {
-		// TODO Auto-generated method stub
-		
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
+		Element node=element.addElement("song");
+		node.addElement("path").setText(song.getPath());
+		Element tagElement = node.addElement("tag");
+		tagElement.addElement("album").setText(song.getTag().getAlbum());
+		tagElement.addElement("artist").setText(song.getTag().getArtist());
+		tagElement.addElement("songName").setText(song.getTag().getSongName());
+		XMLUtil.writeDoc(document);
 	}
 
 	@Override

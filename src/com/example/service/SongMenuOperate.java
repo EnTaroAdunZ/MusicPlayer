@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.example.dao.SongMenuDao;
 import com.example.dao.impl.SongMenuDaoImpl;
+import com.example.entity.Song;
 import com.example.entity.SongMenu;
 
 /** 
@@ -17,9 +18,14 @@ public class SongMenuOperate {
 	}
 	
 	//后面可以添加返回值判断是否添加成功
-	public static void addSongMenu(String songMenuName){
+	public static boolean addSongMenu(String songMenuName){
 		//判断歌单是否重名，暂时不支持
+		if(false){
+			return false;
+		}
+		
 		songMenuDao.addSongMenu(songMenuName);
+		return true;
 	}
 	
 	//得到歌单以及歌单下所有歌曲信息，初始化使用
@@ -32,14 +38,19 @@ public class SongMenuOperate {
 		return songMenuDao.getSongMenu();
 	}
 	
-	
-	public static void main(String[] args) {
-//		List<SongMenu> songMenu = getSongMenu();
-//		for(SongMenu s:songMenu)
-//		System.out.println(s.getSongMenuName());
-		
-		addSongMenu("我的更爱");
-		
+	//通过歌单名得到歌单下的歌
+	public static List<Song> getSongsByMenuName(String menuName){
+		return songMenuDao.getSongByMenuName(menuName);
 	}
+	
+	
+//	public static void main(String[] args) {
+////		List<SongMenu> songMenu = getSongMenu();
+////		for(SongMenu s:songMenu)
+////		System.out.println(s.getSongMenuName());
+//		
+////		addSongMenu("我的更爱");
+//		
+//	}
 }
  

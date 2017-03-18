@@ -26,7 +26,7 @@ public class XMLUtil {
 			try {
 				songMenuXML.createNewFile();
 				Document document=DocumentHelper.createDocument();
-				Element root=document.addElement("song-list");
+				Element root=document.addElement("menu-list");
 				root.addElement("song-menu").addAttribute("songMenuName", "我的最爱");
 				root.addElement("song-menu").addAttribute("songMenuName", "默认歌单");
 				root.addElement("song-menu").addAttribute("songMenuName", "每日循环");

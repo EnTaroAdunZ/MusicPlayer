@@ -85,6 +85,26 @@ public class SongMenuDaoImpl implements SongMenuDao{
         }
 		return songMenuList;
 	}
+
+	@Override
+	public List<Song> getSongByMenuName(String menuName) {
+		List<Song> songList = null;
+		Document document= XMLUtil.getDoc();
+		Element menuList = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
+		List<Element> elements = menuList.elements("song");
+		for(Element e:elements){
+            Song song=new Song();
+            song.setPath(e.elementText("path"));
+            Tag tag = new Tag();
+            Element elementTag = e.element("tag");
+            tag.setAlbum(elementTag.elementText("album"));
+            tag.setArtist(elementTag.elementText("artist"));
+            tag.setSongName(elementTag.elementText("songName"));
+            song.setTag(tag);
+            songList.add(song);
+		}
+		return songList;
+	}
 	
 	
 
