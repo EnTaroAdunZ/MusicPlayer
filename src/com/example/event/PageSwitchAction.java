@@ -1,49 +1,78 @@
 package com.example.event;
 
 import java.util.*;
+
+import javafx.beans.property.*;
 import javafx.event.*;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 
 public class PageSwitchAction implements EventHandler<ActionEvent>{
 	
+	private PageQueue pagequeue;
 	
 	@Override
 	public void handle(ActionEvent event) {
-		// TODO Auto-generated method stub
-		//Button b = (Button)event.getSource();
-		//String s = b.getText();
-		/*
+		// FIXME Auto-generated method stub
+		Button b = (Button)event.getSource();
+		String s = b.getText();
 		if(s.equals("<")) {
-			//TODO backward();
+			pagequeue.backward();
 		}else {
-			//TODO forward();
+			pagequeue.forward();
 		}
-		*/
+		
 	}
 	
-	public class QueuePage{
-		private LinkedList<Parent> pagestack;
+	
+	
+	/**
+	 * The stack for storing pages
+	 * @author Y
+	 *
+	 */
+	public class PageQueue{
+		private LinkedList<Page> pagestack;
 		
-		private int index;
+
+		/**
+		 * What the variable expresses, it means which page should be presented.
+		 * Supposed to use this variable to control the button "<" or ">" to be
+		 * disable whether or not.
+		 */
+		private IntegerProperty index;
+		public IntegerProperty IndexProperty() {
+			return index;
+		}
+		public int getIndex() {
+			return index.get();
+		}
+		private int ppindex() {
+			index.set(index.get() + 1);
+			return index.get();
+		}
+		private int ssindex() {
+			index.set(index.get() - 1);
+			return index.get();
+		}
 		
-		public QueuePage() {
+		public PageQueue() {
 			pagestack = new LinkedList<>();
-			index = 0;
+			index = new SimpleIntegerProperty(0);
 		}
 		
 		/**
-		 *  adds a new page into the stack
+		 *  Adds a new page into the stack
 		 */
-		public void add(Parent page) {
-			pagestack.add(index + 1, page);
-			index++;
-			if(pagestack.size() > 5 && index == 5) pagestack.removeFirst();
+		public void add(Page page) {
+			pagestack.add(index.get() + 1, page);
+			ppindex();
+			if(pagestack.size() > 10 && index.get() == 10) pagestack.removeFirst();
 			save();
 		}
 		
 		private void save() {
-			while(pagestack.size() > index + 1) {
+			while(pagestack.size() > index.get() + 1) {
 				pagestack.removeLast();
 			}
 		}
@@ -51,51 +80,79 @@ public class PageSwitchAction implements EventHandler<ActionEvent>{
 		/**
 		 *  Travels backward and retrieves the page if it exists.
 		 */
-		public Parent backward() {
-			return index > 0 ? pagestack.get(--index) : null;
+		public Page backward() {
+			return index.get() > 0 ? pagestack.get(ssindex()) : null;
 		}
 		
 		/**
 		 *  Travels forward and retrieves the page if it exists.
 		 */
-		public Parent forward() {
-			return index < 4 ? pagestack.get(++index) : null;
+		public Page forward() {
+			return index.get() < 9 ? pagestack.get(ppindex()) : null;
 		}
 		
-		/**
-		 *  supposed to use this variable to control the button "<" or
-		 * ">" to be disable whether or not.
-		 */
-		public int getIndex() {
-			return index;
-		}
 		
 	}
 	
-	public class TabPage{
-		private TabPane name, artist, album, sheet, lyric;
-
-		public TabPane getName() {
-			return name;
-		}
-
-		public TabPane getArtist() {
-			return artist;
-		}
-
-		public TabPane getAlbum() {
-			return album;
-		}
-
-		public TabPane getSheet() {
-			return sheet;
-		}
-
-		public TabPane getLyric() {
-			return lyric;
+	/**
+	 * One kind of the pages which appears after searching
+	 * @author Y
+	 * 
+	 */
+	public class TabPage extends Page{
+		
+		public TabPage(int type, Parent page) {
+			super();
+			this.type = type;
+			super.setPage(page);
 		}
 		
-		
+		/**
+		 * This determine the page is the result of by what searching
+		 */
+		public static final int
+			name = 0, artist = 1, album = 2, sheet = 3, lyric = 4;
+		private int type;
+		public int getType() {
+			return type;
+		}
+				
 	}
+	
+	public class MenuPage extends Page{
+		public MenuPage(Parent page) {
+			super();
+			super.setPage(page);
+		}
+	}
+	/**
+	 * The special Page which will occupy whole the GUI
+	 * @author Y
+	 *	
+	 */
+	public class SettingPage extends Page{
 
+		public SettingPage(Parent page) {
+			super();
+			super.setPage(page);
+		}
+		
+		//TODO
+	}
+	/**
+	 * The part of the GUI 
+	 * @author Y
+	 *  
+	 */
+	public abstract class Page{
+		
+		private Parent page;
+		protected Parent getPage() {
+			return page;
+		}
+		protected void setPage(Parent page) {
+			this.page = page;
+		}
+	}
+	
 }

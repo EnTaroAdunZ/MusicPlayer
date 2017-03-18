@@ -15,12 +15,20 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 	}
 	
 	private TagContextMenu tagContextMenu;
-	
+	/**
+	 * Waiting for further information from GUI and to go on designing
+	 */
 	@Override
 	public void handle(MouseEvent event) {
 		Node target = ((Node)event.getSource());
 		if(event.getButton() == MouseButton.SECONDARY) {
 			tagContextMenu.getContextMenu().show(target, event.getSceneX(), event.getScreenY());
+		}
+		if(event.getButton() == MouseButton.PRIMARY) {
+			int count = event.getClickCount();
+			if(count == 2) {
+				//TODO
+			}
 		}
 	}
 	
