@@ -60,6 +60,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
                         tag.setAlbum(elementTag.elementText("album"));
                         tag.setArtist(elementTag.elementText("artist"));
                         tag.setSongName(elementTag.elementText("songName"));
+                        tag.setLength(elementTag.elementText("length"));
                         song.setTag(tag);
                         songList.add(song);
             		}
@@ -100,6 +101,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
             tag.setAlbum(elementTag.elementText("album"));
             tag.setArtist(elementTag.elementText("artist"));
             tag.setSongName(elementTag.elementText("songName"));
+            tag.setLength(elementTag.elementText("length"));
             song.setTag(tag);
             songList.add(song);
 		}

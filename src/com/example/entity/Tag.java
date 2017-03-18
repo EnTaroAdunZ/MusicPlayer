@@ -1,4 +1,6 @@
-package com.example.entity; 
+package com.example.entity;
+
+import javafx.scene.control.Button;
 
 /** 
 * @date 2017年3月15日 下午2:26:49 
@@ -9,6 +11,7 @@ public class Tag {
 	private String SongName;
 	private String Artist;
 	private String Album;
+	private String length;
 	public String getSongName() {
 		return SongName;
 	}
@@ -29,6 +32,14 @@ public class Tag {
 	}
 	public void setAlbum(String album) {
 		Album = album;
+	}
+
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
 	}
 
 	

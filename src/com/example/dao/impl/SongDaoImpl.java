@@ -52,6 +52,7 @@ public class SongDaoImpl implements SongDao{
                 Tag tag=new Tag();
                 tag.setAlbum(e.elementText("album"));
                 tag.setSongName(e.elementText("songName"));
+                tag.setLength(e.elementText("length"));
                 song.setTag(tag);
                 songList.add(song);
             }
@@ -81,6 +82,7 @@ public class SongDaoImpl implements SongDao{
 		tagElement.addElement("album").setText(song.getTag().getAlbum());
 		tagElement.addElement("artist").setText(song.getTag().getArtist());
 		tagElement.addElement("songName").setText(song.getTag().getSongName());
+		tagElement.addElement("length").setText(song.getTag().getLength());
 		XMLUtil.writeDoc(document);
 	}
 

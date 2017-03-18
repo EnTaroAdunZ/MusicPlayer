@@ -1,10 +1,22 @@
 package com.example.controller;
 
 
-import com.example.Main.MusicUtils;
+import java.io.File;
+import java.util.List;
 
+import javax.swing.JFileChooser;
+
+import com.example.Main.MusicUtils;
+import com.example.entity.Song;
+import com.example.entity.SongMenu;
+import com.example.service.SongMenuOperate;
+import com.example.service.SongOperate;
+
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -18,6 +30,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
 
 /**
  * @author Tony Yao
@@ -209,7 +224,13 @@ public class MainPageController {
 	
 	@FXML
 	private void onAddLocalMusic(ActionEvent event){//按下“添加本地音乐”按钮的接口方法，待实现
-		
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("打开音乐文件");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
+				new FileChooser.ExtensionFilter("flac", "*.flac*"),
+				new FileChooser.ExtensionFilter("所有文件", "*.*"));
+		File selectedFile = fileChooser.showOpenDialog(new Stage());
+		SongOperate.addSong(selectedFile.getAbsolutePath(),"我的最爱");
 	}
 	
 	@FXML
@@ -228,6 +249,9 @@ public class MainPageController {
 	}
 	
 	public void initData(){//用于初始化所有控件的方法接口
+		//加载歌单以及歌单下的歌曲
+
+		
 		
 	}
 }

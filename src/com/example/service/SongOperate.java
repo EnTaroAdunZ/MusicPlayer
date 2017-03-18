@@ -67,8 +67,8 @@ public class SongOperate {
 		songDao.addSongWithFile(songList, menuName);
 	}
 	
-//	public static void main(String[] args) {
-//		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "每日循环");
+	public static void main(String[] args) {
+		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "每日循环");
 //		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
 //		for(SongMenu songMenu:allSongMenu){
 //			System.out.println(songMenu.getSongMenuName());
@@ -80,7 +80,7 @@ public class SongOperate {
 //				System.out.println("--"+song.getTag().getSongName());
 //			}
 //		}
-//	}
+	}
 	
 }
  

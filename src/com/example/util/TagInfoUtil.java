@@ -31,6 +31,7 @@ import com.example.entity.Tag;
 * 目前测试支持MP3、flac，其他格式有待测试
 */
 public class TagInfoUtil {
+
 	
 	public static Tag Mp3InfoRead(String path){
 		    MP3File file;
@@ -39,7 +40,7 @@ public class TagInfoUtil {
 			    String songName=file.getID3v2Tag().frameMap.get("TIT2").toString();  
 			    String artist=file.getID3v2Tag().frameMap.get("TPE1").toString();  
 			    String album=file.getID3v2Tag().frameMap.get("TALB").toString();  
-			    
+			    String length=file.getMP3AudioHeader().getTrackLengthAsString();
 			    songName=songName.substring(6, songName.length()-3);
 			    artist=artist.substring(6, artist.length()-3);
 			    album=album.substring(6, album.length()-3);
@@ -48,6 +49,7 @@ public class TagInfoUtil {
 			    tag.setSongName(songName);
 			    tag.setAlbum(album);
 			    tag.setArtist(artist);
+			    tag.setLength(length);
 			    return tag;
 			} catch (IOException | TagException | ReadOnlyFileException | CannotReadException
 					| InvalidAudioFrameException e) {
@@ -96,7 +98,11 @@ public class TagInfoUtil {
 			String songName = tag.getFirst(FieldKey.TITLE);
 			String artist = tag.getFirst(FieldKey.ARTIST);
 			String album=tag.getFirst(FieldKey.ALBUM);
-			
+			int trackLength = read.getAudioHeader().getTrackLength();
+			int min=trackLength/60;
+			int second=trackLength%60;
+			String length=min+":"+second;
+			System.out.println("长度:"+length);
 			Tag tag2 = new Tag();
 			tag2.setSongName(songName);
 			tag2.setArtist(artist);
@@ -134,6 +140,10 @@ public class TagInfoUtil {
 			throw new RuntimeException("读取Flac图片时出错！");
 		}
 	}
+//	
+//	public static void main(String[] args) {
+//		FlacInfoRead("D:\\CloudMusic\\back number - クリスマスソング.flac");
+//	}
 
 }
  
