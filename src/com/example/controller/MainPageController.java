@@ -1,18 +1,10 @@
 package com.example.controller;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import com.example.Main.Main;
 import com.example.Main.MusicUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
