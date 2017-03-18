@@ -249,8 +249,15 @@ public class MainPageController {
 	}
 	
 	public void initData(){//用于初始化所有控件的方法接口
-		//加载歌单以及歌单下的歌曲
-
+		//加载歌单
+		ObservableList<Button> items = ListView_musicList.getItems();
+		List<SongMenu> songMenu = SongMenuOperate.getSongMenu();
+		for(SongMenu s:songMenu){
+			Button button = new Button(s.getSongMenuName());
+			items.add(button);
+		}
+		//默认状态下显示我的最爱下的歌曲
+		
 		
 		
 	}

@@ -8,6 +8,7 @@ package com.example.entity;
 public class Song {
 	private Tag tag;
 	private String path;
+	private String length;
 	public Tag getTag() {
 		return tag;
 	}
@@ -20,6 +21,14 @@ public class Song {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	public String getLength() {
+		return length;
+	}
+	public void setLength(String length) {
+		this.length = length;
+	}
+	
+	
 	
 	
 }

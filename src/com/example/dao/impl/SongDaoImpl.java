@@ -48,11 +48,12 @@ public class SongDaoImpl implements SongDao{
             for(Element e:elements){
                 Song song=new Song();
                 song.setPath(e.elementText("path"));
+                song.setLength(e.elementText("length"));
                 Element tagElement = e.element("tag");
                 Tag tag=new Tag();
-                tag.setAlbum(e.elementText("album"));
-                tag.setSongName(e.elementText("songName"));
-                tag.setLength(e.elementText("length"));
+                tag.setAlbum(tagElement.elementText("album"));
+                tag.setSongName(tagElement.elementText("songName"));
+                tag.setLength(tagElement.elementText("length"));
                 song.setTag(tag);
                 songList.add(song);
             }
@@ -78,6 +79,7 @@ public class SongDaoImpl implements SongDao{
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
 		Element node=element.addElement("song");
 		node.addElement("path").setText(song.getPath());
+		node.addElement("length").setText(song.getLength());
 		Element tagElement = node.addElement("tag");
 		tagElement.addElement("album").setText(song.getTag().getAlbum());
 		tagElement.addElement("artist").setText(song.getTag().getArtist());

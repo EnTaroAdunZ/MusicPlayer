@@ -18,14 +18,15 @@ public class SongMenuOperate {
 	}
 	
 	//后面可以添加返回值判断是否添加成功
-	public static boolean addSongMenu(String songMenuName){
+	public static void addSongMenu(String songMenuName){
 		//判断歌单是否重名，暂时不支持
-		if(false){
-			return false;
+		List<Song> songByMenuName =null;
+		songByMenuName= songMenuDao.getSongByMenuName(songMenuName);
+		if(songByMenuName!=null){
+			throw new RuntimeException("歌单已存在！");
 		}
 		
 		songMenuDao.addSongMenu(songMenuName);
-		return true;
 	}
 	
 	//得到歌单以及歌单下所有歌曲信息，初始化使用
@@ -43,14 +44,27 @@ public class SongMenuOperate {
 		return songMenuDao.getSongByMenuName(menuName);
 	}
 	
+	//通过歌单名删除歌单
+	public static void deleteSongMenuByName(String menuName){
+		List<Song> songByMenuName =null;
+		songByMenuName= songMenuDao.getSongByMenuName(menuName);
+		if(songByMenuName==null){
+			throw new RuntimeException("歌单不存在！不能删除！");
+		}
+		songMenuDao.deleteSongMenu(menuName);
+	}
 	
-//	public static void main(String[] args) {
-////		List<SongMenu> songMenu = getSongMenu();
-////		for(SongMenu s:songMenu)
-////		System.out.println(s.getSongMenuName());
-//		
-////		addSongMenu("我的更爱");
-//		
-//	}
+	
+	public static void main(String[] args) {
+//		List<SongMenu> songMenu = getSongMenu();
+//		for(SongMenu s:songMenu)
+//		System.out.println(s.getSongMenuName());
+		
+//		addSongMenu("我的更爱");
+		
+		deleteSongMenuByName("我的最爱");
+		
+		
+	}
 }
  

@@ -1,6 +1,5 @@
 package com.example.entity;
 
-import javafx.scene.control.Button;
 
 /** 
 * @date 2017年3月15日 下午2:26:49 

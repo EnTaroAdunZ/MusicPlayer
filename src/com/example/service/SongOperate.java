@@ -33,6 +33,8 @@ public class SongOperate {
 		
 		Song song=new Song();
 		song.setPath(path);
+		File file=new File(path);
+		song.setLength(TagInfoUtil.getLengthToMb(file.length()));
 		Tag tag;
 		if(path.endsWith(".flac")){
 			tag= TagInfoUtil.FlacInfoRead(path);
@@ -57,6 +59,7 @@ public class SongOperate {
 					if(absolutePath.endsWith(".mp3")||absolutePath.endsWith(".flac")){
 						Song song=new Song();
 						song.setPath(absolutePath);
+
 						Tag tag = TagInfoUtil.Mp3InfoRead(absolutePath);
 						song.setTag(tag);
 						songList.add(song);
@@ -68,7 +71,8 @@ public class SongOperate {
 	}
 	
 	public static void main(String[] args) {
-		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "每日循环");
+//		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "我的最爱");
+		
 //		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
 //		for(SongMenu songMenu:allSongMenu){
 //			System.out.println(songMenu.getSongMenuName());
@@ -80,6 +84,16 @@ public class SongOperate {
 //				System.out.println("--"+song.getTag().getSongName());
 //			}
 //		}
+		
+//		
+//		List<Song> songsByMenuName = SongMenuOperate.getSongsByMenuName("我的最爱");
+//		for(Song song:songsByMenuName){
+//			System.out.println("--"+song.getPath());
+//			System.out.println("--"+song.getTag().getAlbum());
+//			System.out.println("--"+song.getTag().getArtist());
+//			System.out.println("--"+song.getTag().getSongName());
+//		}
+
 	}
 	
 }

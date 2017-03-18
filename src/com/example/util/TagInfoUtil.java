@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.swing.ImageIcon;
 
@@ -140,10 +141,20 @@ public class TagInfoUtil {
 			throw new RuntimeException("读取Flac图片时出错！");
 		}
 	}
-//	
-//	public static void main(String[] args) {
-//		FlacInfoRead("D:\\CloudMusic\\back number - クリスマスソング.flac");
-//	}
+	
+	public static String getLengthToMb(long size) {
+
+	    DecimalFormat df = new DecimalFormat("#.00");
+	    String fileSizeString = "";
+	    if (size < 1024) {
+	        fileSizeString = df.format((double) size) + "B";
+	    } else if (size < 1048576) {
+	        fileSizeString = df.format((double) size / 1024) + "K";
+	    } else if (size < 1073741824) {
+	        fileSizeString = df.format((double) size / 1048576) + "M";
+	    }
+	        return fileSizeString;
+	    }
 
 }
  
