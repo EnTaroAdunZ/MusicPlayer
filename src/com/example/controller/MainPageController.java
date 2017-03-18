@@ -234,4 +234,8 @@ public class MainPageController {
 	private void onForward(ActionEvent event){//按下“前进”按钮的接口方法，待实现
 		
 	}
+	
+	public void initData(){//用于初始化所有控件的方法接口
+		
+	}
 }
