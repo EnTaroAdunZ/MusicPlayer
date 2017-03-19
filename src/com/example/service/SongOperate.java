@@ -2,6 +2,7 @@ package com.example.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.example.dao.SongDao;
@@ -9,6 +10,7 @@ import com.example.dao.impl.SongDaoImpl;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
 import com.example.entity.Tag;
+import com.example.util.SongUtil;
 import com.example.util.TagInfoUtil;
 import com.sun.org.apache.bcel.internal.classfile.Field;
 
@@ -26,6 +28,10 @@ public class SongOperate {
 		songDao=new SongDaoImpl();
 	}
 	
+	public static List<Song> findSongByName(String songName,String menuName){
+		return songDao.getSongByName(songName, menuName);
+	}
+	
 	
 	//添加一个song，并返回实体
 	public static Song addSong(String path,String menuName){
@@ -34,7 +40,7 @@ public class SongOperate {
 		Song song=new Song();
 		song.setPath(path);
 		File file=new File(path);
-		song.setLength(TagInfoUtil.getLengthToMb(file.length()));
+		song.setLength(SongUtil.getLengthToMb(file.length()));
 		Tag tag;
 		if(path.endsWith(".flac")){
 			tag= TagInfoUtil.FlacInfoRead(path);
@@ -56,14 +62,25 @@ public class SongOperate {
 //				Media media=new Media(file.toString());
 				String absolutePath = file.getAbsolutePath();
 				if(file.isFile()){
-					if(absolutePath.endsWith(".mp3")||absolutePath.endsWith(".flac")){
+					if(absolutePath.endsWith(".flac")){
+						Tag tag = null ;
+						tag=TagInfoUtil.FlacInfoRead(absolutePath);
 						Song song=new Song();
 						song.setPath(absolutePath);
-
-						Tag tag = TagInfoUtil.Mp3InfoRead(absolutePath);
+						song.setLength(SongUtil.getLengthToMb(file.length()));
 						song.setTag(tag);
 						songList.add(song);
 					}
+					else if(absolutePath.endsWith(".mp3")){
+						Tag tag = null ;
+						tag= TagInfoUtil.Mp3InfoRead(absolutePath);
+						Song song=new Song();
+						song.setPath(absolutePath);
+						song.setLength(SongUtil.getLengthToMb(file.length()));
+						song.setTag(tag);
+						songList.add(song);
+					}
+
 				}
 			}
 		}
@@ -71,7 +88,7 @@ public class SongOperate {
 	}
 	
 	public static void main(String[] args) {
-//		addSong("D:\\CloudMusic\\Animenz - Unravel - 钢琴版.mp3", "我的最爱");
+		addSong("D:\\Angel With a Shotgun.mp3", "我的最爱");
 		
 //		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
 //		for(SongMenu songMenu:allSongMenu){
@@ -93,7 +110,15 @@ public class SongOperate {
 //			System.out.println("--"+song.getTag().getArtist());
 //			System.out.println("--"+song.getTag().getSongName());
 //		}
-
+		
+		
+//		addSongWithFile("D:\\CloudMusic","我的最爱");
+//		List<Song> findSongByName = findSongByName("心做","我的最爱");
+//		Iterator<Song> iterator = findSongByName.iterator();
+//		while(iterator.hasNext()){
+//			Song next = iterator.next();
+//			System.out.println(next.getTag().getSongName());
+//		}
 	}
 	
 }

@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 
@@ -38,18 +40,36 @@ public class TagInfoUtil {
 		    MP3File file;
 			try {
 				file = new MP3File(path);
-			    String songName=file.getID3v2Tag().frameMap.get("TIT2").toString();  
-			    String artist=file.getID3v2Tag().frameMap.get("TPE1").toString();  
-			    String album=file.getID3v2Tag().frameMap.get("TALB").toString();  
+				Set<String> keySet = file.getID3v2Tag().frameMap.keySet();
+				String songName=null,artist=null,album=null;
+				
+				if(keySet.contains("TIT2"))
+				songName=file.getID3v2Tag().frameMap.get("TIT2").toString(); 
+				if(keySet.contains("TPE1"))
+				artist =file.getID3v2Tag().frameMap.get("TPE1").toString();
+				if(keySet.contains("TALB"))
+				album =file.getID3v2Tag().frameMap.get("TALB").toString();  
 			    String length=file.getMP3AudioHeader().getTrackLengthAsString();
-			    songName=songName.substring(6, songName.length()-3);
-			    artist=artist.substring(6, artist.length()-3);
-			    album=album.substring(6, album.length()-3);
 			    
 			    Tag tag = new Tag();
-			    tag.setSongName(songName);
-			    tag.setAlbum(album);
-			    tag.setArtist(artist);
+			    if(songName!=null){
+			    	songName=songName.substring(6, songName.length()-3);
+			    	
+			    	tag.setSongName(songName.trim());
+			    }
+			   
+			    if(album!=null){
+			    	album=album.substring(6, album.length()-3);
+			 
+			    	 tag.setAlbum(album.trim());
+			    }
+			   
+			    if(artist!=null){
+			    	 artist=artist.substring(6, artist.length()-3);
+			    	 
+			    	 tag.setArtist(artist.trim());
+			    }
+			   
 			    tag.setLength(length);
 			    return tag;
 			} catch (IOException | TagException | ReadOnlyFileException | CannotReadException
@@ -103,11 +123,10 @@ public class TagInfoUtil {
 			int min=trackLength/60;
 			int second=trackLength%60;
 			String length=min+":"+second;
-			System.out.println("长度:"+length);
 			Tag tag2 = new Tag();
-			tag2.setSongName(songName);
-			tag2.setArtist(artist);
-			tag2.setAlbum(album);
+			tag2.setSongName(songName.trim());
+			tag2.setArtist(artist.trim());
+			tag2.setAlbum(album.trim());
 			return tag2;
 //			System.out.println(songName);
 //			System.out.println(artist);
@@ -142,19 +161,7 @@ public class TagInfoUtil {
 		}
 	}
 	
-	public static String getLengthToMb(long size) {
 
-	    DecimalFormat df = new DecimalFormat("#.00");
-	    String fileSizeString = "";
-	    if (size < 1024) {
-	        fileSizeString = df.format((double) size) + "B";
-	    } else if (size < 1048576) {
-	        fileSizeString = df.format((double) size / 1024) + "K";
-	    } else if (size < 1073741824) {
-	        fileSizeString = df.format((double) size / 1048576) + "M";
-	    }
-	        return fileSizeString;
-	    }
 
 }
  

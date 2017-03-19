@@ -16,7 +16,7 @@ public interface SongDao {
 	void addSongWithFile(List<Song> songList,String menuName);
 	//根据歌单名称获得歌曲列表
 	List<Song> getSongList(String songSheet);
-	Song getSongByName();
+	List<Song> getSongByName(String songName,String menuName);
 	Song getSongByArtist();
 	void deleteSong(String songPath);
 	void deleteSongWithFile(String songPath);

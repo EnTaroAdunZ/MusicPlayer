@@ -10,6 +10,9 @@ public class Song {
 	private String path;
 	private String length;
 	public Tag getTag() {
+		if(tag==null){
+			tag=new Tag();
+		}
 		return tag;
 	}
 	public void setTag(Tag tag) {
@@ -27,6 +30,7 @@ public class Song {
 	public void setLength(String length) {
 		this.length = length;
 	}
+
 	
 	
 	
