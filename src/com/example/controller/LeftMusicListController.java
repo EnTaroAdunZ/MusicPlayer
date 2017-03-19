@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 /**
  * 
  * @author Tony Yao
- * 该类是LeftMusicList.fxml 即程序左侧歌单列表里控件的id和常用方法的操作类
+ * 该类是LeftMusicList.fxml 即程序左侧歌单列表里控件的id和常用方法的操作类 
  */
 public class LeftMusicListController {
 	//以下是各控件的id

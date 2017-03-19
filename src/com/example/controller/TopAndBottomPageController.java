@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 /**
  * @author Tony Yao
  * 该类是fxml文件TopAndBottomPageController.fxml 的控制类，
- * 即程序上下侧控制列表里控件的id和常用方法的操作类
+ * 即程序上下侧控制列表里控件的id和常用方法的操作类 
  */
 public class TopAndBottomPageController {
 	//以下是各控件的ID

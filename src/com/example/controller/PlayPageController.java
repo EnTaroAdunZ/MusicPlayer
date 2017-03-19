@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * @author Tony Yao
- * 该类是fxml文件PlayPage.fxml 的控制类，用于声明各控件的id和方法接口
+ * 该类是fxml文件PlayPage.fxml 的控制类，用于声明各控件的id和方法接口  
  */
 public class PlayPageController {
 	//以下是各控件的ID
