@@ -62,7 +62,7 @@ public class SongMenuOperate {
 		
 //		addSongMenu("我的更爱");
 		
-		deleteSongMenuByName("我的最爱");
+//		deleteSongMenuByName("我的最爱");
 		
 		
 	}

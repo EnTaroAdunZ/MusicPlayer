@@ -9,6 +9,7 @@ import com.example.dao.SongMenuDao;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
 import com.example.entity.Tag;
+import com.example.util.SongUtil;
 import com.example.util.XMLUtil;
 
 /** 
@@ -56,15 +57,8 @@ public class SongMenuDaoImpl implements SongMenuDao{
             	songMenus.add(songMenu);
             	if(songElements!=null){
             		for(Element e2:songElements){
-                        Song song=new Song();
-                        song.setPath(e2.elementText("path"));
-                        Tag tag = new Tag();
-                        Element elementTag = e2.element("tag");
-                        tag.setAlbum(elementTag.elementText("album"));
-                        tag.setArtist(elementTag.elementText("artist"));
-                        tag.setSongName(elementTag.elementText("songName"));
-                        tag.setLength(elementTag.elementText("length"));
-                        song.setTag(tag);
+                        Song song=SongUtil.eleToSong(e2);
+
                         songList.add(song);
             		}
             		songMenu.setSongList(songList);
@@ -100,16 +94,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
 			if(elements!=null){
 				songList=new ArrayList<Song>();
 				for(Element e:elements){
-		            Song song=new Song();
-		            song.setPath(e.elementText("path"));
-		            song.setLength(e.elementText("length"));
-		            Tag tag = new Tag();
-		            Element elementTag = e.element("tag");
-		            tag.setAlbum(elementTag.elementText("album"));
-		            tag.setArtist(elementTag.elementText("artist"));
-		            tag.setSongName(elementTag.elementText("songName"));
-		            tag.setLength(elementTag.elementText("length"));
-		            song.setTag(tag);
+		            Song song=SongUtil.eleToSong(e);
 		            songList.add(song);
 				}
 			}

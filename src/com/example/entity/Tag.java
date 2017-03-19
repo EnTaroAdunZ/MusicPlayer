@@ -41,6 +41,13 @@ public class Tag {
 		this.length = length;
 	}
 
+	public Tag() {
+		SongName = "空";
+		Artist = "空";
+		Album = "空";
+		length="空";
+	}
+
 	
 	
 	
