@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
+import com.example.Global.GlobalVariable;
 import com.example.Main.MusicUtils;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
 import com.example.event.MainAction;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
+import com.example.util.SongUtil;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,7 +38,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+<<<<<<< Upstream, based on new
 import javafx.util.Duration;
+=======
+import jdk.nashorn.internal.objects.Global;
+>>>>>>> 23182ca 更新不了合并一下
 
 
 /**
@@ -229,7 +235,18 @@ public class MainPageController {
 	
 	@FXML
 	private void onAddLocalMusic(ActionEvent event){//按下“添加本地音乐”按钮的接口方法，待实现
+<<<<<<< Upstream, based on new
 		MainAction.addLocalMusic();
+=======
+//		FileChooser fileChooser = new FileChooser();
+//		fileChooser.setTitle("打开音乐文件");
+//		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
+//				new FileChooser.ExtensionFilter("flac", "*.flac*"),
+//				new FileChooser.ExtensionFilter("所有文件", "*.*"));
+//		File selectedFile = fileChooser.showOpenDialog(new Stage());
+//		Song addSong = SongOperate.addSong(selectedFile.getAbsolutePath(),"我的最爱");
+//		TableView_musicTable.getItems().add(SongUtil.songToMucic(addSong));
+>>>>>>> 23182ca 更新不了合并一下
 	}
 	
 	@FXML
@@ -248,6 +265,7 @@ public class MainPageController {
 	}
 	
 	public void initData(){//用于初始化所有控件的方法接口
+<<<<<<< Upstream, based on new
 		//加载歌单
 		ObservableList<Button> items = ListView_musicList.getItems();
 		List<SongMenu> songMenu = SongMenuOperate.getSongMenu();
@@ -256,6 +274,29 @@ public class MainPageController {
 			items.add(button);
 		}
 		//默认状态下显示我的最爱下的歌曲
+=======
+//		//加载歌单
+//		ObservableList<Button> items = ListView_musicList.getItems();
+//		List<SongMenu> songMenu = SongMenuOperate.getSongMenu();
+//		for(SongMenu s:songMenu){
+//			Button button = new Button(s.getSongMenuName());
+//			button.setOnAction(new EventHandler<ActionEvent>() {
+//
+//				@Override
+//				public void handle(ActionEvent event) {
+//					Button button=(Button)event.getSource();
+//					GlobalVariable.currentMenu=button.getText();
+//				}
+//				
+//			});
+//			items.add(button);
+//		}
+//		//默认状态下显示我的最爱下的歌曲
+//		List<Song> songsByMenuName = SongMenuOperate.getSongsByMenuName("我的最爱");
+//		for(Song s:songsByMenuName){
+//			TableView_musicTable.getItems().add(SongUtil.songToMucic(s));
+//		}
+>>>>>>> 23182ca 更新不了合并一下
 		
 	}
 

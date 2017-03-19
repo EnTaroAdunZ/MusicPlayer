@@ -1,18 +1,29 @@
 package com.example.Main;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import com.example.controller.MainPageController;
 import com.example.event.*;
 
 import javafx.application.Application;
+<<<<<<< Upstream, based on new
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+=======
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+>>>>>>> 23182ca 更新不了合并一下
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+<<<<<<< Upstream, based on new
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+=======
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+>>>>>>> 23182ca 更新不了合并一下
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -57,8 +68,12 @@ public class Main extends Application{
         stage.setScene(scene);  
         stage.setTitle("MusicPlay");  
         stage.show();
+<<<<<<< Upstream, based on new
 
     	
     	
+=======
+        
+>>>>>>> 23182ca 更新不了合并一下
     }
 }

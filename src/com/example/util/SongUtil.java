@@ -4,8 +4,10 @@ import java.text.DecimalFormat;
 
 import org.dom4j.Element;
 
+import com.example.Main.MusicUtils;
 import com.example.entity.Song;
 import com.example.entity.Tag;
+import com.sun.jndi.url.dns.dnsURLContext;
 
 /** 
 * @date 2017年3月19日 上午1:10:26 
@@ -51,6 +53,16 @@ public class SongUtil {
 		tagElement.addElement("length").setText(song.getTag().getLength().trim());
 	}
 	
+	public static MusicUtils songToMucic(Song song) {
+		MusicUtils musicUtils=new MusicUtils();
+		musicUtils.setAlbumName(song.getTag().getAlbum());
+		musicUtils.setMusicSinger(song.getTag().getArtist());
+		musicUtils.setMusicSize(song.getTag().getLength());
+		musicUtils.setMusicTimeLength(song.getLength());
+		musicUtils.setMusicTitle(song.getTag().getSongName());
+		musicUtils.setPath(song.getPath());
+		return musicUtils;
+	}
 	
 }
  

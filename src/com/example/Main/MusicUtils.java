@@ -15,12 +15,7 @@ public class MusicUtils {
 	private String albumName;
 	private String musicTimeLength;
 	private String musicSize;
-	
-	
-	
-	
-	
-	
+	private String path;
 	
 	public String getID() {
 		return ID;
@@ -57,6 +52,12 @@ public class MusicUtils {
 	}
 	public void setMusicSize(String musicSize) {
 		this.musicSize = musicSize;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	

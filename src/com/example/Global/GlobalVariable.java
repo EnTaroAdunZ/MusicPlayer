@@ -1,0 +1,12 @@
+package com.example.Global; 
+
+/** 
+* @author ZTF  
+* @date 2017年3月19日 下午12:41:58 
+* @version 1.0 
+* @Description:   TODO(用一句话描述该文件做什么)
+*/
+public class GlobalVariable {
+	public static String currentMenu="";
+}
+ 
