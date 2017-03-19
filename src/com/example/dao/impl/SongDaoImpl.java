@@ -1,14 +1,17 @@
 package com.example.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.dom4j.Node;
 
 import com.example.dao.SongDao;
 import com.example.entity.Song;
 import com.example.entity.Tag;
+import com.example.util.SongUtil;
 import com.example.util.XMLUtil;
 
 /** 
@@ -46,15 +49,7 @@ public class SongDaoImpl implements SongDao{
         List<Song> songList=new ArrayList<Song>();
         if(elements!=null){
             for(Element e:elements){
-                Song song=new Song();
-                song.setPath(e.elementText("path"));
-                song.setLength(e.elementText("length"));
-                Element tagElement = e.element("tag");
-                Tag tag=new Tag();
-                tag.setAlbum(tagElement.elementText("album"));
-                tag.setSongName(tagElement.elementText("songName"));
-                tag.setLength(tagElement.elementText("length"));
-                song.setTag(tag);
+                Song song=SongUtil.eleToSong(e);
                 songList.add(song);
             }
         }
@@ -62,9 +57,19 @@ public class SongDaoImpl implements SongDao{
 	}
 
 	@Override
-	public Song getSongByName() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Song> getSongByName(String songName,String menuName) {
+		Document document= XMLUtil.getDoc();
+		
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
+		List<Node> selectNodes = element.selectNodes("//tag[contains(songName,'"+songName+"')]");
+		Iterator<Node> iterator = selectNodes.iterator();
+		List<Song> songList=new ArrayList<Song>();
+		while(iterator.hasNext()){
+			Element parent = iterator.next().getParent();
+			Song song=SongUtil.eleToSong(parent);
+			songList.add(song);
+		}
+		return songList;
 	}
 
 	@Override
@@ -77,21 +82,20 @@ public class SongDaoImpl implements SongDao{
 	public void addSong(Song song, String menuName) {
 		Document document= XMLUtil.getDoc();
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
-		Element node=element.addElement("song");
-		node.addElement("path").setText(song.getPath());
-		node.addElement("length").setText(song.getLength());
-		Element tagElement = node.addElement("tag");
-		tagElement.addElement("album").setText(song.getTag().getAlbum());
-		tagElement.addElement("artist").setText(song.getTag().getArtist());
-		tagElement.addElement("songName").setText(song.getTag().getSongName());
-		tagElement.addElement("length").setText(song.getTag().getLength());
+		SongUtil.songToEle(song, element);
 		XMLUtil.writeDoc(document);
 	}
 
 	@Override
 	public void addSongWithFile(List<Song> songList, String menuName) {
-		// TODO Auto-generated method stub
-		
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
+		Iterator<Song> iterator = songList.iterator();
+		while(iterator.hasNext()){
+			Song song = iterator.next();
+			SongUtil.songToEle(song, element);
+		}
+		XMLUtil.writeDoc(document);
 	}
 
 

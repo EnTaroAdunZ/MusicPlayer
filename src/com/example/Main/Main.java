@@ -3,15 +3,25 @@ package com.example.Main;
 import java.util.ResourceBundle;
 
 import com.example.controller.MainPageController;
+import com.example.event.*;
 
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class Main extends Application{
+
+	private static Page page = new Page(); 
+	public static PageQueue pageManager = new PageQueue();
+	private IntegerProperty index; 
+	
 	/**
 	 * 用于开始运行fx程序的主函数
 	 * @author Tony Yao
@@ -28,9 +38,14 @@ public class Main extends Application{
     @Override  
     public void start(Stage stage) throws Exception { 
     	//装载fxml与properties来创建主页面
+    	index = new SimpleIntegerProperty();
+    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("MusicPlayMain.fxml"),
     			ResourceBundle.getBundle("ini"));
-    	Parent root = (Parent)loader.load();
+    	BorderPane root = (BorderPane)loader.load();
+    	
+    	pageManager.add(page.newPage(1, root));
+    	pageManager.bind(index);
     	
     	//创建控制类的对象，便于初始化和操作
     	MainPageController controller = loader.<MainPageController>getController();
@@ -42,5 +57,8 @@ public class Main extends Application{
         stage.setScene(scene);  
         stage.setTitle("MusicPlay");  
         stage.show();
+
+    	
+    	
     }
 }
