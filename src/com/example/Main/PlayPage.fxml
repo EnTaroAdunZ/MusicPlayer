@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="com.example.controller.PlayPageController" fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1111.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="388.0" layoutY="351.0" prefHeight="724.0" prefWidth="1111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="445.0">
+               <children>
+                  <AnchorPane fx:id="AnchorPane_leftPlayPage" prefHeight="445.0" prefWidth="445.0">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <ImageView fx:id="ImageView_albumCover" fitHeight="350.0" fitWidth="350.0" layoutX="48.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="445.0" spacing="100.0">
+                     <children>
+                        <Button fx:id="Button_like" mnemonicParsing="false" onAction="#onLike" prefHeight="96.0" prefWidth="69.0" text="喜欢">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="Button_collect" mnemonicParsing="false" onAction="#onCollect" prefHeight="90.0" prefWidth="69.0" text="收藏">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="666.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="585.0" text="%musicTitle">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="Button_PlayPage_back" alignment="CENTER" mnemonicParsing="false" onAction="#onPlayPageBack" prefHeight="50.0" prefWidth="50.0" text="&lt;-">
+                           <HBox.margin>
+                              <Insets top="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="48.0" prefWidth="666.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="60.0" text="专辑：" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Label_albumName" prefHeight="50.0" prefWidth="160.0" text="%albumName" />
+                        <Label prefHeight="50.0" prefWidth="60.0" text="歌手：">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Label_singer" prefHeight="50.0" prefWidth="160.0" text="%singer" />
+                        <Label prefHeight="50.0" prefWidth="60.0" text="来源：">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Label_source" prefHeight="50.0" prefWidth="160.0" text="%source" />
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="TextArea_lyricsArea" editable="false" prefHeight="573.0" prefWidth="666.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
