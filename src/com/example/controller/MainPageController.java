@@ -38,11 +38,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-<<<<<<< Upstream, based on new
 import javafx.util.Duration;
-=======
+
 import jdk.nashorn.internal.objects.Global;
->>>>>>> 23182ca 更新不了合并一下
+
 
 
 /**
@@ -235,9 +234,7 @@ public class MainPageController {
 	
 	@FXML
 	private void onAddLocalMusic(ActionEvent event){//按下“添加本地音乐”按钮的接口方法，待实现
-<<<<<<< Upstream, based on new
-		MainAction.addLocalMusic();
-=======
+
 //		FileChooser fileChooser = new FileChooser();
 //		fileChooser.setTitle("打开音乐文件");
 //		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
@@ -246,7 +243,6 @@ public class MainPageController {
 //		File selectedFile = fileChooser.showOpenDialog(new Stage());
 //		Song addSong = SongOperate.addSong(selectedFile.getAbsolutePath(),"我的最爱");
 //		TableView_musicTable.getItems().add(SongUtil.songToMucic(addSong));
->>>>>>> 23182ca 更新不了合并一下
 	}
 	
 	@FXML
@@ -265,7 +261,6 @@ public class MainPageController {
 	}
 	
 	public void initData(){//用于初始化所有控件的方法接口
-<<<<<<< Upstream, based on new
 		//加载歌单
 		ObservableList<Button> items = ListView_musicList.getItems();
 		List<SongMenu> songMenu = SongMenuOperate.getSongMenu();
@@ -274,7 +269,6 @@ public class MainPageController {
 			items.add(button);
 		}
 		//默认状态下显示我的最爱下的歌曲
-=======
 //		//加载歌单
 //		ObservableList<Button> items = ListView_musicList.getItems();
 //		List<SongMenu> songMenu = SongMenuOperate.getSongMenu();
@@ -296,7 +290,7 @@ public class MainPageController {
 //		for(Song s:songsByMenuName){
 //			TableView_musicTable.getItems().add(SongUtil.songToMucic(s));
 //		}
->>>>>>> 23182ca 更新不了合并一下
+
 		
 	}
 
