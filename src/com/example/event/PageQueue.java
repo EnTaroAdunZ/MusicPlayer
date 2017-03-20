@@ -41,7 +41,7 @@ public class PageQueue{
 	
 	public PageQueue() {
 		pagestack = new LinkedList<>();
-		index = new SimpleIntegerProperty(0);
+		index = new SimpleIntegerProperty(-1);
 	}
 	
 	public void bind(IntegerProperty i) {
