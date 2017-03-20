@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.Main.MusicUtils;
+import com.example.gui.MusicUtils;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是fxml文件SearchPage.fxml 的控制类，用于声明各控件的id和方法接口 
  */
-public class SearchPageController {
+public class SearchPageController implements Controller{
 	@FXML
 	private AnchorPane AnchorPane_searchPage;//整个搜索页面的底层pane
 	
@@ -74,5 +74,82 @@ public class SearchPageController {
 
 	@FXML
 	private ListView<Button> ListView_lyricsPage;//歌词栏下的按钮列表id
+
+	public AnchorPane getAnchorPane_searchPage() {
+		return AnchorPane_searchPage;
+	}
+
+	public VBox getVBox_vbox() {
+		return VBox_vbox;
+	}
+
+	public Label getLabel_searchResult() {
+		return Label_searchResult;
+	}
+
+	public TabPane getTabPane_tabPane() {
+		return TabPane_tabPane;
+	}
+
+	public Tab getTab_singleMusic() {
+		return Tab_singleMusic;
+	}
+
+	public Tab getTab_musicSinger() {
+		return Tab_musicSinger;
+	}
+
+	public Tab getTab_album() {
+		return Tab_album;
+	}
+
+	public Tab getTab_musicList() {
+		return Tab_musicList;
+	}
+
+	public Tab getTab_musicLyrics() {
+		return Tab_musicLyrics;
+	}
+
+	public TableView<MusicUtils> getTableView_searchMusicPage() {
+		return TableView_searchMusicPage;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_search_ID() {
+		return TableColumn_search_ID;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_search_musicTitle() {
+		return TableColumn_search_musicTitle;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_search_singer() {
+		return TableColumn_search_singer;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_search_albumName() {
+		return TableColumn_search_albumName;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_search_timeLength() {
+		return TableColumn_search_timeLength;
+	}
+
+	public ListView<Button> getListView_SingerPage() {
+		return ListView_SingerPage;
+	}
+
+	public ListView<Button> getListView_albumPage() {
+		return ListView_albumPage;
+	}
+
+	public ListView<Button> getListView_musicListPage() {
+		return ListView_musicListPage;
+	}
+
+	public ListView<Button> getListView_lyricsPage() {
+		return ListView_lyricsPage;
+	}
+	
 	
 }

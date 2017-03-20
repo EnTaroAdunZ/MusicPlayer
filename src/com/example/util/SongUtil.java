@@ -4,9 +4,9 @@ import java.text.DecimalFormat;
 
 import org.dom4j.Element;
 
-import com.example.Main.MusicUtils;
 import com.example.entity.Song;
 import com.example.entity.Tag;
+import com.example.gui.MusicUtils;
 import com.sun.jndi.url.dns.dnsURLContext;
 
 /** 

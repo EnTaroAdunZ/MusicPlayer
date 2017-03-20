@@ -1,4 +1,4 @@
-package com.example.Main;
+package com.example.gui;
 
 /**
  * @author Tony Yao

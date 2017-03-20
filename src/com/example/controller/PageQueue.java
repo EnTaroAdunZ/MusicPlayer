@@ -1,4 +1,4 @@
-package com.example.event;
+package com.example.controller;
 
 import java.util.*;
 

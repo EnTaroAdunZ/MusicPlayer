@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
  * 该类是fxml文件TopAndBottomPageController.fxml 的控制类，
  * 即程序上下侧控制列表里控件的id和常用方法的操作类 
  */
-public class TopAndBottomPageController {
+public class TopAndBottomPageController implements Controller{
 	//以下是各控件的ID
 	@FXML
 	private Button Button_last;//“上一首”按钮的id
@@ -76,6 +76,82 @@ public class TopAndBottomPageController {
 	
 	//以下是方法接口
 	
+	public Button getButton_last() {
+		return Button_last;
+	}
+
+	public Button getButton_pause() {
+		return Button_pause;
+	}
+
+	public Button getButton_next() {
+		return Button_next;
+	}
+
+	public Button getButton_modeSwitch() {
+		return Button_modeSwitch;
+	}
+
+	public Button getButton_back() {
+		return Button_back;
+	}
+
+	public Button getButton_forward() {
+		return Button_forward;
+	}
+
+	public Button getButton_search() {
+		return Button_search;
+	}
+
+	public Button getButton_setting() {
+		return Button_setting;
+	}
+
+	public Label getLabel_currentTime() {
+		return Label_currentTime;
+	}
+
+	public Label getLabel_totalTime() {
+		return Label_totalTime;
+	}
+
+	public Label getLabel_FXName() {
+		return Label_FXName;
+	}
+
+	public TextField getTextField_searchSong() {
+		return TextField_searchSong;
+	}
+
+	public Slider getSlider_songProgress() {
+		return Slider_songProgress;
+	}
+
+	public Slider getSlider_volumn() {
+		return Slider_volumn;
+	}
+
+	public AnchorPane getAnchorPane_top() {
+		return AnchorPane_top;
+	}
+
+	public AnchorPane getAnchorPane_bottom() {
+		return AnchorPane_bottom;
+	}
+
+	public BorderPane getBorderPane_mainPage() {
+		return BorderPane_mainPage;
+	}
+
+	public HBox getHbox_topItemHbox() {
+		return Hbox_topItemHbox;
+	}
+
+	public HBox getHBox_bottomItems() {
+		return HBox_bottomItems;
+	}
+
 	@FXML
 	private void onButtonLast(ActionEvent event){//按钮“上一首”的响应方法
 		

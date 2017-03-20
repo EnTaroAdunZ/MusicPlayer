@@ -7,10 +7,10 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 import com.example.Global.GlobalVariable;
-import com.example.Main.MusicUtils;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
 import com.example.event.MainAction;
+import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 import com.example.util.SongUtil;
@@ -48,7 +48,7 @@ import jdk.nashorn.internal.objects.Global;
  * @author Tony Yao
  * 该类是MusicPlayMain.fxml 即程序主页面里控件的id和常用方法的操作类
  */
-public class MainPageController {
+public class MainPageController implements Controller{
 	
 	//以下是各控件的ID
 	@FXML

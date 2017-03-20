@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是LeftMusicList.fxml 即程序左侧歌单列表里控件的id和常用方法的操作类 
  */
-public class LeftMusicListController {
+public class LeftMusicListController implements Controller{
 	//以下是各控件的id
 	@FXML
 	private AnchorPane AnchorPane_left;//整个歌单列表的底部paneid
@@ -72,6 +72,78 @@ public class LeftMusicListController {
 	@FXML
 	private Label Label_singer;//歌手的id
 	
+	public AnchorPane getAnchorPane_left() {
+		return AnchorPane_left;
+	}
+
+	public VBox getVBox_items() {
+		return VBox_items;
+	}
+
+	public ScrollPane getScrollPane_rollArea() {
+		return ScrollPane_rollArea;
+	}
+
+	public VBox getVBox_leftMainField() {
+		return VBox_leftMainField;
+	}
+
+	public VBox getVBox_leftButtons() {
+		return VBox_leftButtons;
+	}
+
+	public Button getButton_localMusic() {
+		return Button_localMusic;
+	}
+
+	public Button getButton_addLocalMusic() {
+		return Button_addLocalMusic;
+	}
+
+	public Button getButton_addLocalDirectory() {
+		return Button_addLocalDirectory;
+	}
+
+	public HBox getHBox_leftManageField() {
+		return HBox_leftManageField;
+	}
+
+	public Label getLabel_musicListTitle() {
+		return Label_musicListTitle;
+	}
+
+	public Button getButton_addMusicList() {
+		return Button_addMusicList;
+	}
+
+	public ListView<Button> getListView_musicList() {
+		return ListView_musicList;
+	}
+
+	public AnchorPane getAnchorPane_CurrentSongInfo() {
+		return AnchorPane_CurrentSongInfo;
+	}
+
+	public HBox getHbox_leftImageAndTitle() {
+		return Hbox_leftImageAndTitle;
+	}
+
+	public ImageView getImageView_albumCover() {
+		return ImageView_albumCover;
+	}
+
+	public VBox getVbox_leftTitleAndSinger() {
+		return Vbox_leftTitleAndSinger;
+	}
+
+	public Label getLabel_musicTitle() {
+		return Label_musicTitle;
+	}
+
+	public Label getLabel_singer() {
+		return Label_singer;
+	}
+
 	//以下是方法接口
 	@FXML
 	private void onLocalMusic(ActionEvent event){//按钮“本地音乐”的id

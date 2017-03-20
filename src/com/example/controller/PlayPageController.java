@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是fxml文件PlayPage.fxml 的控制类，用于声明各控件的id和方法接口  
  */
-public class PlayPageController {
+public class PlayPageController implements Controller{
 	//以下是各控件的ID
 	@FXML
 	private Button Button_like;//按钮“喜欢”的id
@@ -70,6 +70,74 @@ public class PlayPageController {
 	
 	//以下是响应方法的接口
 	
+	public Button getButton_like() {
+		return Button_like;
+	}
+
+	public Button getButton_collect() {
+		return Button_collect;
+	}
+
+	public Button getButton_PlayPage_back() {
+		return Button_PlayPage_back;
+	}
+
+	public Label getLabel_musicTitle() {
+		return Label_musicTitle;
+	}
+
+	public Label getLabel_albumName() {
+		return Label_albumName;
+	}
+
+	public Label getLabel_singer() {
+		return Label_singer;
+	}
+
+	public Label getLabel_source() {
+		return Label_source;
+	}
+
+	public TextArea getTextArea_lyricsArea() {
+		return TextArea_lyricsArea;
+	}
+
+	public ImageView getImageView_albumCover() {
+		return ImageView_albumCover;
+	}
+
+	public AnchorPane getAnchorPane_playPage() {
+		return AnchorPane_playPage;
+	}
+
+	public AnchorPane getAnchorPane_leftPlayPage() {
+		return AnchorPane_leftPlayPage;
+	}
+
+	public HBox getHBox_totalHBox() {
+		return HBox_totalHBox;
+	}
+
+	public HBox getHBox_buttonHBox() {
+		return HBox_buttonHBox;
+	}
+
+	public HBox getHBox_titleHBox() {
+		return HBox_titleHBox;
+	}
+
+	public HBox getHBox_infoHBox() {
+		return HBox_infoHBox;
+	}
+
+	public VBox getVBox_leftVBox() {
+		return VBox_leftVBox;
+	}
+
+	public VBox getVBox_rightVBox() {
+		return VBox_rightVBox;
+	}
+
 	@FXML
 	private void onLike(ActionEvent event){//按钮“喜欢”的响应方法
 		

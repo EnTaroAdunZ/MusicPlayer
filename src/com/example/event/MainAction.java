@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.controller.MainPageController;
+import com.example.controller.PageQueue;
+import com.example.gui.MusicUtils;
 import com.example.service.SongOperate;
 
 import javafx.application.Platform;
@@ -12,7 +14,10 @@ import javafx.beans.property.IntegerProperty;
 import javafx.event.*;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.*;
@@ -20,8 +25,8 @@ import javafx.util.Duration;
 import javafx.stage.Stage;
 
 public class MainAction {
-	
-	public static void back(IntegerProperty i, PageQueue pq, ActionEvent event) {
+	static TextField tf = new TextField();
+ 	public static void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
 		//FIXME
 		Parent root;
 		//FIXME
@@ -29,21 +34,35 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public static void fore(IntegerProperty i, PageQueue pq, ActionEvent event) {
+	public static void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
 		//FIXME
 		Parent root;
 		//FIXME
 		root = pq.forward().getPage();
 		//FIXME
 	}
-	/**
-	 * 
-	 */
-	public static void last(Button b,MediaPlayer mp, ActionEvent e) {
+	
+	public static String enterkey(TextField t, KeyEvent e) {
+		if(e.getCode() == KeyCode.ENTER) {
+			String s = t.getText();
+			if (s.length() > 1) {
+				s = s.substring(0, s.length()-2);
+				return s;
+			}
+			return null;
+		}
+		return null;
+	}
+	
+	public static void text() {
 		
 	}
 	
-	public static void play(Button b,MainPageController mpc, ActionEvent e) {
+	public static void last(Button b, MediaPlayer mp, ActionEvent e) {
+		
+	}
+	
+	public static void play(Button b, MainPageController mpc, ActionEvent e) {
 		
 		MediaPlayer mp = mpc.mp;
 		boolean atEndOfMedia = mpc.atEndOfMedia;
@@ -72,6 +91,21 @@ public class MainAction {
         } else {
             mp.pause();
         }
+	}
+	
+	public static void addMusicList(Button b, VBox v, ListView<Button> l) {
+		String t = b.getText();
+		if(t.equals("+")) {
+			tf.setPrefWidth(270);tf.setMaxWidth(270);tf.setPrefHeight(50);tf.setMaxHeight(50);
+			v.getChildren().add(2, tf);
+			b.setText("x");
+			tf.setOnKeyTyped(new EnterAction());
+		}
+		if(t.equals("x")) {
+			v.getChildren().removeAll(tf);
+			b.setText("+");
+			tf.clear();
+		}
 	}
 	
 	public static void addLocalMusic() {
@@ -175,4 +209,15 @@ public class MainAction {
             }
         }
     }
+
+	
+}
+class EnterAction implements EventHandler<KeyEvent>{
+	@Override
+	public void handle(KeyEvent event) {
+		String s = MainAction.enterkey(MainAction.tf, event);
+		if(s != null) {
+			
+		}
+	}
 }
