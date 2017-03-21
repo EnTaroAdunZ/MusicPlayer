@@ -33,19 +33,14 @@ import javafx.stage.StageStyle;
 
 public class GUI extends Application{
 
-	private static Page page = new Page(); 
+	public static Page page = new Page(); 
 	public static PageQueue pageManager = new PageQueue();
-	private IntegerProperty index; 
-	private BorderPane permanent;
-	private AnchorPane leftlist;
-	
-	/**
-	 * 用于开始运行fx程序的主函数
-	 * @author Tony Yao
-	 */
-	public static void main(String[] args) {  
-        Application.launch(GUI.class, args);  
-    }  
+	public  IntegerProperty index; 
+	public static BorderPane permanent;
+	public static AnchorPane leftlist;
+	public static TopAndBottomPageController tabC = null;
+	public static LeftMusicListController llC = null;
+	 
       
 	
 	/**
@@ -55,8 +50,7 @@ public class GUI extends Application{
     @Override  
     public void start(Stage stage) { 
     	//装载fxml与properties来创建主页面
-    	TopAndBottomPageController tabC = null;
-    	LeftMusicListController llC = null;
+    	
     	index = new SimpleIntegerProperty();
 		try {
 			FXMLLoader tab = new FXMLLoader(getClass().getResource("TopAndBottomPage.fxml"),
@@ -127,5 +121,14 @@ public class GUI extends Application{
 		return page.newPage(Controller.SEARCH, searchpage, spC);
     }
     
-    
+    public void addMusicList(String listname) {
+    	
+    }
+    /**
+	 * 用于开始运行fx程序的主函数
+	 * @author Tony Yao
+	 */
+	public static void main(String[] args) {  
+        Application.launch(GUI.class, args);  
+    } 
 }

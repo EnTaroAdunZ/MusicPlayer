@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -162,7 +164,7 @@ public class LeftMusicListController implements Controller{
 	
 	@FXML
 	private void onButtonAddMusicList(ActionEvent event){//按钮“+”的id
-		
+		MainAction.addMusicList(Button_addMusicList, ListView_musicList);
 	}
 	
 	public void initData(){//初始化本页面的方法接口，待实现

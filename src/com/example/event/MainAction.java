@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.example.controller.MainPageController;
 import com.example.controller.PageQueue;
-import com.example.gui.MusicUtils;
+import com.example.gui.GUI;
 import com.example.service.SongOperate;
 
 import javafx.application.Platform;
@@ -25,7 +25,26 @@ import javafx.util.Duration;
 import javafx.stage.Stage;
 
 public class MainAction {
+	static Button addlistbtn;
+	
 	static TextField tf = new TextField();
+	static Button btn = new Button("+");
+	static HBox hb = new HBox();
+	static VBox vb;
+	static 
+	{
+		vb = GUI.llC.getVBox_leftMainField();
+		addlistbtn = GUI.llC.getButton_addMusicList();
+		hb.getChildren().addAll(tf, btn);
+		btn.setPrefHeight(45);btn.setPrefWidth(53);
+		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
+		btn.setOnAction(e ->{
+			if(tf.getText().length() > 0)
+				GUI.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
+			addlistbtn.fire();
+		});
+		tf.setOnKeyTyped(new EnterAction(tf, btn));
+	}
  	public static void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
 		//FIXME
 		Parent root;
@@ -42,20 +61,17 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public static String enterkey(TextField t, KeyEvent e) {
+	public static boolean typekey(TextField t, KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
-			String s = t.getText();
-			if (s.length() > 1) {
-				s = s.substring(0, s.length()-2);
-				return s;
+			t.deletePreviousChar();
+			if (t.getText().length() > 0) {
+				return true;
 			}
-			return null;
 		}
-		return null;
-	}
-	
-	public static void text() {
-		
+		if(e.getCode() == KeyCode.TAB) {
+			t.deletePreviousChar();
+		}
+		return false;
 	}
 	
 	public static void last(Button b, MediaPlayer mp, ActionEvent e) {
@@ -93,16 +109,14 @@ public class MainAction {
         }
 	}
 	
-	public static void addMusicList(Button b, VBox v, ListView<Button> l) {
+	public static void addMusicList(Button b, ListView<Button> l) {
 		String t = b.getText();
 		if(t.equals("+")) {
-			tf.setPrefWidth(270);tf.setMaxWidth(270);tf.setPrefHeight(50);tf.setMaxHeight(50);
-			v.getChildren().add(2, tf);
+			vb.getChildren().add(2, hb);
 			b.setText("x");
-			tf.setOnKeyTyped(new EnterAction());
 		}
 		if(t.equals("x")) {
-			v.getChildren().removeAll(tf);
+			vb.getChildren().removeAll(hb);
 			b.setText("+");
 			tf.clear();
 		}
@@ -211,13 +225,4 @@ public class MainAction {
     }
 
 	
-}
-class EnterAction implements EventHandler<KeyEvent>{
-	@Override
-	public void handle(KeyEvent event) {
-		String s = MainAction.enterkey(MainAction.tf, event);
-		if(s != null) {
-			
-		}
-	}
 }
