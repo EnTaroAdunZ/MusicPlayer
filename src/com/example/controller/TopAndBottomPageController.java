@@ -1,5 +1,9 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -192,7 +196,23 @@ public class TopAndBottomPageController implements Controller{
 		
 	}
 	
-	public void initData(){//初始化数据，待实现
-		
+	public void initData(MainAction ma){//初始化数据，待实现
+		this.ma = ma;
+		i = new SimpleIntegerProperty();
+		s = new SimpleIntegerProperty();
+		i.bind(ma.getGui().index);
+		s.bind(ma.getGui().size);
+		i.addListener((ob, ov, nv)->{
+			if (i.get() > 0)
+				Button_back.setDisable(false);
+			else
+				Button_back.setDisable(true);
+			if (i.get() < s.get() - 1)
+				Button_forward.setDisable(false);
+			else
+				Button_forward.setDisable(true);
+		});
 	}
+	private MainAction ma;
+	private IntegerProperty i, s;
 }

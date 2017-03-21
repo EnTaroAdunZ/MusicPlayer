@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -153,7 +155,8 @@ public class PlayPageController implements Controller{
 		
 	}
 	
-	public void initData(){//播放页面的初始化方法，待实现
-		
+	public void initData(MainAction ma){//初始化数据，待实现
+		this.ma = ma;
 	}
+	private MainAction ma;
 }

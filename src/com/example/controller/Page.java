@@ -79,8 +79,6 @@ public class Page{
 
 	public Page newPage(int type, Parent page, Controller controller) {
 		Page p;
-		setType(type);
-		setPage(page);
 		switch (type) {
 		default:
 		case Controller.SEARCH:
@@ -96,6 +94,8 @@ public class Page{
 			p = new PlayPage((PlayPageController) controller);
 			break;
 		}
+		p.setType(type);
+		p.setPage(page);
 		return p;
 				
 	}

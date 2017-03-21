@@ -20,15 +20,15 @@
                      <children>
                         <VBox fx:id="VBox_leftButtons" prefHeight="150.0" prefWidth="289.0">
                            <children>
-                              <Button fx:id="Button_localMusic" mnemonicParsing="false" prefHeight="50.0" prefWidth="416.0" text="本地音乐" />
-                              <Button fx:id="Button_addLocalMusic" mnemonicParsing="false" onAction="#onAddLocalMusic" prefHeight="50.0" prefWidth="416.0" text="添加本地音乐" />
-                              <Button fx:id="Button_addLocalDirectory" mnemonicParsing="false" onAction="#onAddLocalDirectory" prefHeight="50.0" prefWidth="416.0" text="添加本地音乐文件夹" />
+                              <Button fx:id="Button_localMusic" mnemonicParsing="false" onAction="#onLocalMusic" prefHeight="50.0" prefWidth="416.0" MinHeight="50.0" text="本地音乐" />
+                              <Button fx:id="Button_addLocalMusic" mnemonicParsing="false" onAction="#onAddLocalMusic" prefHeight="50.0" prefWidth="416.0" MinHeight="50.0" text="添加本地音乐" />
+                              <Button fx:id="Button_addLocalDirectory" mnemonicParsing="false" onAction="#onAddLocalDirectory" prefHeight="50.0" prefWidth="416.0" MinHeight="50.0"  text="添加本地音乐文件夹" />
                            </children>
                         </VBox>
                         <HBox fx:id="HBox_leftManageField" prefHeight="50.0" prefWidth="272.0">
                            <children>
                               <Label fx:id="Label_musicListTitle" prefHeight="50.0" prefWidth="212.0" text="我的歌单：" />
-                              <Button fx:id="Button_addMusicList" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onButtonAddMusicList" prefHeight="45.0" prefWidth="53.0" text="+">
+                              <Button fx:id="Button_addMusicList" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onButtonAddMusicList" prefHeight="45.0" prefWidth="53.0" MinHeight="45.0" text="+">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>

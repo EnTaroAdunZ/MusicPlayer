@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.fxml.FXML;
@@ -151,5 +152,8 @@ public class SearchPageController implements Controller{
 		return ListView_lyricsPage;
 	}
 	
-	
+	public void initData(MainAction ma){//初始化数据，待实现
+		this.ma = ma;
+	}
+	private MainAction ma;
 }

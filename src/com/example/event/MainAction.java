@@ -4,8 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.controller.MainPageController;
-import com.example.controller.PageQueue;
+import com.example.controller.*;
 import com.example.gui.GUI;
 import com.example.service.SongOperate;
 
@@ -31,21 +30,9 @@ public class MainAction {
 	static Button btn = new Button("+");
 	static HBox hb = new HBox();
 	static VBox vb;
-	static 
-	{
-		vb = GUI.llC.getVBox_leftMainField();
-		addlistbtn = GUI.llC.getButton_addMusicList();
-		hb.getChildren().addAll(tf, btn);
-		btn.setPrefHeight(45);btn.setPrefWidth(53);
-		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
-		btn.setOnAction(e ->{
-			if(tf.getText().length() > 0)
-				GUI.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
-			addlistbtn.fire();
-		});
-		tf.setOnKeyTyped(new EnterAction(tf, btn));
-	}
- 	public static void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
+	static PageQueue pq;
+	
+ 	public void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
 		//FIXME
 		Parent root;
 		//FIXME
@@ -53,7 +40,7 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public static void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
+	public void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
 		//FIXME
 		Parent root;
 		//FIXME
@@ -61,7 +48,7 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public static boolean typekey(TextField t, KeyEvent e) {
+	public static boolean presskey(TextField t, KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
 			t.deletePreviousChar();
 			if (t.getText().length() > 0) {
@@ -74,16 +61,27 @@ public class MainAction {
 		return false;
 	}
 	
-	public static void last(Button b, MediaPlayer mp, ActionEvent e) {
+	public void local() {
+		if(pq.getPage() instanceof Page.LocalPage ) 
+			return;
+		Page p = gui.giveLocal();
+		pq.add(p);
+		gui.permanent.setCenter(p.getPage());
+		if(gui.permanent.getLeft() == null){
+			gui.permanent.setLeft(gui.leftlist);
+		}
+	}
+	
+	public void last(Button b, MediaPlayer mp, ActionEvent e) {
 		
 	}
 	
-	public static void play(Button b, MainPageController mpc, ActionEvent e) {
+	public void play(Button b, TopAndBottomPageController tbc, ActionEvent e) {
+		/*
+		MediaPlayer mp = tbc.mp;
+		boolean atEndOfMedia = tbc.atEndOfMedia;
 		
-		MediaPlayer mp = mpc.mp;
-		boolean atEndOfMedia = mpc.atEndOfMedia;
-		
-		updateValues(mpc);
+		updateValues(tbc);
 		Status status = mp.getStatus();
 
         if (status == Status.UNKNOWN
@@ -100,16 +98,16 @@ public class MainAction {
                 mp.seek(mp.getStartTime());
                 atEndOfMedia = false;
                 b.setText(">");
-                updateValues(mpc);
+                updateValues(tbc);
             }
             mp.play();
             b.setText("||");
         } else {
             mp.pause();
-        }
+        }*/
 	}
 	
-	public static void addMusicList(Button b, ListView<Button> l) {
+	public void addMusicList(Button b, ListView<Button> l) {
 		String t = b.getText();
 		if(t.equals("+")) {
 			vb.getChildren().add(2, hb);
@@ -122,7 +120,7 @@ public class MainAction {
 		}
 	}
 	
-	public static void addLocalMusic() {
+	public void addLocalMusic() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("打开音乐文件");
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
@@ -133,7 +131,7 @@ public class MainAction {
 			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
 	}
 	
-	public static void addLocalDirectory() {
+	public void addLocalDirectory() {
 		DirectoryChooser fileChooser = new DirectoryChooser();
 		fileChooser.setTitle("打开音乐文件");
 		File selectedFile = fileChooser.showDialog(new Stage());
@@ -143,7 +141,7 @@ public class MainAction {
 			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
 	}
 	
-	private static void loopDirectory(File file, ArrayList<File> fl) {
+	private void loopDirectory(File file, ArrayList<File> fl) {
 		for(File f : file.listFiles()) {
 			if(f.isDirectory()) {
 				loopDirectory(f, fl);
@@ -157,13 +155,13 @@ public class MainAction {
 			}
 		}
 	}
-	
-	protected static void updateValues(MainPageController mpc) {
-		MediaPlayer mp = mpc.mp;
-		Duration duration = mpc.duration;
-		Slider timeSlider = mpc.timeSlider;
-		Label playTime = mpc.playTime;
-		Slider volumeSlider = mpc.volumeSlider;
+	/*
+	protected void updateValues(TopAndBottomPageController tbc) {
+		MediaPlayer mp = tbc.mp;
+		Duration duration = tbc.duration;
+		Slider timeSlider = tbc.timeSlider;
+		Label playTime = tbc.playTime;
+		Slider volumeSlider = tbc.volumeSlider;
 		
 		
 		
@@ -185,8 +183,8 @@ public class MainAction {
             });
         }
     }
-	
-	private static String formatTime(Duration elapsed, Duration duration) {
+	*/
+	private String formatTime(Duration elapsed, Duration duration) {
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
         if (elapsedHours > 0) {
@@ -224,5 +222,26 @@ public class MainAction {
         }
     }
 
+	public MainAction(GUI gui) {
+		this.gui = gui;
+		pq = gui.pageManager;
+		vb = gui.llC.getVBox_leftMainField();
+		addlistbtn = gui.llC.getButton_addMusicList();
+		hb.getChildren().addAll(tf, btn);
+		btn.setPrefHeight(45);btn.setPrefWidth(53);
+		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
+		btn.setOnAction(e ->{
+			if(tf.getText().length() > 0) {
+				gui.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
+				addlistbtn.fire();
+			}
+		});
+		tf.setOnKeyPressed(new EnterAction(tf, btn));
+	}
+	private GUI gui;
+
+	public GUI getGui() {
+		return gui;
+	}
 	
 }

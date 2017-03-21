@@ -30,22 +30,33 @@ public class PageQueue{
 	public int getIndex() {
 		return index.get();
 	}
-	private int ppindex() {
-		index.set(index.get() + 1);
-		return index.get();
+	private int pp(IntegerProperty n) {
+		n.set(index.get() + 1);
+		return n.get();
 	}
-	private int ssindex() {
-		index.set(index.get() - 1);
-		return index.get();
+	private int ss(IntegerProperty n) {
+		n.set(index.get() - 1);
+		return n.get();
 	}
+	
+	private IntegerProperty size;
+	public IntegerProperty sizeProperty() {
+		return size;
+	}
+	public int getSize() {
+		return size.get();
+	}
+	 
 	
 	public PageQueue() {
 		pagestack = new LinkedList<>();
 		index = new SimpleIntegerProperty(-1);
+		size = new SimpleIntegerProperty(0);
 	}
 	
-	public void bind(IntegerProperty i) {
+	public void bind(IntegerProperty i, IntegerProperty s) {
 		i.bind(index);
+		s.bind(size);
 	}
 	
 	/**
@@ -53,14 +64,18 @@ public class PageQueue{
 	 */
 	public void add(Page page) {
 		pagestack.add(index.get() + 1, page);
-		ppindex();
-		if(pagestack.size() > 10 && index.get() == 10) pagestack.removeFirst();
+		pp(index);size.set(getIndex() + 1); 
+		if(pagestack.size() > 10 && index.get() == 10) {
+			pagestack.removeFirst();
+			ss(size);
+		}
 		save();
 	}
 	
 	private void save() {
 		while(pagestack.size() > index.get() + 1) {
 			pagestack.removeLast();
+			ss(size);
 		}
 	}
 	
@@ -68,15 +83,17 @@ public class PageQueue{
 	 *  Travels backward and retrieves the page if it exists.
 	 */
 	public Page backward() {
-		return index.get() > 0 ? pagestack.get(ssindex()) : null;
+		return index.get() > 0 ? pagestack.get(ss(index)) : null;
 	}
 	
 	/**
 	 *  Travels forward and retrieves the page if it exists.
 	 */
 	public Page forward() {
-		return index.get() < 9 ? pagestack.get(ppindex()) : null;
+		return index.get() < 9 ? pagestack.get(pp(index)) : null;
 	}
 	
-	
+	public Page getPage() {
+		return pagestack.get(getIndex());
+	}
 }

@@ -149,7 +149,7 @@ public class LeftMusicListController implements Controller{
 	//以下是方法接口
 	@FXML
 	private void onLocalMusic(ActionEvent event){//按钮“本地音乐”的id
-		
+		ma.local();
 	}
 	
 	@FXML
@@ -164,10 +164,11 @@ public class LeftMusicListController implements Controller{
 	
 	@FXML
 	private void onButtonAddMusicList(ActionEvent event){//按钮“+”的id
-		MainAction.addMusicList(Button_addMusicList, ListView_musicList);
+		ma.addMusicList(Button_addMusicList, ListView_musicList);
 	}
 	
-	public void initData(){//初始化本页面的方法接口，待实现
-		
+	public void initData(MainAction ma){//初始化数据，待实现
+		this.ma = ma;
 	}
+	private MainAction ma;
 }

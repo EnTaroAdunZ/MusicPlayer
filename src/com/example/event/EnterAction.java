@@ -21,9 +21,10 @@ public class EnterAction implements EventHandler<KeyEvent>{
 	}
 	@Override
 	public void handle(KeyEvent event) {
-		if(MainAction.typekey(t, event)) 
+		if (MainAction.presskey(t, event)) {
 			b.fire();
-		if(b.getText().length() == 1)
-			t.clear();
+			if (b.getText().length() == 1)
+				t.clear();
+		}
 	}
 }

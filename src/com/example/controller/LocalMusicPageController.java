@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.event.ActionEvent;
@@ -164,7 +165,8 @@ public class LocalMusicPageController implements Controller{
 		
 	}
 	
-	public void initData(){//播放页面的初始化方法，待实现
-		
+	public void initData(MainAction ma){//初始化数据，待实现
+		this.ma = ma;
 	}
+	private MainAction ma;
  }

@@ -4,15 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-import com.example.controller.Controller;
-import com.example.controller.LeftMusicListController;
-import com.example.controller.LocalMusicPageController;
-import com.example.controller.MainPageController;
-import com.example.controller.Page;
-import com.example.controller.PageQueue;
-import com.example.controller.PlayPageController;
-import com.example.controller.SearchPageController;
-import com.example.controller.TopAndBottomPageController;
+import com.example.controller.*;
 import com.example.event.*;
 
 import javafx.application.Application;
@@ -33,15 +25,14 @@ import javafx.stage.StageStyle;
 
 public class GUI extends Application{
 
-	public static Page page = new Page(); 
-	public static PageQueue pageManager = new PageQueue();
-	public  IntegerProperty index; 
-	public static BorderPane permanent;
-	public static AnchorPane leftlist;
-	public static TopAndBottomPageController tabC = null;
-	public static LeftMusicListController llC = null;
-	 
-      
+	public Page page = new Page(); 
+	public PageQueue pageManager = new PageQueue();
+	public IntegerProperty index; 
+	public IntegerProperty size;
+	public BorderPane permanent;
+	public AnchorPane leftlist;
+	public TopAndBottomPageController tabC = null;
+	public LeftMusicListController llC = null;
 	
 	/**
 	 * 借用fxml启动的fx程序
@@ -50,8 +41,8 @@ public class GUI extends Application{
     @Override  
     public void start(Stage stage) { 
     	//装载fxml与properties来创建主页面
-    	
     	index = new SimpleIntegerProperty();
+    	size = new SimpleIntegerProperty();
 		try {
 			FXMLLoader tab = new FXMLLoader(getClass().getResource("TopAndBottomPage.fxml"),
 					ResourceBundle.getBundle("ini"));
@@ -64,7 +55,11 @@ public class GUI extends Application{
 			llC = ll.getController();
 			permanent.setLeft(leftlist);
 
-			pageManager.bind(index);
+			pageManager.bind(index, size);
+			
+			MainAction ma = new MainAction(this);
+			tabC.initData(ma);
+			llC.initData(ma);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
