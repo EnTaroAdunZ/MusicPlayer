@@ -8,10 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import jdk.nashorn.internal.ir.Labels;
 
 /**
  * 
@@ -168,8 +170,16 @@ public class LeftMusicListController implements Controller{
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现
+		setCss();
 		this.ma = ma;
 		
 	}
+	
+	private void setCss(){
+		Label_musicTitle.getStyleClass().add("lightLabel");
+		Label_singer.getStyleClass().add("lightLabel");
+		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
+	}
+	
 	private MainAction ma;
 }

@@ -47,8 +47,8 @@
                         <ImageView fx:id="ImageView_albumCover" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
                         <VBox fx:id="Vbox_leftTitleAndSinger" prefHeight="120.0" prefWidth="191.0">
                            <children>
-                              <Label fx:id="Label_musicTitle" prefHeight="60.0" prefWidth="190.0" text="*musicTitle" />
-                              <Label fx:id="Label_singer" prefHeight="60.0" prefWidth="190.0" text="*singer" />
+                              <Label fx:id="Label_musicTitle" prefHeight="60.0" prefWidth="190.0" text="%musicTitle" />
+                              <Label fx:id="Label_singer" prefHeight="60.0" prefWidth="190.0" text="%singer" />
                            </children>
                         </VBox>
                      </children>

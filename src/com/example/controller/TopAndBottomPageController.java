@@ -163,7 +163,13 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
-		
+		if(Button_pause.getStyleClass().get(0).equals("buttonPlay")){
+			Button_pause.getStyleClass().remove(0);
+			Button_pause.getStyleClass().add("buttonPause");
+		}else{
+			Button_pause.getStyleClass().remove(0);
+			Button_pause.getStyleClass().add("buttonPlay");
+		}
 	}
 	
 	@FXML
@@ -173,7 +179,19 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonModeSwitch(ActionEvent event){//按钮“Switch”的响应方法
-		
+		String mode = Button_modeSwitch.getStyleClass().get(0);
+		Button_modeSwitch.getStyleClass().remove(0);
+		switch (mode) {
+		case "buttonRepeatInOne":
+			Button_modeSwitch.getStyleClass().add("buttonRepeat");	break;
+		case "buttonRepeat":
+			Button_modeSwitch.getStyleClass().add("buttonOrderPlay");		break;
+		case "buttonOrderPlay":
+			Button_modeSwitch.getStyleClass().add("buttonRandomPlay");		break;
+		case "buttonRandomPlay":
+			Button_modeSwitch.getStyleClass().add("buttonRepeatInOne");		break;
+		default:	break;
+		}
 	}
 	
 	@FXML
@@ -197,6 +215,7 @@ public class TopAndBottomPageController implements Controller{
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现
+		setCss();
 		this.ma = ma;
 		i = new SimpleIntegerProperty();
 		s = new SimpleIntegerProperty();
@@ -213,6 +232,27 @@ public class TopAndBottomPageController implements Controller{
 				Button_forward.setDisable(true);
 		});
 	}
+	
+	private void setCss(){
+		Button_pause.getStyleClass().remove(0);
+		Button_pause.getStyleClass().add("buttonPlay");
+		
+		Button_last.getStyleClass().remove(0);
+		Button_next.getStyleClass().remove(0);
+		Button_search.getStyleClass().remove(0);
+		Button_setting.getStyleClass().remove(0);
+		Button_back.getStyleClass().remove(0);
+		Button_forward.getStyleClass().remove(0);
+		
+		Button_modeSwitch.getStyleClass().remove(0);
+		Button_modeSwitch.getStyleClass().add("buttonRepeatInOne");
+		
+		Label_FXName.getStyleClass().add("lightLabel");
+		Label_currentTime.getStyleClass().add("lightLabel");
+		Label_totalTime.getStyleClass().add("lightLabel");
+	}
+	
 	private MainAction ma;
 	private IntegerProperty i, s;
 }
+

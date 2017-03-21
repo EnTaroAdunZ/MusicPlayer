@@ -1,0 +1,14 @@
+
+#AnchorPane_left{
+	-fx-background-color: #1b1d20;
+}
+
+#AnchorPane_CurrentSongInfo{
+	-fx-background-color: #1b1d20;
+}
+
+#
+
+.lightLabel{
+	-fx-text-fill: white;
+}

@@ -2,6 +2,7 @@ package com.example.gui;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.example.controller.*;
@@ -64,6 +65,9 @@ public class GUI extends Application{
 			ioe.printStackTrace();
 		}
     	
+		
+		
+		
     	//创建控制类的对象，便于初始化和操作
         //controller.initData();
         llC.getListView_musicList().getItems().add(new Button("XXXX"));
@@ -72,6 +76,13 @@ public class GUI extends Application{
         stage.initStyle(StageStyle.DECORATED);  
         stage.setScene(scene);  
         stage.setTitle("MusicPlay");  
+        
+        //使css文件载入
+        ArrayList<String> cssList = new ArrayList<>();
+        cssList.add("com/example/css/topandbottom/TopAndBottomPage.css");
+        cssList.add("com/example/css/left/LeftMusicPage.css");
+        scene.getStylesheets().addAll(cssList);
+        
         stage.show();
 
     }

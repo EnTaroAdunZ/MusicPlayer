@@ -1,0 +1,107 @@
+.buttonPlay{
+	-fx-background-image: url("PlayDark.png");
+}
+
+.buttonPlay:hover{
+	-fx-background-image: url("Play.png");
+}
+
+.buttonPause{
+	-fx-background-image: url("PauseDark.png")
+}
+
+.buttonPause:hover{
+	-fx-background-image: url("Pause.png")
+}
+
+#Button_last{
+	-fx-background-image: url("LastDark.png")
+}
+
+#Button_last:hover{
+	-fx-background-image: url("Last.png")
+}
+
+#Button_next{
+	-fx-background-image: url("NextDark.png")
+}
+
+#Button_next:hover{
+	-fx-background-image: url("Next.png")
+}
+
+.buttonRepeatInOne{
+	-fx-background-image: url("RepeatInOneDark.png")
+}
+
+.buttonRepeatInOne:hover{
+	-fx-background-image: url("RepeatInOne.png")
+}
+
+.buttonRepeat{
+	-fx-background-image: url("RepeatDark.png")
+}
+
+.buttonRepeat:hover{
+	-fx-background-image: url("Repeat.png")
+}
+
+.buttonOrderPlay{
+	-fx-background-image: url("OrderPlayDark.png")
+}
+
+.buttonOrderPlay:hover{
+	-fx-background-image: url("OrderPlay.png")
+}
+
+.buttonRandomPlay{
+	-fx-background-image: url("RandomPlayDark.png")
+}
+
+.buttonRandomPlay:hover{
+	-fx-background-image: url("RandomPlay.png")
+}
+
+.lightLabel{
+	-fx-text-fill: white;
+}
+
+#Button_search{
+	-fx-background-image: url("SearchDark.png")
+}
+
+#Button_search:hover{
+	-fx-background-image: url("Search.png")
+}
+
+#Button_setting{
+	-fx-background-image: url("SettingDark.png")
+}
+
+#Button_setting:hover{
+	-fx-background-image: url("Setting.png")
+}
+
+#Button_back{
+	-fx-background-image: url("BackDark.png")
+}
+
+#Button_back:hover{
+	-fx-background-image: url("Back.png")
+}
+
+#Button_forward{
+	-fx-background-image: url("ForwardDark.png")
+}
+
+#Button_forward:hover{
+	-fx-background-image: url("Forward.png")
+}
+
+#AnchorPane_bottom{
+	-fx-background-color: #1b1d20;
+}
+
+#AnchorPane_top{
+	-fx-background-color: #1b1d20;
+}
