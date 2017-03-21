@@ -18,7 +18,7 @@ public class SongMenuOperate {
 	}
 	
 	//后面可以添加返回值判断是否添加成功
-	public static void addSongMenu(String songMenuName){
+	public static void addSongMenu(String songMenuName) throws RuntimeException{
 		//判断歌单是否重名，暂时不支持
 		List<Song> songByMenuName =null;
 		songByMenuName= songMenuDao.getSongByMenuName(songMenuName);

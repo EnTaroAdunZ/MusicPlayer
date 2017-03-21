@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.controller.*;
+import com.example.entity.SongMenu;
 import com.example.gui.GUI;
+import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
 import javafx.application.Platform;
@@ -232,8 +234,16 @@ public class MainAction {
 		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
 		btn.setOnAction(e ->{
 			if(tf.getText().length() > 0) {
-				gui.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
-				addlistbtn.fire();
+				//示范
+				try {
+					SongMenuOperate.addSongMenu(tf.getText().toString());
+					gui.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
+					addlistbtn.fire();
+				} catch (RuntimeException e2) {
+			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
+			        _alert.show();
+				}
+				
 			}
 		});
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
