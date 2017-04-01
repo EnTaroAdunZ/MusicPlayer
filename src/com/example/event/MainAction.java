@@ -1,33 +1,34 @@
 package com.example.event;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import com.example.controller.*;
-import com.example.entity.SongMenu;
 import com.example.gui.GUI;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
-import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.event.*;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.*;
 import javafx.util.Duration;
 import javafx.stage.Stage;
 
 public class MainAction {
 	static Button addlistbtn;
-	
+	static Page page = new Page(); 
 	static TextField tf = new TextField();
 	static Button btn = new Button("+");
 	static HBox hb = new HBox();
@@ -64,9 +65,9 @@ public class MainAction {
 	}
 	
 	public void local() {
-		if(pq.getPage() instanceof Page.LocalPage ) 
+		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
 			return;
-		Page p = gui.giveLocal();
+		Page p = giveLocal();
 		pq.add(p);
 		gui.permanent.setCenter(p.getPage());
 		if(gui.permanent.getLeft() == null){
@@ -224,6 +225,48 @@ public class MainAction {
         }
     }
 
+
+	public Page giveLocal() {
+		LocalMusicPageController lmC = null;
+		AnchorPane localmusic = null;
+		try {
+			FXMLLoader lm = new FXMLLoader(GUI.class.getResource("LocalMusicPage.fxml"),
+					ResourceBundle.getBundle("ini"));
+			localmusic = (AnchorPane) lm.load();
+			lmC = lm.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return page.newPage(Controller.LOCAL, localmusic, lmC);
+    }
+    
+	public Page givePlay() {
+		AnchorPane playpage = null;
+		PlayPageController ppC = null;
+		try {
+			FXMLLoader pp = new FXMLLoader(GUI.class.getResource("PlayPage.fxml"), ResourceBundle.getBundle("ini"));
+			playpage = (AnchorPane) pp.load();
+			ppC = pp.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return page.newPage(Controller.PLAY, playpage, ppC);
+    }
+    
+	public Page giveSearch() {
+		AnchorPane searchpage = null;
+		SearchPageController spC = null;
+		try {
+			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
+			searchpage = (AnchorPane) sp.load();
+			spC = sp.getController();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return page.newPage(Controller.SEARCH, searchpage, spC);
+    }
+    
+	
 	public MainAction(GUI gui) {
 		this.gui = gui;
 		pq = gui.pageManager;

@@ -156,12 +156,12 @@ public class LeftMusicListController implements Controller{
 	
 	@FXML
 	private void onAddLocalMusic(ActionEvent event){//按钮“添加本地音乐”的id
-		
+		ma.addLocalMusic();
 	}
 	
 	@FXML
 	private void onAddLocalDirectory(ActionEvent event){//按钮“添加本地音乐文件夹”的id
-		
+		ma.addLocalDirectory();
 	}
 	
 	@FXML
