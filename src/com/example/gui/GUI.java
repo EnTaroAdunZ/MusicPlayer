@@ -65,6 +65,8 @@ public class GUI extends Application{
 				
 			permanent.setLeft(leftlist);
 			pageManager.bind(index, size);
+			tabC.getButton_back().setDisable(true);
+			tabC.getButton_forward().setDisable(true);
 			
 			MainAction ma = new MainAction(this);
 			tabC.initData(ma);

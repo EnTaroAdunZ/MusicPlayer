@@ -197,12 +197,12 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onBack(ActionEvent event){//按钮“<”的响应方法
-		
+		ma.back();
 	}
 	
 	@FXML
 	private void onForward(ActionEvent event){//按钮“>”的响应方法
-		
+		ma.fore();
 	}
 
 	@FXML
@@ -218,20 +218,6 @@ public class TopAndBottomPageController implements Controller{
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
-		i = new SimpleIntegerProperty();
-		s = new SimpleIntegerProperty();
-		i.bind(ma.getGui().getIndex());
-		s.bind(ma.getGui().getSize());
-		i.addListener((ob, ov, nv)->{
-			if (i.get() > 0)
-				Button_back.setDisable(false);
-			else
-				Button_back.setDisable(true);
-			if (i.get() < s.get() - 1)
-				Button_forward.setDisable(false);
-			else
-				Button_forward.setDisable(true);
-		});
 		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
 	}
 	
@@ -255,6 +241,5 @@ public class TopAndBottomPageController implements Controller{
 	}
 	
 	private MainAction ma;
-	private IntegerProperty i, s;
 }
 

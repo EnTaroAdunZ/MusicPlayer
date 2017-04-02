@@ -13,10 +13,13 @@ import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -31,23 +34,34 @@ public class MainAction {
 	static TextField tf = new TextField();//扩展输入栏
 	static Button btn = new Button("+");//扩展添加按钮
 	static HBox hb = new HBox();//扩展横箱
+	
 	static VBox vb;//指定left中的竖箱
+	static IntegerProperty i, s;//指定gui中的目录和大小
+	static Button b, f;//指定topandbottom中的后退和前进
+	//static ImageView iv;//指定left中的专面
 	
 	//-----------------------------------------Top------------------------
- 	public void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {//FIXME
-		//FIXME
-		Parent root;
-		//FIXME
-		root = pq.backward().getPage();
-		//FIXME
+ 	public void back() {
+ 		PageQueue pq = gui.getPageManager();
+ 		IntegerProperty i = gui.getIndex(); IntegerProperty s = gui.getSize();
+ 		int ii = i.get();
+ 		if(ii < 1)
+ 			return;
+		Page p;int ss = s.get();
+		if(ss < 2) 
+			return;
+		p = pq.backward();
+		show(p);
 	}
 	
-	public void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {//FIXME
-		//FIXME
-		Parent root;
-		//FIXME
-		root = pq.forward().getPage();
-		//FIXME
+	public void fore() {
+ 		PageQueue pq = gui.getPageManager();
+ 		IntegerProperty i = gui.getIndex(); IntegerProperty s = gui.getSize();
+		int ii = i.get();int ss = s.get();
+ 		if(ii >= ss - 1)
+ 			return;
+		Page p = pq.forward();
+		show(p);
 	}
 	
 	public void search(Button b, TextField tf, ActionEvent e) {//FIXME
@@ -61,14 +75,23 @@ public class MainAction {
 		Page p = giveSearch();
 		((Page.SearchPage)p).setKey(key);
 		pq.add(p);
-		gui.getPermanent().setCenter(p.getPage());
-		if(gui.getPermanent().getLeft() == null){
-			gui.getPermanent().setLeft(gui.getLeftlist());
-		}
+		show(p);
 	}
 	
+	public static void refresh() {
+		int ii = i.get();
+		int ss = s.get();
+		if (ii > 0)
+			b.setDisable(false);
+		else
+			b.setDisable(true);
+		if (ii < ss - 1)
+			f.setDisable(false);
+		else
+			f.setDisable(true);
+	}
 	//-----------------------------------------Bottom---------------------
-	public void last(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
+ 	public void last(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
 		
 	}
 	
@@ -113,10 +136,7 @@ public class MainAction {
 			return;
 		Page p = giveLocal();
 		pq.add(p);
-		gui.getPermanent().setCenter(p.getPage());
-		if(gui.getPermanent().getLeft() == null){
-			gui.getPermanent().setLeft(gui.getLeftlist());
-		}
+		show(p);
 	}
 	
 	public void musiclist(String key) {
@@ -125,10 +145,7 @@ public class MainAction {
 		Page p = giveMusicList();
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
-		gui.getPermanent().setCenter(p.getPage());
-		if(gui.getPermanent().getLeft() == null){
-			gui.getPermanent().setLeft(gui.getLeftlist());
-		}
+		show(p);
 	}
 	
 	public void addMusicList(Button b, ListView<Button> l) {
@@ -273,12 +290,9 @@ public class MainAction {
 	
 	//-----------------------------------------Play------------------------
 	public void reverse() {
-		if(pq.getSize() < 2)
-			return;
-		Parent p = pq.backward().getPage();
-		gui.getPermanent().setCenter(p);
-		gui.getPermanent().setLeft(gui.getLeftlist());
+		back();
 	}
+	
 	//-----------------------------------------Item------------------------
 	private Page giveLocal() {
 		LocalMusicPageController lmC = null;
@@ -337,6 +351,23 @@ public class MainAction {
 		return false;
 	}
 	
+	public static void show(Page p) {
+		if(p instanceof Page.PlayPage) {
+			gui.getPermanent().setCenter(gui.getPlaypage());
+			gui.getPermanent().leftProperty().set(null);
+			refresh();
+			return;
+		}
+		if(p instanceof Page.SettingPage) {
+			gui.getPermanent().leftProperty().set(null);
+			refresh();
+			return;
+		}
+		gui.getPermanent().setCenter(p.getPage());
+		gui.getPermanent().leftProperty().set(gui.getLeftlist());
+		refresh();
+	}
+	
 	public static ArrayList<MusicUtils> searchsong(){//FIXME
 		ArrayList<MusicUtils> sl = new ArrayList<>();
 		
@@ -347,6 +378,14 @@ public class MainAction {
 		MainAction.gui = gui;
 		pq = gui.getPageManager();
 		vb = gui.getLlC().getVBox_leftMainField();
+		i = new SimpleIntegerProperty();
+		s = new SimpleIntegerProperty();
+		i.bind(gui.getIndex());
+		s.bind(gui.getSize());
+		b = gui.getTabC().getButton_back();
+		f = gui.getTabC().getButton_forward();
+		//iv = gui.getLlC().getImageView_albumCover();
+		
 		addlistbtn = gui.getLlC().getButton_addMusicList();
 		hb.getChildren().addAll(tf, btn);
 		btn.setPrefHeight(45);btn.setPrefWidth(53);

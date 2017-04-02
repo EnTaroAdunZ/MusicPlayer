@@ -172,11 +172,10 @@ public class LeftMusicListController implements Controller{
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
-		this.pp = Page.newPage(Controller.PLAY, ma.getGui().getPlaypage(), ma.getGui().getPpC());
+		pp = Page.newPage(Controller.PLAY, ma.getGui().getPlaypage(), ma.getGui().getPpC());
 		ImageView_albumCover.setOnMouseClicked(e ->{
 			MainAction.pq.add(pp);
-			MainAction.gui.getPermanent().setCenter(MainAction.gui.getPlaypage());
-			MainAction.gui.getPermanent().leftProperty().set(null);
+			MainAction.show(pp);
 		});
 	}
 	
