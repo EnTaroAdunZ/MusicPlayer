@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.event.ActionEvent;
@@ -14,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MusicListPageController {
+public class MusicListPageController implements Controller{
 	@FXML
 	private ScrollPane ScrollPane_totalPage;//整个歌单滚动页面id
 	
@@ -68,8 +69,9 @@ public class MusicListPageController {
 		
 	}
 	
-	public void initData(){//初始化方法，待实现
-		
+	public void initData(MainAction ma){//初始化方法，待实现
+		this.ma = ma;
 	}
 	
+	private MainAction ma;
 }

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.event.EnterAction;
 import com.example.event.MainAction;
 
 import javafx.beans.property.IntegerProperty;
@@ -206,7 +207,7 @@ public class TopAndBottomPageController implements Controller{
 
 	@FXML
 	private void onButtonSearch(ActionEvent event){//按钮“Search”的响应方法
-		
+		ma.search(Button_search, TextField_searchSong, event);
 	}
 	
 	@FXML
@@ -219,8 +220,8 @@ public class TopAndBottomPageController implements Controller{
 		this.ma = ma;
 		i = new SimpleIntegerProperty();
 		s = new SimpleIntegerProperty();
-		i.bind(ma.getGui().index);
-		s.bind(ma.getGui().size);
+		i.bind(ma.getGui().getIndex());
+		s.bind(ma.getGui().getSize());
 		i.addListener((ob, ov, nv)->{
 			if (i.get() > 0)
 				Button_back.setDisable(false);
@@ -231,6 +232,7 @@ public class TopAndBottomPageController implements Controller{
 			else
 				Button_forward.setDisable(true);
 		});
+		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
 	}
 	
 	private void setCss(){

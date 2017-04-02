@@ -154,6 +154,7 @@ public class SearchPageController implements Controller{
 	
 	public void initData(MainAction ma){//初始化数据，待实现
 		this.ma = ma;
+		
 	}
 	private MainAction ma;
 }

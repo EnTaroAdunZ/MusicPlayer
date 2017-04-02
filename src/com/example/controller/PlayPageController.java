@@ -152,7 +152,7 @@ public class PlayPageController implements Controller{
 	
 	@FXML
 	private void onPlayPageBack(ActionEvent event){//按钮“返回”的响应方法
-		
+		ma.reverse();
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现

@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.example.controller.*;
 import com.example.gui.GUI;
+import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
@@ -16,8 +17,7 @@ import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,14 +28,13 @@ import javafx.stage.Stage;
 
 public class MainAction {
 	static Button addlistbtn;
-	static Page page = new Page(); 
-	static TextField tf = new TextField();
-	static Button btn = new Button("+");
-	static HBox hb = new HBox();
-	static VBox vb;
-	static PageQueue pq;
+	static TextField tf = new TextField();//扩展输入栏
+	static Button btn = new Button("+");//扩展添加按钮
+	static HBox hb = new HBox();//扩展横箱
+	static VBox vb;//指定left中的竖箱
 	
- 	public void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
+	//-----------------------------------------Top------------------------
+ 	public void back(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {//FIXME
 		//FIXME
 		Parent root;
 		//FIXME
@@ -43,7 +42,7 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {
+	public void fore(Button b, IntegerProperty i, PageQueue pq, ActionEvent e) {//FIXME
 		//FIXME
 		Parent root;
 		//FIXME
@@ -51,35 +50,29 @@ public class MainAction {
 		//FIXME
 	}
 	
-	public static boolean presskey(TextField t, KeyEvent e) {
-		if(e.getCode() == KeyCode.ENTER) {
-			t.deletePreviousChar();
-			if (t.getText().length() > 0) {
-				return true;
-			}
-		}
-		if(e.getCode() == KeyCode.TAB) {
-			t.deletePreviousChar();
-		}
-		return false;
-	}
-	
-	public void local() {
-		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
+	public void search(Button b, TextField tf, ActionEvent e) {//FIXME
+		String key = tf.getText(); 
+		if(pq.getSize() > 0 
+				&& pq.getPage() instanceof Page.SearchPage 
+				&& ((Page.SearchPage)pq.getPage()).getKey().equals(key))
 			return;
-		Page p = giveLocal();
+		ArrayList<MusicUtils> sl = searchsong();
+		//FIXME
+		Page p = giveSearch();
+		((Page.SearchPage)p).setKey(key);
 		pq.add(p);
-		gui.permanent.setCenter(p.getPage());
-		if(gui.permanent.getLeft() == null){
-			gui.permanent.setLeft(gui.leftlist);
+		gui.getPermanent().setCenter(p.getPage());
+		if(gui.getPermanent().getLeft() == null){
+			gui.getPermanent().setLeft(gui.getLeftlist());
 		}
 	}
 	
-	public void last(Button b, MediaPlayer mp, ActionEvent e) {
+	//-----------------------------------------Bottom---------------------
+	public void last(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
 		
 	}
 	
-	public void play(Button b, TopAndBottomPageController tbc, ActionEvent e) {
+	public void play(Button b, TopAndBottomPageController tbc, ActionEvent e) {//FIXME
 		/*
 		MediaPlayer mp = tbc.mp;
 		boolean atEndOfMedia = tbc.atEndOfMedia;
@@ -110,6 +103,34 @@ public class MainAction {
         }*/
 	}
 	
+	public void next(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
+		
+	}
+
+	//-----------------------------------------Left-----------------------
+	public void local() {
+		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
+			return;
+		Page p = giveLocal();
+		pq.add(p);
+		gui.getPermanent().setCenter(p.getPage());
+		if(gui.getPermanent().getLeft() == null){
+			gui.getPermanent().setLeft(gui.getLeftlist());
+		}
+	}
+	
+	public void musiclist(String key) {
+		if(pq.getSize() > 0 && pq.getPage() instanceof Page.MusicListPage ) 
+			return;
+		Page p = giveMusicList();
+		((Page.MusicListPage)p).setKey(key);
+		pq.add(p);
+		gui.getPermanent().setCenter(p.getPage());
+		if(gui.getPermanent().getLeft() == null){
+			gui.getPermanent().setLeft(gui.getLeftlist());
+		}
+	}
+	
 	public void addMusicList(Button b, ListView<Button> l) {
 		String t = b.getText();
 		if(t.equals("+")) {
@@ -130,18 +151,21 @@ public class MainAction {
 				new FileChooser.ExtensionFilter("flac", "*.flac*"),
 				new FileChooser.ExtensionFilter("所有文件", "*.*"));
 		List<File> selectedFile = fileChooser.showOpenMultipleDialog(new Stage());
-		for(File file : selectedFile)
-			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
+		if(selectedFile != null)
+			for(File file : selectedFile)
+				SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
 	}
 	
 	public void addLocalDirectory() {
 		DirectoryChooser fileChooser = new DirectoryChooser();
-		fileChooser.setTitle("打开音乐文件");
+		fileChooser.setTitle("打开音乐文件夹");
 		File selectedFile = fileChooser.showDialog(new Stage());
-		ArrayList<File> fl = new ArrayList<>();
-		loopDirectory(selectedFile, fl);
-		for(File file : fl)
+		if(selectedFile != null) {
+			ArrayList<File> fl = new ArrayList<>();
+			loopDirectory(selectedFile, fl);
+			for(File file : fl)
 			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
+		}
 	}
 	
 	private void loopDirectory(File file, ArrayList<File> fl) {
@@ -187,7 +211,7 @@ public class MainAction {
         }
     }
 	*/
-	private String formatTime(Duration elapsed, Duration duration) {
+	private String formatTime(Duration elapsed, Duration duration) {//FIXME
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
         if (elapsedHours > 0) {
@@ -225,62 +249,18 @@ public class MainAction {
         }
     }
 
-
-	public Page giveLocal() {
-		LocalMusicPageController lmC = null;
-		AnchorPane localmusic = null;
-		try {
-			FXMLLoader lm = new FXMLLoader(GUI.class.getResource("LocalMusicPage.fxml"),
-					ResourceBundle.getBundle("ini"));
-			localmusic = (AnchorPane) lm.load();
-			lmC = lm.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return page.newPage(Controller.LOCAL, localmusic, lmC);
-    }
-    
-	public Page givePlay() {
-		AnchorPane playpage = null;
-		PlayPageController ppC = null;
-		try {
-			FXMLLoader pp = new FXMLLoader(GUI.class.getResource("PlayPage.fxml"), ResourceBundle.getBundle("ini"));
-			playpage = (AnchorPane) pp.load();
-			ppC = pp.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return page.newPage(Controller.PLAY, playpage, ppC);
-    }
-    
-	public Page giveSearch() {
-		AnchorPane searchpage = null;
-		SearchPageController spC = null;
-		try {
-			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
-			searchpage = (AnchorPane) sp.load();
-			spC = sp.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return page.newPage(Controller.SEARCH, searchpage, spC);
-    }
-    
-	
-	public MainAction(GUI gui) {
-		this.gui = gui;
-		pq = gui.pageManager;
-		vb = gui.llC.getVBox_leftMainField();
-		addlistbtn = gui.llC.getButton_addMusicList();
-		hb.getChildren().addAll(tf, btn);
-		btn.setPrefHeight(45);btn.setPrefWidth(53);
-		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
-		btn.setOnAction(e ->{
+	private class Extension implements EventHandler<ActionEvent>{//FIXME
+		@Override
+		public void handle(ActionEvent event) {
 			if(tf.getText().length() > 0) {
-				//示范
 				try {
-					SongMenuOperate.addSongMenu(tf.getText().toString());
-					gui.llC.getListView_musicList().getItems().add(new Button(tf.getText()));
+					String key = tf.getText();
+					Button nb = new Button(key);
+					SongMenuOperate.addSongMenu(key);
+					gui.getLlC().getListView_musicList().getItems().add(nb);
+					nb.setOnAction(nbe -> {
+						musiclist(nb.getText());//FIXME
+					});
 					addlistbtn.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
@@ -288,13 +268,98 @@ public class MainAction {
 				}
 				
 			}
-		});
+		}
+	}
+	
+	//-----------------------------------------Play------------------------
+	public void reverse() {
+		if(pq.getSize() < 2)
+			return;
+		Parent p = pq.backward().getPage();
+		gui.getPermanent().setCenter(p);
+		gui.getPermanent().setLeft(gui.getLeftlist());
+	}
+	//-----------------------------------------Item------------------------
+	private Page giveLocal() {
+		LocalMusicPageController lmC = null;
+		AnchorPane localmusic = null;
+		try {
+			FXMLLoader lm = new FXMLLoader(GUI.class.getResource("LocalMusicPage.fxml"),
+					ResourceBundle.getBundle("ini"));
+			localmusic = (AnchorPane) lm.load();
+			lmC = lm.getController();
+			lmC.initData(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Page.newPage(Controller.LOCAL, localmusic, lmC);
+    }
+    
+	private Page giveMusicList() {
+		MusicListPageController mlC = null;
+		ScrollPane musiclist = null;
+		try {
+			FXMLLoader ml = new FXMLLoader(GUI.class.getResource("MusicListPage.fxml"),
+					ResourceBundle.getBundle("ini"));
+			musiclist = (ScrollPane) ml.load();
+			mlC = ml.getController();
+			mlC.initData(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Page.newPage(Controller.MUSICLIST, musiclist, mlC);
+    }
+ 
+	private Page giveSearch() {
+		AnchorPane searchpage = null;
+		SearchPageController spC = null;
+		try {
+			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
+			searchpage = (AnchorPane) sp.load();
+			spC = sp.getController();
+			spC.initData(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Page.newPage(Controller.SEARCH, searchpage, spC);
+    }
+    
+	public static boolean presskey(TextField t, KeyEvent e) {
+		if(e.getCode() == KeyCode.ENTER) {
+			t.deleteNextChar();
+			if (t.getText().length() > 0) {
+				return true;
+			}
+		}
+		if(e.getCode() == KeyCode.TAB) {
+			t.deleteNextChar();
+		}
+		return false;
+	}
+	
+	public static ArrayList<MusicUtils> searchsong(){//FIXME
+		ArrayList<MusicUtils> sl = new ArrayList<>();
+		
+		return sl;
+	}
+	
+	public MainAction(GUI gui) {//FIXME
+		MainAction.gui = gui;
+		pq = gui.getPageManager();
+		vb = gui.getLlC().getVBox_leftMainField();
+		addlistbtn = gui.getLlC().getButton_addMusicList();
+		hb.getChildren().addAll(tf, btn);
+		btn.setPrefHeight(45);btn.setPrefWidth(53);
+		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
+		btn.setOnAction(new Extension());
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
 	}
-	private GUI gui;
+	public static GUI gui;
+	public static PageQueue pq;
 
 	public GUI getGui() {
 		return gui;
 	}
+	
 	
 }

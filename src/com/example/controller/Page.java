@@ -15,6 +15,8 @@ import javafx.scene.Parent;
  *  
  */
 public class Page{
+	static Page P = new Page();
+	
 	private int type;
 	public int getType() {
 		return type;
@@ -37,6 +39,14 @@ public class Page{
 			super();
 			this.controller = controller;
 		}
+		private String key;
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String name) {
+			this.key = name;
+		}
+		
 		private SearchPageController controller;
 		public SearchPageController getController() {
 			return controller;
@@ -51,6 +61,27 @@ public class Page{
 		}
 		private LocalMusicPageController controller;
 		public LocalMusicPageController getController() {
+			return controller;
+		}
+	}
+	
+	public class MusicListPage extends Page{
+		
+		public MusicListPage(MusicListPageController controller) {
+			super();
+			this.controller = controller;
+		}
+		
+		private String key;
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String name) {
+			this.key = name;
+		}
+
+		private MusicListPageController controller;
+		public MusicListPageController getController() {
 			return controller;
 		}
 	}
@@ -77,21 +108,24 @@ public class Page{
 	}
 
 
-	public Page newPage(int type, Parent page, Controller controller) {
+	public static Page newPage(int type, Parent page, Controller controller) {
 		Page p;
 		switch (type) {
 		default:
+		case Controller.MUSICLIST:
+			p = P.new MusicListPage((MusicListPageController) controller);
+			break;
 		case Controller.SEARCH:
-			p = new SearchPage((SearchPageController) controller);
+			p = P.new SearchPage((SearchPageController) controller);
 			break;
 		case Controller.LOCAL:
-			p = new LocalPage((LocalMusicPageController) controller);
+			p = P.new LocalPage((LocalMusicPageController) controller);
 			break;
 		case Controller.SETTING:
-			p = new SettingPage();
+			p = P.new SettingPage();
 			break;
 		case Controller.PLAY:
-			p = new PlayPage((PlayPageController) controller);
+			p = P.new PlayPage((PlayPageController) controller);
 			break;
 		}
 		p.setType(type);

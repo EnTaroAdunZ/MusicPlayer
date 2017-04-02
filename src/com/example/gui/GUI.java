@@ -26,14 +26,17 @@ import javafx.stage.StageStyle;
 
 public class GUI extends Application{
 
-	public Page page = new Page(); 
-	public PageQueue pageManager = new PageQueue();
-	public IntegerProperty index; 
-	public IntegerProperty size;
-	public BorderPane permanent;
-	public AnchorPane leftlist;
-	public TopAndBottomPageController tabC = null;
-	public LeftMusicListController llC = null;
+	private PageQueue pageManager = new PageQueue();
+	private IntegerProperty index; 
+	private IntegerProperty size;
+	
+	private BorderPane permanent;
+	private AnchorPane leftlist;
+	private AnchorPane playpage;
+	
+	private TopAndBottomPageController tabC = null;
+	private LeftMusicListController llC = null;
+	private PlayPageController ppC = null;
 	
 	/**
 	 * 借用fxml启动的fx程序
@@ -54,13 +57,19 @@ public class GUI extends Application{
 					ResourceBundle.getBundle("ini"));
 			leftlist = (AnchorPane) ll.load();
 			llC = ll.getController();
+			
+			FXMLLoader pp = new FXMLLoader(getClass().getResource("PlayPage.fxml"),
+					ResourceBundle.getBundle("ini"));
+			playpage = (AnchorPane) pp.load();
+			ppC = pp.getController();
+				
 			permanent.setLeft(leftlist);
-
 			pageManager.bind(index, size);
 			
 			MainAction ma = new MainAction(this);
 			tabC.initData(ma);
 			llC.initData(ma);
+			ppC.initData(ma);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -91,7 +100,35 @@ public class GUI extends Application{
     }
     
     
-    /**
+    public IntegerProperty getSize() {
+		return size;
+	}
+	public TopAndBottomPageController getTabC() {
+		return tabC;
+	}
+	public LeftMusicListController getLlC() {
+		return llC;
+	}
+	public PlayPageController getPpC() {
+		return ppC;
+	}
+	public PageQueue getPageManager() {
+		return pageManager;
+	}
+	public IntegerProperty getIndex() {
+		return index;
+	}
+	public BorderPane getPermanent() {
+		return permanent;
+	}
+	public AnchorPane getLeftlist() {
+		return leftlist;
+	}
+	public AnchorPane getPlaypage() {
+		return playpage;
+	}
+
+	/**
 	 * 用于开始运行fx程序的主函数
 	 * @author Tony Yao
 	 */
