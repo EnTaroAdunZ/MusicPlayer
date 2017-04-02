@@ -38,6 +38,9 @@ public class LocalMusicPageController implements Controller{
 	private Label Label_musicNum;//显示本地音乐数量的文本id
 	
 	@FXML
+	private Label Label_localMusic;//“本地音乐”
+	
+	@FXML
 	private Button Button_selectDirectory;//“选择目录”的按钮id
 	
 	@FXML
@@ -166,7 +169,24 @@ public class LocalMusicPageController implements Controller{
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现
+		setCss();
 		this.ma = ma;
 	}
 	private MainAction ma;
+	
+	private void setCss(){
+		Button_localSearch.getStyleClass().remove(0);
+		
+		Label_localMusic.getStyleClass().add("lightLabel");
+		Label_musicNum.getStyleClass().add("lightLabel");
+		Button_selectDirectory.getStyleClass().add("lightButton");
+		Button_playAll.getStyleClass().add("lightButton");
+		
+		TableColumn_musicID.getStyleClass().add("tableColumn");
+		TableColumn_musicTitle.getStyleClass().add("tableColumn");
+		TableColumn_musicSinger.getStyleClass().add("tableColumn");
+		TableColumn_albumName.getStyleClass().add("tableColumn");
+		TableColumn_musicTimeLength.getStyleClass().add("tableColumn");
+		TableColumn_musicSize.getStyleClass().add("tableColumn");
+	}
  }

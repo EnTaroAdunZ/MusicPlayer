@@ -1,0 +1,55 @@
+
+#topLocalTitle{
+	-fx-background-color: #1b1d20;
+}
+
+#ScrollPane_localMusicList{
+	-fx-background-color: #1b1d20;
+}
+
+#Button_localSearch{
+	-fx-background-image: url("SearchDark.png")
+}
+#Button_localSearch:hover{
+	-fx-background-image: url("Search.png")
+}
+
+
+.tableColumn > .label {
+  -fx-text-fill: #ffffff;
+}
+
+.tableColumn{
+	-fx-background-color: #1b1d20;
+}
+
+.table-view{
+	-fx-background-color: #1b1d20;
+}
+
+#AnchorPane_center{
+	-fx-border-color:#42444a
+}
+
+.lightLabel{
+	-fx-background-color: #1b1d20;
+	-fx-text-fill: #ffffff;
+}
+ 
+.lightButton{
+	-fx-text-fill: #bfbfbf;
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+.lightButton:hover{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:pressed{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}

@@ -89,6 +89,7 @@ public class GUI extends Application{
         ArrayList<String> cssList = new ArrayList<>();
         cssList.add("com/example/css/topandbottom/TopAndBottomPage.css");
         cssList.add("com/example/css/left/LeftMusicPage.css");
+        cssList.add("com/example/css/local/LocalMusicPageCss.css");
         scene.getStylesheets().addAll(cssList);
         
         stage.show();

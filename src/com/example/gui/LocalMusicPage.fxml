@@ -20,7 +20,7 @@
                <children>
                   <HBox fx:id="HBox_localButton" prefHeight="100.0" prefWidth="1007.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="74.0" prefWidth="174.0" text="本地音乐">
+                        <Label fx:id="Label_localMusic" alignment="CENTER" prefHeight="74.0" prefWidth="174.0" text="本地音乐">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -41,7 +41,7 @@
                               <Insets left="180.0" top="25.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="Button_localSearch" mnemonicParsing="false" text="Search">
+                        <Button fx:id="Button_localSearch" mnemonicParsing="false" prefHeight="30.0" prefWidth="30">
                            <HBox.margin>
                               <Insets top="25.0" />
                            </HBox.margin>
