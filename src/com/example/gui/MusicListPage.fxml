@@ -6,93 +6,111 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx-controller="com.example.controller.MusicListPageController" hbarPolicy="NEVER" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="1009.0">
-         <children>
-            <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="1009.0" style="-: #1b1d20;">
-               <children>
-                  <HBox prefHeight="333.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ImageView fx:id="ImageView_ListCover" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets left="50.0" right="50.0" top="20.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <VBox prefHeight="333.0" prefWidth="727.0">
-                           <children>
-                              <HBox prefHeight="80.0" prefWidth="659.0">
-                                 <children>
-                                    <Label contentDisplay="CENTER" prefHeight="40.0" prefWidth="50.0" text=" 歌单" textAlignment="JUSTIFY">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets bottom="20.0" top="20.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="Label_ListName" prefHeight="40.0" prefWidth="161.0" text="*musicList">
-                                       <HBox.margin>
-                                          <Insets top="20.0" />
-                                       </HBox.margin>
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="Button_PlayAll" mnemonicParsing="false" prefHeight="40.0" text="播放全部">
-                                       <HBox.margin>
-                                          <Insets bottom="20.0" top="20.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="*createTime" />
-                              <HBox prefHeight="213.0" prefWidth="609.0">
-                                 <children>
-                                    <Label prefHeight="38.0" prefWidth="63.0" text="简介：">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="Label_ListIntroduction" alignment="TOP_LEFT" prefHeight="235.0" prefWidth="558.0" text="*introduction">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="AnchorPane_bottomPage" prefHeight="309.0" prefWidth="1009.0">
-               <children>
-                  <HBox fx:id="HBox_centerMusicListAndScroll" prefHeight="391.0" prefWidth="1009.0">
-                     <children>
-                        <TableView fx:id="TableView_musicTable" prefHeight="391.0" prefWidth="1009.0">
-                           <columns>
-                              <TableColumn fx:id="TableColumn_musicID" maxWidth="154.0" minWidth="-1.0" prefWidth="56.0" resizable="false" />
-                              <TableColumn fx:id="TableColumn_like" maxWidth="154.0" minWidth="-1.0" prefWidth="68.0" resizable="false" style="-fx-text-fill: white;" text="操作" />
-                              <TableColumn fx:id="TableColumn_musicTitle" prefWidth="379.0" resizable="false" style="-fx-text-fill: white;" text="音乐标题" />
-                              <TableColumn fx:id="TableColumn_musicSinger" prefWidth="309.0" resizable="false" style="-fx-text-fill: white;" text="歌手" />
-                              <TableColumn fx:id="TableColumn_albumName" prefWidth="137.0" resizable="false" style="-fx-text-fill: white;" text="专辑" />
-                              <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="145.0" resizable="false" text="时长" />
-                           </columns>
-                        </TableView>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </content>
-</ScrollPane>
 
+<AnchorPane fx:controller="com.example.controller.MusicListPageController" fx:id="AnchorPane_MusicListPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="1009.0">
+               <children>
+                  <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="1009.0" style="-: #1b1d20;">
+                     <children>
+                        <HBox prefHeight="333.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ImageView fx:id="ImageView_ListCover" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets left="50.0" right="50.0" top="20.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <VBox prefHeight="333.0" prefWidth="727.0">
+                                 <children>
+                                    <HBox prefHeight="80.0" prefWidth="659.0">
+                                       <children>
+                                          <Label fx:id="Label_musicList" contentDisplay="CENTER" prefHeight="40.0" prefWidth="50.0" text=" 歌单" textAlignment="JUSTIFY">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="Label_ListName" prefHeight="40.0" prefWidth="161.0" text="*musicList">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Button fx:id="Button_PlayAll" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="40.0" text="播放全部">
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="*createTime" />
+                                    <HBox prefHeight="213.0" prefWidth="609.0">
+                                       <children>
+                                          <Label fx:id="Label_introduction" prefHeight="38.0" prefWidth="63.0" text="简介：">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="Label_ListIntroduction" alignment="TOP_LEFT" prefHeight="235.0" prefWidth="552.0" text="*introduction">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="567.0">
+                                       <children>
+                                          <TextField fx:id="TextField_searchListMusic" prefHeight="30.0" prefWidth="224.0">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="Button_searchMusic" mnemonicParsing="false" onAction="#onSearchMusic" prefHeight="30.0" prefWidth="30.0" text="Button" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets right="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="AnchorPane_bottomPage" prefHeight="309.0" prefWidth="1009.0">
+                     <children>
+                        <HBox fx:id="HBox_MusicList" prefHeight="391.0" prefWidth="1009.0">
+                           <children>
+                              <TableView fx:id="TableView_musicTable" prefHeight="391.0" prefWidth="1059.0">
+                                 <columns>
+                                    <TableColumn fx:id="TableColumn_musicID" maxWidth="154.0" minWidth="-1.0" prefWidth="56.0" resizable="false" />
+                                    <TableColumn fx:id="TableColumn_like" maxWidth="154.0" minWidth="-1.0" prefWidth="68.0" resizable="false" style="-fx-text-fill: white;" text="操作" />
+                                    <TableColumn fx:id="TableColumn_musicTitle" prefWidth="432.0" resizable="false" style="-fx-text-fill: white;" text="音乐标题" />
+                                    <TableColumn fx:id="TableColumn_musicSinger" prefWidth="160.0" resizable="false" style="-fx-text-fill: white;" text="歌手" />
+                                    <TableColumn fx:id="TableColumn_albumName" prefWidth="160.0" resizable="false" style="-fx-text-fill: white;" text="专辑" />
+                                    <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="132.0" resizable="false" text="时长" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

@@ -183,6 +183,11 @@ public class LeftMusicListController implements Controller{
 	private void setCss(){
 		Label_musicTitle.getStyleClass().add("lightLabel");
 		Label_singer.getStyleClass().add("lightLabel");
+		Label_musicListTitle.getStyleClass().add("lightLabel");
+		Button_localMusic.getStyleClass().add("lightButton");
+		Button_addLocalMusic.getStyleClass().add("lightButton");
+		Button_addLocalDirectory.getStyleClass().add("lightButton");
+		ScrollPane_rollArea.getStyleClass().add("noborder");
 		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
 	}
 	

@@ -7,8 +7,55 @@
 	-fx-background-color: #1b1d20;
 }
 
-#
+#HBox_leftManageField{
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+
+#Button_addMusicList{
+	-fx-background-color: #1b1d20;
+	-fx-background-image: url("AddListDark.png");
+}
+
+#Button_addMusicList:hover{
+	-fx-background-image: url("AddList.png");
+}
+
+#ListView_musicList{
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+
+.scroll-bar:vertical{
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+ 
+.noborder{  
+	-fx-background-color: #1b1d20;
+    -fx-padding: 0;  
+    -fx-background-insets: 0;  
+}  
 
 .lightLabel{
+	-fx-background-color: #1b1d20;
 	-fx-text-fill: white;
+}
+
+.lightButton{
+	-fx-text-fill: #bfbfbf;
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+.lightButton:hover{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:pressed{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
 }

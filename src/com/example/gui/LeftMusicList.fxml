@@ -16,7 +16,7 @@
          <children>
             <ScrollPane fx:id="ScrollPane_rollArea" hbarPolicy="NEVER" prefHeight="604.0" prefWidth="289.0">
                <content>
-                  <VBox fx:id="VBox_leftMainField" prefHeight="604.0" prefWidth="289.0">
+                  <VBox fx:id="VBox_leftMainField" prefHeight="604.0" prefWidth="273">
                      <children>
                         <VBox fx:id="VBox_leftButtons" prefHeight="150.0" prefWidth="289.0">
                            <children>
@@ -27,8 +27,8 @@
                         </VBox>
                         <HBox fx:id="HBox_leftManageField" prefHeight="50.0" prefWidth="272.0">
                            <children>
-                              <Label fx:id="Label_musicListTitle" prefHeight="50.0" prefWidth="212.0" text="我的歌单：" />
-                              <Button fx:id="Button_addMusicList" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onButtonAddMusicList" prefHeight="45.0" prefWidth="53.0" MinHeight="45.0" text="+">
+                              <Label fx:id="Label_musicListTitle" prefHeight="50.0" prefWidth="230" text="我的歌单：" />
+                              <Button fx:id="Button_addMusicList" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onButtonAddMusicList" prefHeight="40" prefWidth="40" MinHeight="40">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
