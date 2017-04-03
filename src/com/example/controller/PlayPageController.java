@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -39,7 +40,7 @@ public class PlayPageController implements Controller{
 	
 	@FXML
 	private Label Label_source;//文本来源的id
-	
+
 	@FXML
 	private TextArea TextArea_lyricsArea;//歌词滚动板的id
 	
@@ -156,7 +157,21 @@ public class PlayPageController implements Controller{
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现
+		setCss();
 		this.ma = ma;
 	}
+	
+	public void setCss(){
+		Label_musicTitle.getStyleClass().set(0, "lightLabel");
+		Label_albumName.getStyleClass().set(0, "lightLabel");
+		Label_singer.getStyleClass().set(0, "lightLabel");
+		Label_source.getStyleClass().set(0, "lightLabel");
+		ImageView_albumCover.setImage(new Image("com/example/css/play/demoLarge.jpg"));
+		
+		Button_PlayPage_back.getStyleClass().set(0, "playclose");
+		Button_like.getStyleClass().set(0, "lightButton");
+		Button_collect.getStyleClass().set(0, "lightButton");
+	}
+	
 	private MainAction ma;
 }

@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 public class MainAction {
 	static Button addlistbtn;
 	static TextField tf = new TextField();//扩展输入栏
-	static Button btn = new Button("+");//扩展添加按钮
+	static Button btn = new Button();//扩展添加按钮
 	static HBox hb = new HBox();//扩展横箱
 	
 	static VBox vb;//指定left中的竖箱
@@ -149,14 +149,15 @@ public class MainAction {
 	}
 	
 	public void addMusicList(Button b, ListView<Button> l) {
-		String t = b.getText();
-		if(t.equals("+")) {
+		String t = b.getStyleClass().get(0);
+		b.getStyleClass().remove(0);
+		if(t.equals("AddList")) {
 			vb.getChildren().add(2, hb);
-			b.setText("x");
+			b.getStyleClass().add("CloseList");
 		}
-		if(t.equals("x")) {
+		if(t.equals("CloseList")) {
 			vb.getChildren().removeAll(hb);
-			b.setText("+");
+			b.getStyleClass().add("AddList");
 			tf.clear();
 		}
 	}
@@ -273,6 +274,8 @@ public class MainAction {
 				try {
 					String key = tf.getText();
 					Button nb = new Button(key);
+					nb.getStyleClass().remove(0);
+					nb.getStyleClass().add("listButton");
 					SongMenuOperate.addSongMenu(key);
 					gui.getLlC().getListView_musicList().getItems().add(nb);
 					nb.setOnAction(nbe -> {
@@ -388,8 +391,8 @@ public class MainAction {
 		
 		addlistbtn = gui.getLlC().getButton_addMusicList();
 		hb.getChildren().addAll(tf, btn);
-		btn.setPrefHeight(45);btn.setPrefWidth(53);
-		tf.setPrefWidth(212);tf.setMaxWidth(212);tf.setPrefHeight(50);tf.setMaxHeight(50);
+		btn.getStyleClass().remove(0); btn.getStyleClass().add("AddList");
+		tf.getStyleClass().add("ListField");
 		btn.setOnAction(new Extension());
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
 	}

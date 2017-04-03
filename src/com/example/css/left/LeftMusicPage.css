@@ -12,19 +12,61 @@
 	-fx-border-color:#bfbfbf;
 }
 
-#Button_addMusicList{
+.AddList{
+	-fx-pref-width: 40;
+	-fx-pref-height: 40;
 	-fx-background-color: #1b1d20;
 	-fx-background-image: url("AddListDark.png");
 }
 
-#Button_addMusicList:hover{
+.AddList:hover{
 	-fx-background-image: url("AddList.png");
 }
 
-#ListView_musicList{
+.ListField{
+	-fx-pref-width: 230;
+	-fx-pref-height: 70;
+	-fx-background-color: #1b1d20;
+	-fx-text-fill: white;
+	-fx-text-size: 50;
+}
+
+.listButton{
+	-fx-text-fill: #bfbfbf;
+	-fx-font-size: 25;
+	-fx-pref-width:280;
+	-fx-pref-height:50;
 	-fx-background-color: #1b1d20;
 	-fx-border-color:#bfbfbf;
 }
+.listButton:hover{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.listButton:pressed{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.listButton:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+
+.CloseList{
+	-fx-background-image: url("CloseListDark.png");
+}
+
+.CloseList:hover{
+	-fx-background-image: url("CloseList.png");
+}
+
+
+.list-view{
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+	-fx-padding: 0;
+}
+
 
 .scroll-bar:vertical{
 	-fx-background-color: #1b1d20;

@@ -1,0 +1,42 @@
+ 
+.lightLabel{
+	-fx-text-fill: white;
+	-fx-background-color : null;
+}
+
+#AnchorPane_playPage{
+	-fx-background-color : #1b1d20;
+}
+
+#TextArea_lyricsArea{
+	-fx-border-color: white;
+	-fx-background-color : #1b1d20;
+}
+
+.playclose{
+	-fx-background-image: url("PlayCloseDark.png");
+}
+
+.playclose:hover{
+	-fx-background-image: url("PlayClose.png");
+}
+
+.lightButton{
+	
+	-fx-alignment: center;
+	-fx-text-fill: #bfbfbf;
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+}
+.lightButton:hover{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:pressed{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.lightButton:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}

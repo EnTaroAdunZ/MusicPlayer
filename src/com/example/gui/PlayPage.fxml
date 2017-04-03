@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,21 +10,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="com.example.controller.PlayPageController" fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1111.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.example.controller.PlayPageController" fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutX="388.0" layoutY="351.0" prefHeight="724.0" prefWidth="1111.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="HBox_totalHBox" layoutX="388.0" layoutY="351.0" prefHeight="724.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="445.0">
+            <VBox fx:id="VBox_leftVBox" prefHeight="200.0" prefWidth="520.0">
                <children>
-                  <AnchorPane fx:id="AnchorPane_leftPlayPage" prefHeight="445.0" prefWidth="445.0">
+                  <AnchorPane fx:id="AnchorPane_leftPlayPage" prefHeight="520.0" prefWidth="520.0">
                      <VBox.margin>
-                        <Insets top="100.0" />
+                        <Insets top="70.0" />
                      </VBox.margin>
                      <children>
-                        <ImageView fx:id="ImageView_albumCover" fitHeight="350.0" fitWidth="350.0" layoutX="48.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="ImageView_albumCover" fitHeight="400.0" fitWidth="400.0" layoutX="60.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </AnchorPane>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="445.0" spacing="100.0">
+                  <HBox fx:id="HBox_buttonHBox" alignment="CENTER" prefHeight="50.0" prefWidth="445.0" spacing="100.0">
                      <children>
                         <Button fx:id="Button_like" mnemonicParsing="false" onAction="#onLike" prefHeight="96.0" prefWidth="69.0" text="喜欢">
                            <font>
@@ -43,11 +43,11 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="666.0">
+            <VBox fx:id="VBox_rightVBox" prefHeight="200.0" prefWidth="780.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="HBox_titleHBox" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="585.0" text="%musicTitle">
+                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="685.0" text="%musicTitle">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -59,29 +59,35 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="48.0" prefWidth="666.0">
+                  <HBox fx:id="HBox_infoHBox" prefHeight="48.0" prefWidth="780.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="60.0" text="专辑：" textAlignment="CENTER">
+                        <Label alignment="CENTER" prefHeight="48.0" prefWidth="60.0" style="-fx-text-fill: white;" text="专辑：" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Label_albumName" prefHeight="50.0" prefWidth="160.0" text="%albumName" />
-                        <Label prefHeight="50.0" prefWidth="60.0" text="歌手：">
+                        <Label fx:id="Label_albumName" prefHeight="50.0" prefWidth="190.0" text="%albumName" />
+                        <Label prefHeight="50.0" prefWidth="60.0" style="-fx-text-fill: white;" text="歌手：">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
                         </Label>
-                        <Label fx:id="Label_singer" prefHeight="50.0" prefWidth="160.0" text="%singer" />
-                        <Label prefHeight="50.0" prefWidth="60.0" text="来源：">
+                        <Label fx:id="Label_singer" prefHeight="50.0" prefWidth="190.0" text="%singer" />
+                        <Label prefHeight="50.0" prefWidth="60.0" style="-fx-text-fill: white;" text="来源：">
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
                         </Label>
-                        <Label fx:id="Label_source" prefHeight="50.0" prefWidth="160.0" text="%source" />
+                        <Label fx:id="Label_source" prefHeight="50.0" prefWidth="190.0" text="%source" />
                      </children>
                   </HBox>
-                  <TextArea fx:id="TextArea_lyricsArea" editable="false" prefHeight="573.0" prefWidth="666.0" />
+                  <TextArea fx:id="TextArea_lyricsArea" editable="false" prefHeight="574.0" prefWidth="780.0" />
                </children>
             </VBox>
          </children>

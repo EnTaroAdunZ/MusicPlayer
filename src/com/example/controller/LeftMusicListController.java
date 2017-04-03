@@ -177,6 +177,7 @@ public class LeftMusicListController implements Controller{
 			MainAction.pq.add(pp);
 			MainAction.show(pp);
 		});
+		
 	}
 	
 	private void setCss(){
@@ -186,8 +187,13 @@ public class LeftMusicListController implements Controller{
 		Button_localMusic.getStyleClass().add("lightButton");
 		Button_addLocalMusic.getStyleClass().add("lightButton");
 		Button_addLocalDirectory.getStyleClass().add("lightButton");
+		
+		Button_addMusicList.getStyleClass().remove(0);
+		Button_addMusicList.getStyleClass().add("AddList");
+		
 		ScrollPane_rollArea.getStyleClass().add("noborder");
 		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
+		
 	}
 	
 	private MainAction ma;

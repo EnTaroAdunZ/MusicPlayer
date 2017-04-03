@@ -92,6 +92,7 @@ public class GUI extends Application{
         cssList.add("com/example/css/topandbottom/TopAndBottomPage.css");
         cssList.add("com/example/css/left/LeftMusicPage.css");
         cssList.add("com/example/css/local/LocalMusicPageCss.css");
+        cssList.add("com/example/css/play/PlayPageCss.css");
         scene.getStylesheets().addAll(cssList);
         
         stage.show();
