@@ -1,19 +1,28 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * 
@@ -155,7 +164,7 @@ public class LocalMusicPageController implements Controller{
 
 	@FXML
 	private void onSelectDirectory(ActionEvent event){//“选择目录”按钮的响应方法
-		
+		df.show();
 	}
 	
 	@FXML
@@ -171,8 +180,12 @@ public class LocalMusicPageController implements Controller{
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
+		ArrayList<String> list = new ArrayList<>();
+		list.add("C:\\");
+		df.init(list);
 	}
 	private MainAction ma;
+	static Dirfilter df = new Dirfilter();
 	
 	private void setCss(){
 		Button_localSearch.getStyleClass().remove(0);
@@ -190,3 +203,34 @@ public class LocalMusicPageController implements Controller{
 		TableColumn_musicSize.getStyleClass().add("tableColumn");
 	}
  }
+
+class Dirfilter{
+	static final String title = "选择本地音乐文件夹",
+			instr = "将自动扫描你勾选的目录，文件增删实时同步。";
+	static final Button ok = new Button("确认"),
+			add = new Button("添加文件夹");
+	private ArrayList<String> dirList;
+	private ListView<CheckBox> diropt = new ListView<>();
+	private Stage stage;
+	
+	void init(ArrayList<String> list) {
+		dirList = list;
+		for(String s : dirList) {
+			CheckBox cb = new CheckBox(s);
+			diropt.getItems().add(cb);
+		}
+		HBox hb = new HBox();
+		hb.getChildren().addAll(ok,add);
+		VBox vb = new VBox();
+		vb.getChildren().addAll(new Label(title),new Label(instr),diropt,hb);
+		stage = new Stage();
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.setScene(new Scene(vb,300,400));
+	}
+	
+	void show() {
+		stage.show();
+		stage.requestFocus();
+		
+	}
+}

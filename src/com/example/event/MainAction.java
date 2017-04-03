@@ -154,6 +154,7 @@ public class MainAction {
 		if(t.equals("AddList")) {
 			vb.getChildren().add(2, hb);
 			b.getStyleClass().add("CloseList");
+			//tf.requestFocus();
 		}
 		if(t.equals("CloseList")) {
 			vb.getChildren().removeAll(hb);
@@ -168,7 +169,9 @@ public class MainAction {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
 				new FileChooser.ExtensionFilter("flac", "*.flac*"),
 				new FileChooser.ExtensionFilter("所有文件", "*.*"));
-		List<File> selectedFile = fileChooser.showOpenMultipleDialog(new Stage());
+		Stage s = new Stage();
+		s.initModality(Modality.APPLICATION_MODAL);
+		List<File> selectedFile = fileChooser.showOpenMultipleDialog(s);
 		if(selectedFile != null)
 			for(File file : selectedFile)
 				SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
@@ -177,7 +180,9 @@ public class MainAction {
 	public void addLocalDirectory() {
 		DirectoryChooser fileChooser = new DirectoryChooser();
 		fileChooser.setTitle("打开音乐文件夹");
-		File selectedFile = fileChooser.showDialog(new Stage());
+		Stage s = new Stage();
+		s.initModality(Modality.APPLICATION_MODAL);
+		File selectedFile = fileChooser.showDialog(s);
 		if(selectedFile != null) {
 			ArrayList<File> fl = new ArrayList<>();
 			loopDirectory(selectedFile, fl);
@@ -314,11 +319,11 @@ public class MainAction {
     
 	private Page giveMusicList() {
 		MusicListPageController mlC = null;
-		ScrollPane musiclist = null;
+		AnchorPane musiclist = null;
 		try {
 			FXMLLoader ml = new FXMLLoader(GUI.class.getResource("MusicListPage.fxml"),
 					ResourceBundle.getBundle("ini"));
-			musiclist = (ScrollPane) ml.load();
+			musiclist = (AnchorPane) ml.load();
 			mlC = ml.getController();
 			mlC.initData(this);
 		} catch (IOException e) {
@@ -389,6 +394,7 @@ public class MainAction {
 		f = gui.getTabC().getButton_forward();
 		//iv = gui.getLlC().getImageView_albumCover();
 		
+		tf.setPromptText("歌单名称");
 		addlistbtn = gui.getLlC().getButton_addMusicList();
 		hb.getChildren().addAll(tf, btn);
 		btn.getStyleClass().remove(0); btn.getStyleClass().add("AddList");

@@ -26,12 +26,12 @@
                            </font>
                         </Label>
                         <Label fx:id="Label_musicNum" prefHeight="95.0" prefWidth="118.0" text="%musicNum" />
-                        <Button fx:id="Button_selectDirectory" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="选择目录">
+                        <Button fx:id="Button_selectDirectory" onAction="#onSelectDirectory" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="选择目录">
                            <HBox.margin>
                               <Insets left="20.0" top="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="Button_playAll" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="播放全部">
+                        <Button fx:id="Button_playAll" onAction="#onPlayAll" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="播放全部">
                            <HBox.margin>
                               <Insets left="20.0" top="25.0" />
                            </HBox.margin>
@@ -41,7 +41,7 @@
                               <Insets left="180.0" top="25.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="Button_localSearch" mnemonicParsing="false" prefHeight="30.0" prefWidth="30">
+                        <Button fx:id="Button_localSearch" onAction="#onLocalSearch" mnemonicParsing="false" prefHeight="30.0" prefWidth="30">
                            <HBox.margin>
                               <Insets top="25.0" />
                            </HBox.margin>
