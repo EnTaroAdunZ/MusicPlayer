@@ -30,6 +30,21 @@
 	-fx-background-image: url("Next.png")
 }
 
+#Button_minimize{
+	-fx-background-image: url("MinmizeDark.png")
+}
+#Button_minimize:hover{
+	-fx-background-image: url("Minmize.png")
+}
+
+#Button_close{
+	-fx-background-image: url("CloseDark.png")
+}
+#Button_close:hover{
+	-fx-background-image: url("Close.png")
+}
+
+
 .buttonRepeatInOne{
 	-fx-background-image: url("RepeatInOneDark.png")
 }

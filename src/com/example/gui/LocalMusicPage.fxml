@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="com.example.controller.LocalMusicPageController" fx:id="AnchorPane_center" prefHeight="724.0" prefWidth="1009.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorPane_center" prefHeight="724.0" prefWidth="1009.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LocalMusicPageController">
    <children>
       <VBox fx:id="VBox_LocalPage" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -26,12 +26,12 @@
                            </font>
                         </Label>
                         <Label fx:id="Label_musicNum" prefHeight="95.0" prefWidth="118.0" text="%musicNum" />
-                        <Button fx:id="Button_selectDirectory" onAction="#onSelectDirectory" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="选择目录">
+                        <Button fx:id="Button_selectDirectory" mnemonicParsing="false" onAction="#onSelectDirectory" prefHeight="30.0" prefWidth="100.0" text="选择目录">
                            <HBox.margin>
                               <Insets left="20.0" top="25.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="Button_playAll" onAction="#onPlayAll" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="播放全部">
+                        <Button fx:id="Button_playAll" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="30.0" prefWidth="100.0" text="播放全部">
                            <HBox.margin>
                               <Insets left="20.0" top="25.0" />
                            </HBox.margin>
@@ -41,9 +41,9 @@
                               <Insets left="180.0" top="25.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="Button_localSearch" onAction="#onLocalSearch" mnemonicParsing="false" prefHeight="30.0" prefWidth="30">
+                        <Button fx:id="Button_localSearch" mnemonicParsing="false" onAction="#onLocalSearch" prefHeight="30.0" prefWidth="30">
                            <HBox.margin>
-                              <Insets top="25.0" />
+                              <Insets left="5.0" top="25.0" />
                            </HBox.margin>
                         </Button>
                      </children>

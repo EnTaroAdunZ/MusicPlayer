@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -80,6 +81,7 @@ public class MusicListPageController implements Controller{
 	}
 	
 	public void initData(MainAction ma){//初始化方法，待实现
+		setCss();
 		this.ma = ma;
 	}
 	
@@ -87,6 +89,24 @@ public class MusicListPageController implements Controller{
 		
 	}
 	
+	private void setCss(){
+		Label_ListName.getStyleClass().add("lightLabel");
+		Label_ListCreateTime.getStyleClass().add("lightLabel");
+		Label_ListIntroduction.getStyleClass().add("lightLabel");
+		ImageView_ListCover.setImage(new Image("com/example/css/musiclist/Favorite.png"));
+		
+		TableColumn_musicID.getStyleClass().add("tableColumn");
+		TableColumn_like.getStyleClass().add("tableColumn");
+		TableColumn_musicTitle.getStyleClass().add("tableColumn");
+		TableColumn_musicSinger.getStyleClass().add("tableColumn");
+		TableColumn_albumName.getStyleClass().add("tableColumn");
+		TableColumn_musicTimeLength.getStyleClass().add("tableColumn");
+		
+		Button_PlayAll.getStyleClass().set(0, "lightButton");
+		Button_searchMusic.getStyleClass().remove(0);
+		
+		TextField_searchListMusic.getStyleClass().add("ListField");
+	}
 	
 	private MainAction ma;
 }

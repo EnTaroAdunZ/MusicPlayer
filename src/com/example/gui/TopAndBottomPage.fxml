@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,36 +10,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:controller="com.example.controller.TopAndBottomPageController" fx:id="BorderPane_mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="BorderPane_mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.TopAndBottomPageController">
    <top>
       <AnchorPane fx:id="AnchorPane_top" prefHeight="52.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="Hbox_topItemHbox" prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label fx:id="Label_FXName" alignment="CENTER" prefHeight="50.0" prefWidth="137.0" text="MusicPlayer" />
-                  <Button fx:id="Button_back" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="30.0" >
+                  <Button fx:id="Button_back" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="30.0">
                      <HBox.margin>
                         <Insets left="150.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="Button_forward" mnemonicParsing="false" onAction="#onForward" prefHeight="30.0" prefWidth="30.0" >
+                  <Button fx:id="Button_forward" mnemonicParsing="false" onAction="#onForward" prefHeight="30.0" prefWidth="30.0">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、歌词、用户" >
+                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、歌词、用户">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="Button_search" mnemonicParsing="false" onAction="#onButtonSearch" prefHeight="30" prefWidth="30" >
+                  <Button fx:id="Button_search" mnemonicParsing="false" onAction="#onButtonSearch" prefHeight="30" prefWidth="30">
                      <HBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="Button_setting" mnemonicParsing="false" onAction="#onButtonSetting" prefHeight="30" prefWidth="30" >
+                  <Button fx:id="Button_setting" mnemonicParsing="false" onAction="#onButtonSetting" prefHeight="30" prefWidth="30">
                      <HBox.margin>
                         <Insets left="520.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="Button_minimize" mnemonicParsing="false" onAction="#onButtonMinimize" prefHeight="30" prefWidth="30">
+                     <HBox.margin>
+                        <Insets left="25.0" top="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="Button_close" mnemonicParsing="false" onAction="#onButtonClose" prefHeight="30" prefWidth="30">
+                     <HBox.margin>
+                        <Insets left="25.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>

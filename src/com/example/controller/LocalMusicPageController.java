@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import com.example.event.MainAction;
@@ -7,6 +8,7 @@ import com.example.gui.MusicUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -18,10 +20,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 /**
@@ -194,6 +199,7 @@ public class LocalMusicPageController implements Controller{
 		Label_musicNum.getStyleClass().add("lightLabel");
 		Button_selectDirectory.getStyleClass().add("lightButton");
 		Button_playAll.getStyleClass().add("lightButton");
+		TextField_localSearchText.getStyleClass().add("ListField");
 		
 		TableColumn_musicID.getStyleClass().add("tableColumn");
 		TableColumn_musicTitle.getStyleClass().add("tableColumn");
@@ -201,14 +207,18 @@ public class LocalMusicPageController implements Controller{
 		TableColumn_albumName.getStyleClass().add("tableColumn");
 		TableColumn_musicTimeLength.getStyleClass().add("tableColumn");
 		TableColumn_musicSize.getStyleClass().add("tableColumn");
+		
 	}
  }
 
 class Dirfilter{
-	static final String title = "选择本地音乐文件夹",
-			instr = "将自动扫描你勾选的目录，文件增删实时同步。";
+	static final String titlestr = "选择本地音乐文件夹",
+			introstr = "将自动扫描你勾选的目录，文件增删实时同步。";
+	static final Label title = new Label(titlestr), intro = new Label(introstr);
 	static final Button ok = new Button("确认"),
 			add = new Button("添加文件夹");
+	private HBox hb = new HBox();
+	private VBox vb = new VBox();
 	private ArrayList<String> dirList;
 	private ListView<CheckBox> diropt = new ListView<>();
 	private Stage stage;
@@ -217,20 +227,34 @@ class Dirfilter{
 		dirList = list;
 		for(String s : dirList) {
 			CheckBox cb = new CheckBox(s);
+			cb.getStyleClass().add("checkbox");
 			diropt.getItems().add(cb);
 		}
-		HBox hb = new HBox();
+		setCss();
 		hb.getChildren().addAll(ok,add);
-		VBox vb = new VBox();
-		vb.getChildren().addAll(new Label(title),new Label(instr),diropt,hb);
+		vb.getChildren().addAll(title,intro,diropt,hb);
+		
 		stage = new Stage();
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.setScene(new Scene(vb,300,400));
+		Scene scene = new Scene(vb,400,400);
+		scene.getStylesheets().addAll("com/example/css/local/LocalMusicPageCss.css");
+		//stage.initStyle(StageStyle.UNDECORATED); //待后期实现按钮功能后去掉标题栏
+		stage.setScene(scene);
 	}
 	
 	void show() {
 		stage.show();
 		stage.requestFocus();
-		
+	}
+	
+	void setCss(){
+		title.getStyleClass().add("lightLabel");
+		title.setFont(Font.font(20));
+		intro.getStyleClass().add("lightLabel");
+		ok.getStyleClass().add("lightButton");
+		add.getStyleClass().add("lightButton");
+		hb.setAlignment(Pos.CENTER); hb.setSpacing(150);
+		hb.getStyleClass().add("lightLabel");
+		vb.getStyleClass().add("lightLabel");
 	}
 }

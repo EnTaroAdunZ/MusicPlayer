@@ -24,32 +24,20 @@
 }
 
 .ListField{
-	-fx-pref-width: 230;
-	-fx-pref-height: 70;
 	-fx-background-color: #1b1d20;
 	-fx-text-fill: white;
 	-fx-text-size: 50;
+	-fx-border-color: #ffffff;
 }
 
 .listButton{
 	-fx-text-fill: #bfbfbf;
-	-fx-font-size: 25;
-	-fx-pref-width:280;
-	-fx-pref-height:50;
-	-fx-background-color: #1b1d20;
-	-fx-border-color:#bfbfbf;
+	-fx-font-size: 20;
+	-fx-pref-width:253;
+	-fx-pref-height:40;
 }
-.listButton:hover{
+.listButton:hover , listButton:pressed, .listButton:focused{
 	-fx-text-fill: white;
-	-fx-background-color: #42444a;
-}
-.listButton:pressed{
-	-fx-text-fill: white;
-	-fx-background-color: #42444a;
-}
-.listButton:focused{
-	-fx-text-fill: white;
-	-fx-background-color: #42444a;
 }
 
 .CloseList{

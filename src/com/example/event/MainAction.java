@@ -394,11 +394,12 @@ public class MainAction {
 		f = gui.getTabC().getButton_forward();
 		//iv = gui.getLlC().getImageView_albumCover();
 		
-		tf.setPromptText("歌单名称");
+		tf.setPromptText("请输入歌单名称");
 		addlistbtn = gui.getLlC().getButton_addMusicList();
 		hb.getChildren().addAll(tf, btn);
 		btn.getStyleClass().remove(0); btn.getStyleClass().add("AddList");
 		tf.getStyleClass().add("ListField");
+		tf.setPrefHeight(70);tf.setPrefWidth(230);
 		btn.setOnAction(new Extension());
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
 	}

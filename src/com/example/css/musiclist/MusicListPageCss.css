@@ -1,0 +1,16 @@
+
+#ImageView_ListCover{
+	-fx-border-color: #ffffff;
+}
+
+#Button_searchMusic{
+	-fx-background-image: url("SearchDark.png")
+}
+#Button_searchMusic:hover{
+	-fx-background-image: url("Search.png")
+}
+
+#AnchorPane_topPage{
+	-fx-background-color: #1b1d20;
+}
+

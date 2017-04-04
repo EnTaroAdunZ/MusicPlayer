@@ -1,0 +1,37 @@
+ 
+.lightLabel{
+	-fx-text-fill: white;
+	-fx-background-color : null;
+}
+ .tableColumn > .label {
+  -fx-text-fill: #ffffff;
+}
+
+.tableColumn{
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#ffffff;
+}
+
+.table-view{
+	-fx-background-color: #1b1d20;
+}
+
+.tab {
+	-fx-background-color: #1b1d20;
+}
+
+.tab:hover,.tab:disabled,.tab:show-mnemonic, .tab:focused,.tab:pressed{
+	-fx-background-color: #b72525;
+}
+
+.tab-label{
+	-fx-text-fill: white;
+}
+
+#TabPane_tabPane{
+	-fx-background-color: #1b1d20;
+}
+
+.tab-header-background {
+	-fx-background-color: #1b1d20;
+}

@@ -154,7 +154,20 @@ public class SearchPageController implements Controller{
 	
 	public void initData(MainAction ma){//初始化数据，待实现
 		this.ma = ma;
-		
+		setCss();
 	}
+	
+	private void setCss(){
+		
+		
+		TableColumn_search_ID.getStyleClass().add("tableColumn"); 
+		TableColumn_search_musicTitle.getStyleClass().add("tableColumn"); 
+		TableColumn_search_singer.getStyleClass().add("tableColumn"); 
+		TableColumn_search_albumName.getStyleClass().add("tableColumn"); 
+		TableColumn_search_timeLength.getStyleClass().add("tableColumn"); 
+		
+		Label_searchResult.getStyleClass().add("lightLabel"); 
+	}
+	
 	private MainAction ma;
 }

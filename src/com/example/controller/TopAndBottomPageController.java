@@ -2,7 +2,9 @@ package com.example.controller;
 
 import com.example.event.EnterAction;
 import com.example.event.MainAction;
+import com.example.gui.GUI;
 
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -45,6 +47,12 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private Button Button_setting;//设置按钮的id
+	
+	@FXML
+	private Button Button_minimize;//最小化按钮的id
+	
+	@FXML
+	private Button Button_close;//关闭按钮的id
 	
 	@FXML
 	private Label Label_currentTime;//当前播放歌曲的当前播放时间id
@@ -215,6 +223,16 @@ public class TopAndBottomPageController implements Controller{
 		
 	}
 	
+	@FXML
+	private void onButtonMinimize(ActionEvent event){//
+		GUI.staticStage.setIconified(true);
+	}
+	
+	@FXML
+	private void onButtonClose(ActionEvent event){//
+		Platform.exit();
+	}
+	
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
@@ -231,6 +249,8 @@ public class TopAndBottomPageController implements Controller{
 		Button_setting.getStyleClass().remove(0);
 		Button_back.getStyleClass().remove(0);
 		Button_forward.getStyleClass().remove(0);
+		Button_minimize.getStyleClass().remove(0);
+		Button_close.getStyleClass().remove(0);
 		
 		Button_modeSwitch.getStyleClass().remove(0);
 		Button_modeSwitch.getStyleClass().add("buttonRepeatInOne");
@@ -238,6 +258,7 @@ public class TopAndBottomPageController implements Controller{
 		Label_FXName.getStyleClass().add("lightLabel");
 		Label_currentTime.getStyleClass().add("lightLabel");
 		Label_totalTime.getStyleClass().add("lightLabel");
+		TextField_searchSong.getStyleClass().add("ListField");
 	}
 	
 	private MainAction ma;

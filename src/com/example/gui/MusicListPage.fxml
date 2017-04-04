@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:controller="com.example.controller.MusicListPageController" fx:id="AnchorPane_MusicListPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorPane_MusicListPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MusicListPageController">
    <children>
       <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -33,52 +34,61 @@
                                  <children>
                                     <HBox prefHeight="80.0" prefWidth="659.0">
                                        <children>
-                                          <Label fx:id="Label_musicList" contentDisplay="CENTER" prefHeight="40.0" prefWidth="50.0" text=" 歌单" textAlignment="JUSTIFY">
+                                          <Label fx:id="Label_musicList" alignment="CENTER" cache="true" contentDisplay="CENTER" prefHeight="40.0" prefWidth="70.0" style="-fx-text-fill: white; -fx-background-color: #b72525;" text=" 歌单 " textAlignment="CENTER">
                                              <font>
-                                                <Font size="20.0" />
+                                                <Font size="24.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets bottom="20.0" top="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <Label fx:id="Label_ListName" prefHeight="40.0" prefWidth="161.0" text="*musicList">
-                                             <HBox.margin>
                                                 <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                             <effect>
+                                                <Bloom threshold="0.15" />
+                                             </effect>
+                                          </Label>
+                                          <Label fx:id="Label_ListName" prefHeight="40.0" prefWidth="161.0" text="%musicList">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="Button_PlayAll" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="40.0" text="播放全部">
+                                          <Button fx:id="Button_PlayAll" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="40.0" prefWidth="107.0" text="播放全部" textAlignment="CENTER">
                                              <HBox.margin>
-                                                <Insets bottom="20.0" top="20.0" />
+                                                <Insets top="20.0" />
                                              </HBox.margin>
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="*createTime" />
-                                    <HBox prefHeight="213.0" prefWidth="609.0">
+                                    <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="%createTime" />
+                                    <HBox prefHeight="210.0" prefWidth="609.0">
                                        <children>
-                                          <Label fx:id="Label_introduction" prefHeight="38.0" prefWidth="63.0" text="简介：">
+                                          <Label fx:id="Label_introduction" prefHeight="18.0" prefWidth="58.0" style="-fx-text-fill: white;" text="简介：">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="Label_ListIntroduction" alignment="TOP_LEFT" prefHeight="235.0" prefWidth="552.0" text="*introduction">
+                                          <Label fx:id="Label_ListIntroduction" alignment="TOP_LEFT" prefHeight="235.0" prefWidth="552.0" text="%introduction">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="567.0">
+                                    <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="559.0">
                                        <children>
-                                          <TextField fx:id="TextField_searchListMusic" prefHeight="30.0" prefWidth="224.0">
+                                          <TextField fx:id="TextField_searchListMusic" prefHeight="30.0" prefWidth="224.0" promptText="搜索歌单音乐">
                                              <HBox.margin>
-                                                <Insets />
+                                                <Insets bottom="3.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="Button_searchMusic" mnemonicParsing="false" onAction="#onSearchMusic" prefHeight="30.0" prefWidth="30.0" text="Button" />
+                                          <Button fx:id="Button_searchMusic" mnemonicParsing="false" onAction="#onSearchMusic" prefHeight="30.0" prefWidth="30.0">
+                                             <HBox.margin>
+                                                <Insets bottom="3.0" left="5.0" />
+                                             </HBox.margin></Button>
                                        </children>
                                        <VBox.margin>
                                           <Insets right="50.0" />
