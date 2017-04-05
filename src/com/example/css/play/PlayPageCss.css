@@ -4,6 +4,10 @@
 	-fx-background-color : null;
 }
 
+#TextArea_lyricsArea{
+	-fx-background-color : #1b1d20;
+}
+
 #AnchorPane_playPage{
 	-fx-background-color : #1b1d20;
 }

@@ -1,6 +1,12 @@
 package com.example.controller;
 
+import java.util.Date;
+import java.util.List;
+
+import com.example.entity.SongMenu;
 import com.example.event.MainAction;
+import com.example.event.TagClickAction;
+import com.example.service.SongMenuOperate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -171,6 +177,7 @@ public class LeftMusicListController implements Controller{
 	
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
+		initSongMenu(ma);
 		this.ma = ma;
 		pp = Page.newPage(Controller.PLAY, ma.getGui().getPlaypage(), ma.getGui().getPpC());
 		ImageView_albumCover.setOnMouseClicked(e ->{
@@ -194,6 +201,16 @@ public class LeftMusicListController implements Controller{
 		ScrollPane_rollArea.getStyleClass().add("noborder");
 		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
 		
+	}
+	
+	private void initSongMenu(MainAction ma){	//调用歌单接口在初始化时加载所有本地歌单
+		List<SongMenu> list = SongMenuOperate.getSongMenu();
+		if(!list.isEmpty()){
+			for(SongMenu item : list){
+				Button nb = new Button(item.getSongMenuName());
+				ma.createMusicList(nb, new Date());
+			}
+		}
 	}
 	
 	private MainAction ma;

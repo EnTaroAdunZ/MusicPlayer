@@ -278,15 +278,8 @@ public class MainAction {
 				try {
 					String key = tf.getText();
 					Button nb = new Button(key);
-					nb.getStyleClass().remove(0);
-					nb.getStyleClass().add("listButton");
 					SongMenuOperate.addSongMenu(key);
-					gui.getLlC().getListView_musicList().getItems().add(nb);
-					String date = df.format(new Date());
-					nb.setOnAction(nbe -> {
-						musiclist(nb.getText(), date);//FIXME
-					});
-					nb.setContextMenu(tca.getCb().getListContext());
+					createMusicList(nb,new Date());
 					addlistbtn.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
@@ -295,6 +288,18 @@ public class MainAction {
 				
 			}
 		}
+	}
+	
+	public void createMusicList(Button nb, Date createDate){
+		nb.getStyleClass().remove(0);
+		nb.getStyleClass().add("listButton");
+		String date = df.format(createDate);
+		gui.getLlC().getListView_musicList().getItems().add(nb);
+		nb.setOnAction(nbe -> {
+			musiclist(nb.getText(), date);//FIXME
+		});
+		
+		nb.setContextMenu(tca.getCb().getListContext());
 	}
 	
 	//-----------------------------------------Play------------------------

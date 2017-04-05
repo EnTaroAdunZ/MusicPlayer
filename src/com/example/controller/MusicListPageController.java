@@ -171,6 +171,8 @@ public class MusicListPageController implements Controller{
 	}
 	
 	private void setCss(){
+		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+		
 		Label_ListName.getStyleClass().add("lightLabel");
 		Label_ListCreateTime.getStyleClass().add("lightLabel");
 		Label_ListIntroduction.getStyleClass().add("lightLabel");

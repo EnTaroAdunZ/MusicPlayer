@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:controller="com.example.controller.PlayPageController" fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.PlayPageController">
    <children>
       <HBox fx:id="HBox_totalHBox" layoutX="388.0" layoutY="351.0" prefHeight="724.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -87,7 +87,11 @@
                         <Label fx:id="Label_source" prefHeight="50.0" prefWidth="190.0" text="%source" />
                      </children>
                   </HBox>
-                  <TextArea fx:id="TextArea_lyricsArea" editable="false" prefHeight="574.0" prefWidth="780.0" />
+                  <AnchorPane fx:id="AnchorPane_lyricBottom" prefHeight="577.0" prefWidth="2250.0">
+                     <children>
+                        <TextArea fx:id="TextArea_lyricsArea" editable="false" prefHeight="528.0" prefWidth="722.0" />
+                     </children>
+                  </AnchorPane>
                </children>
             </VBox>
          </children>
