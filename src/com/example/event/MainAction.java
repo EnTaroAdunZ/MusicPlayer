@@ -2,7 +2,9 @@ package com.example.event;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -72,7 +74,7 @@ public class MainAction {
 			return;
 		ArrayList<MusicUtils> sl = searchsong();
 		//FIXME
-		Page p = giveSearch();
+		Page p = giveSearch(key);
 		((Page.SearchPage)p).setKey(key);
 		pq.add(p);
 		show(p);
@@ -139,12 +141,13 @@ public class MainAction {
 		show(p);
 	}
 	
-	public void musiclist(String key) {
+	public void musiclist(String key, String date) {
 		if(pq.getSize() > 0 && pq.getPage() instanceof Page.MusicListPage ) 
 			return;
-		Page p = giveMusicList();
+		Page p = giveMusicList(key, date);
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
+		((Page.MusicListPage)p).getController().getLabel_ListName().setText(key);
 		show(p);
 	}
 	
@@ -169,9 +172,7 @@ public class MainAction {
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("MP3", "*.mp3"),
 				new FileChooser.ExtensionFilter("flac", "*.flac*"),
 				new FileChooser.ExtensionFilter("所有文件", "*.*"));
-		Stage s = new Stage();
-		s.initModality(Modality.APPLICATION_MODAL);
-		List<File> selectedFile = fileChooser.showOpenMultipleDialog(s);
+		List<File> selectedFile = fileChooser.showOpenMultipleDialog(GUI.staticStage);
 		if(selectedFile != null)
 			for(File file : selectedFile)
 				SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
@@ -180,9 +181,7 @@ public class MainAction {
 	public void addLocalDirectory() {
 		DirectoryChooser fileChooser = new DirectoryChooser();
 		fileChooser.setTitle("打开音乐文件夹");
-		Stage s = new Stage();
-		s.initModality(Modality.APPLICATION_MODAL);
-		File selectedFile = fileChooser.showDialog(s);
+		File selectedFile = fileChooser.showDialog(GUI.staticStage);
 		if(selectedFile != null) {
 			ArrayList<File> fl = new ArrayList<>();
 			loopDirectory(selectedFile, fl);
@@ -283,9 +282,11 @@ public class MainAction {
 					nb.getStyleClass().add("listButton");
 					SongMenuOperate.addSongMenu(key);
 					gui.getLlC().getListView_musicList().getItems().add(nb);
+					String date = df.format(new Date());
 					nb.setOnAction(nbe -> {
-						musiclist(nb.getText());//FIXME
+						musiclist(nb.getText(), date);//FIXME
 					});
+					nb.setContextMenu(tca.getCb().getListContext());
 					addlistbtn.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
@@ -317,7 +318,7 @@ public class MainAction {
 		return Page.newPage(Controller.LOCAL, localmusic, lmC);
     }
     
-	private Page giveMusicList() {
+	private Page giveMusicList(String name, String date) {
 		MusicListPageController mlC = null;
 		AnchorPane musiclist = null;
 		try {
@@ -325,21 +326,21 @@ public class MainAction {
 					ResourceBundle.getBundle("ini"));
 			musiclist = (AnchorPane) ml.load();
 			mlC = ml.getController();
-			mlC.initData(this);
+			mlC.initData(this, name, date);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return Page.newPage(Controller.MUSICLIST, musiclist, mlC);
     }
  
-	private Page giveSearch() {
+	private Page giveSearch(String name) {
 		AnchorPane searchpage = null;
 		SearchPageController spC = null;
 		try {
 			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
 			searchpage = (AnchorPane) sp.load();
 			spC = sp.getController();
-			spC.initData(this);
+			spC.initData(this, name);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -405,7 +406,9 @@ public class MainAction {
 	}
 	public static GUI gui;
 	public static PageQueue pq;
-
+	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
+	private TagClickAction tca = new TagClickAction();
+	
 	public GUI getGui() {
 		return gui;
 	}

@@ -3,26 +3,32 @@ package com.example.event;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class TagClickAction implements EventHandler<MouseEvent>{
 	
-	public TagClickAction(TagContextMenu tcm) {
-		tagContextMenu = tcm;
+	/*
+	private Node target = null;
+	public TagClickAction(Node target) {
+		super();
+		this.target = target;
 	}
-	
-	private TagContextMenu tagContextMenu;
-	/**
-	 * Waiting for further information from GUI and to go on designing
-	 */
+	*/
+	private ContextBox cb = new ContextBox();
+	public ContextBox getCb() {
+		return cb;
+	}
+
 	@Override
 	public void handle(MouseEvent event) {
-		Node target = ((Node)event.getSource());
+		Node target = (Node)event.getTarget();
+		ContextMenu cm;
+		if(target instanceof Button) cm = cb.getListContext();
+		else cm = cb.getSongContext();
 		if(event.getButton() == MouseButton.SECONDARY) {
-			tagContextMenu.getContextMenu().show(target, event.getSceneX(), event.getScreenY());
+			cm.show(target, event.getScreenX(), event.getScreenY());
 		}
 		if(event.getButton() == MouseButton.PRIMARY) {
 			int count = event.getClickCount();
@@ -32,39 +38,33 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 		}
 	}
 	
-	public class TagContextMenu {
+}
+class ContextBox {
+	private ContextMenu listContext = new ContextMenu();
+	private ContextMenu songContext = new ContextMenu();
+	public static MenuItem play = new MenuItem("\u64ad\u653e");
+	public static MenuItem play_all = new MenuItem("\u5168\u90e8\u64ad\u653e");
+	public static MenuItem play_next = new MenuItem("\u4e0b\u4e00\u9996\u64ad\u653e");
+	public static MenuItem path = new MenuItem("\u6253\u5f00\u6587\u4ef6\u76ee\u5f55");
+	public static MenuItem remove_song = new MenuItem("\u79fb\u9664\u6b4c\u66f2");
+	public static MenuItem remove_list = new MenuItem("\u79fb\u9664\u6b4c\u5355");
+	
+	public ContextBox() {//FIXME
+		listContext.getItems().addAll(play_all, new SeparatorMenuItem(), remove_list);
+		songContext.getItems().addAll(play, play_next, path, new SeparatorMenuItem(), remove_song);
 		
-		public TagContextMenu() {
-			contextMenu = new ContextMenu();
-			contextMenu.getItems().addAll(play, playnext, add, delete, path);
-			init();
-		}
-
-		void init() {
-			play.setOnAction(null);
-			playnext.setOnAction(null);
-			add.setOnAction(null);
-			delete.setOnAction(null);
-			path.setOnAction(null);
-			// TODO
-		}
-		
-		private ContextMenu contextMenu;
-		public ContextMenu getContextMenu() {
-			return contextMenu;
-		}
-		public void setContextMenu(ContextMenu contextMenu) {
-			this.contextMenu = contextMenu;
-		}
-		
-		private MenuItem play = new MenuItem("play");
-		private MenuItem playnext = new MenuItem("play next");
-		private MenuItem add = new MenuItem("add to the sheet of...");
-		private MenuItem delete = new MenuItem("delete from the sheet");
-		private MenuItem path = new MenuItem("show the parent path");
-		
-		//TODO
-		private ObjectProperty<Object> target;
-		
+		play.setOnAction(e ->{
+			//FIXME
+		});
 	}
+
+	public ContextMenu getListContext() {
+		return listContext;
+	}
+
+	public ContextMenu getSongContext() {
+		return songContext;
+	}
+	
+	
 }

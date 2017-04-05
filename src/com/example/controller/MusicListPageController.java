@@ -75,14 +75,95 @@ public class MusicListPageController implements Controller{
 	@FXML
 	private TableColumn<MusicUtils, String> TableColumn_musicTimeLength;//时长列id
 	
+	
+	public AnchorPane getAnchorPane_MusicListPage() {
+		return AnchorPane_MusicListPage;
+	}
+
+	public ScrollPane getScrollPane_totalPage() {
+		return ScrollPane_totalPage;
+	}
+
+	public AnchorPane getAnchorPane_topPage() {
+		return AnchorPane_topPage;
+	}
+
+	public ImageView getImageView_ListCover() {
+		return ImageView_ListCover;
+	}
+
+	public VBox getVBox_MusicListPage() {
+		return VBox_MusicListPage;
+	}
+
+	public Label getLabel_ListName() {
+		return Label_ListName;
+	}
+
+	public Button getButton_PlayAll() {
+		return Button_PlayAll;
+	}
+
+	public Button getButton_searchMusic() {
+		return Button_searchMusic;
+	}
+
+	public TextField getTextField_searchListMusic() {
+		return TextField_searchListMusic;
+	}
+
+	public Label getLabel_ListCreateTime() {
+		return Label_ListCreateTime;
+	}
+
+	public Label getLabel_ListIntroduction() {
+		return Label_ListIntroduction;
+	}
+
+	public AnchorPane getAnchorPane_bottomPage() {
+		return AnchorPane_bottomPage;
+	}
+
+	public TableView<MusicUtils> getTableView_musicTable() {
+		return TableView_musicTable;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_musicID() {
+		return TableColumn_musicID;
+	}
+
+	public TableColumn<MusicUtils, Button> getTableColumn_like() {
+		return TableColumn_like;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_musicTitle() {
+		return TableColumn_musicTitle;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_musicSinger() {
+		return TableColumn_musicSinger;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_albumName() {
+		return TableColumn_albumName;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_musicTimeLength() {
+		return TableColumn_musicTimeLength;
+	}
+	
+	
+
 	@FXML
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮id
 		
 	}
 	
-	public void initData(MainAction ma){//初始化方法，待实现
+	public void initData(MainAction ma, String name, String date){//初始化方法，待实现
 		setCss();
 		this.ma = ma;
+		Label_ListName.setText(name);
+		Label_ListCreateTime.setText(date);
 	}
 	
 	public void onSearchMusic(ActionEvent event){//“查找音乐”按钮id

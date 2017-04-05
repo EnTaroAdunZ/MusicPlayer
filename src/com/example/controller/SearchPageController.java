@@ -152,10 +152,13 @@ public class SearchPageController implements Controller{
 		return ListView_lyricsPage;
 	}
 	
-	public void initData(MainAction ma){//初始化数据，待实现
+	public void initData(MainAction ma, String name){//初始化数据，待实现
 		this.ma = ma;
 		setCss();
+		target = name;
 	}
+	
+	private String target = null;
 	
 	private void setCss(){
 		
