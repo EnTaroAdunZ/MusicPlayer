@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.example.controller.*;
+import com.example.entity.Song;
 import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
@@ -148,6 +149,7 @@ public class MainAction {
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
 		((Page.MusicListPage)p).getController().getLabel_ListName().setText(key);
+		  
 		show(p);
 	}
 	
@@ -186,7 +188,7 @@ public class MainAction {
 			ArrayList<File> fl = new ArrayList<>();
 			loopDirectory(selectedFile, fl);
 			for(File file : fl)
-			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
+			SongOperate.addSongWithFile(file.getAbsolutePath(), "我的最爱");
 		}
 	}
 	

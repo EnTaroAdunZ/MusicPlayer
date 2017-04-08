@@ -1,10 +1,14 @@
 package com.example.service;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.example.dao.SongMenuDao;
 import com.example.dao.impl.SongMenuDaoImpl;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
+import com.example.gui.MusicUtils;
+import com.example.util.SongUtil;
 
 /** 
 * @date 2017年3月18日 上午12:37:33 
@@ -40,8 +44,16 @@ public class SongMenuOperate {
 	}
 	
 	//通过歌单名得到歌单下的歌
-	public static List<Song> getSongsByMenuName(String menuName){
-		return songMenuDao.getSongByMenuName(menuName);
+	public static List<MusicUtils> getSongsByMenuName(String menuName){
+		List<Song> songByMenuName = songMenuDao.getSongByMenuName(menuName);
+		List<MusicUtils> songUtilMenu=new ArrayList<MusicUtils>();
+		Iterator<Song> iterator = songByMenuName.iterator();
+		while(iterator.hasNext()){
+			Song next = iterator.next();
+			MusicUtils songToMucic = SongUtil.songToMucic(next);
+			songUtilMenu.add(songToMucic);
+		}
+		return songUtilMenu;
 	}
 	
 	//通过歌单名删除歌单
