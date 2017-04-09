@@ -161,7 +161,7 @@ public class SearchPageController implements Controller{
 	private String target = null;
 	
 	private void setCss(){
-		
+		TableView_searchMusicPage.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 		
 		TableColumn_search_ID.getStyleClass().add("tableColumn"); 
 		TableColumn_search_musicTitle.getStyleClass().add("tableColumn"); 

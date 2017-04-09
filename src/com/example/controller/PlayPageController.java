@@ -57,8 +57,11 @@ public class PlayPageController implements Controller{
 	private HBox HBox_totalHBox;//整个页面的Hbox
 	
 	@FXML
-	private HBox HBox_buttonHBox;//左下按钮排版的Hbox
+	private AnchorPane AnchorPane_lyricBottom;//歌词滚动页底部
 	
+	@FXML
+	private HBox HBox_buttonHBox;//左下按钮排版的Hbox
+
 	@FXML
 	private HBox HBox_titleHBox;//音乐标题排版的Hbox
 	

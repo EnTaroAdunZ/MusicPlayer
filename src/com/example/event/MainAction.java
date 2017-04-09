@@ -286,7 +286,9 @@ public class MainAction {
 					nb.setOnAction(nbe -> {
 						musiclist(nb.getText(), date);//FIXME
 					});
-					nb.setContextMenu(tca.getCb().getListContext());
+					nb.setOnMouseClicked(tca);
+					//nb.setContextMenu(tca.getCb().getListContext());
+					//System.out.println(":" + nb.getContextMenu().getOwnerWindow()+":");
 					addlistbtn.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));

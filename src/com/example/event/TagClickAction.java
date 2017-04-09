@@ -23,12 +23,12 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 
 	@Override
 	public void handle(MouseEvent event) {
-		Node target = (Node)event.getTarget();
+		Node source = (Node)event.getSource();
 		ContextMenu cm;
-		if(target instanceof Button) cm = cb.getListContext();
+		if(source instanceof Button) cm = cb.getListContext();
 		else cm = cb.getSongContext();
 		if(event.getButton() == MouseButton.SECONDARY) {
-			cm.show(target, event.getScreenX(), event.getScreenY());
+			cm.show(source, event.getScreenX(), event.getScreenY());
 		}
 		if(event.getButton() == MouseButton.PRIMARY) {
 			int count = event.getClickCount();
@@ -53,6 +53,11 @@ class ContextBox {
 		listContext.getItems().addAll(play_all, new SeparatorMenuItem(), remove_list);
 		songContext.getItems().addAll(play, play_next, path, new SeparatorMenuItem(), remove_song);
 		
+		remove_list.setOnAction(e ->{
+			Button target = (Button)listContext.getOwnerNode();
+			String s = target.getText();
+			System.out.println(s);
+		});
 		play.setOnAction(e ->{
 			//FIXME
 		});

@@ -193,6 +193,7 @@ public class LocalMusicPageController implements Controller{
 	static Dirfilter df = new Dirfilter();
 	
 	private void setCss(){
+		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 		Button_localSearch.getStyleClass().remove(0);
 		
 		Label_localMusic.getStyleClass().add("lightLabel");
