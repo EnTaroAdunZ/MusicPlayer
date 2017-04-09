@@ -54,10 +54,10 @@ public class PlayPageController implements Controller{
 	private AnchorPane AnchorPane_leftPlayPage;//左半部分页面的paneid
 	
 	@FXML
-	private HBox HBox_totalHBox;//整个页面的Hbox
+	private AnchorPane AnchorPane_lyricBottom;//歌词滚动页底部
 	
 	@FXML
-	private AnchorPane AnchorPane_lyricBottom;//歌词滚动页底部
+	private HBox HBox_totalHBox;//整个页面的Hbox
 	
 	@FXML
 	private HBox HBox_buttonHBox;//左下按钮排版的Hbox

@@ -1,4 +1,6 @@
-package com.example.Global; 
+package com.example.Global;
+
+import com.example.gui.MusicUtils;
 
 /** 
 * @author ZTF  
@@ -8,5 +10,6 @@ package com.example.Global;
 */
 public class GlobalVariable {
 	public static String currentMenu="";
+	public static MusicUtils currentSong;
 }
  

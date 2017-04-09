@@ -1,5 +1,7 @@
 package com.example.event;
 
+import com.example.service.SongMenuOperate;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -16,7 +18,7 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 		this.target = target;
 	}
 	*/
-	private ContextBox cb = new ContextBox();
+	private ContextBox cb = new ContextBox();	//右键菜单对象
 	public ContextBox getCb() {
 		return cb;
 	}
@@ -60,7 +62,10 @@ class ContextBox {
 		});
 		play.setOnAction(e ->{
 			//FIXME
+			
 		});
+		
+		
 	}
 
 	public ContextMenu getListContext() {

@@ -204,6 +204,19 @@ public class MainAction {
 			}
 		}
 	}
+
+	public void createMusicList(Button nb, Date createDate) {
+		nb.getStyleClass().remove(0);
+		nb.getStyleClass().add("listButton");
+		String date = df.format(createDate);
+		gui.getLlC().getListView_musicList().getItems().add(nb);
+		nb.setOnAction(nbe -> {
+			musiclist(nb.getText(), date);// FIXME
+		});
+
+		nb.setContextMenu(tca.getCb().getListContext());
+	}
+
 	/*
 	protected void updateValues(TopAndBottomPageController tbc) {
 		MediaPlayer mp = tbc.mp;
