@@ -208,7 +208,7 @@ public class LeftMusicListController implements Controller{
 		if(!list.isEmpty()){
 			for(SongMenu item : list){
 				Button nb = new Button(item.getSongMenuName());
-				ma.createMusicList(nb, new Date());
+				ma.createMusicList(nb, new Date());//FIXME new date先假设
 			}
 		}
 	}

@@ -11,13 +11,6 @@ import javafx.scene.input.MouseEvent;
 
 public class TagClickAction implements EventHandler<MouseEvent>{
 	
-	/*
-	private Node target = null;
-	public TagClickAction(Node target) {
-		super();
-		this.target = target;
-	}
-	*/
 	private ContextBox cb = new ContextBox();	//右键菜单对象
 	public ContextBox getCb() {
 		return cb;
@@ -57,6 +50,7 @@ class ContextBox {
 		
 		remove_list.setOnAction(e ->{
 			Button target = (Button)listContext.getOwnerNode();
+			if(target == null) return;
 			String s = target.getText();
 			System.out.println(s);
 		});

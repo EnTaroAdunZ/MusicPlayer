@@ -9,7 +9,9 @@ import com.example.gui.MusicUtils;
 * @Description:   TODO(用一句话描述该文件做什么)
 */
 public class GlobalVariable {
-	public static String currentMenu="";
+	public static String currentMenu = "";
+	public static String currentSearch = "";
 	public static MusicUtils currentSong;
+	
 }
  

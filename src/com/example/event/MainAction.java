@@ -8,20 +8,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.example.Global.GlobalVariable;
 import com.example.controller.*;
 import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
-import com.example.service.SongMenuOperate;
-import com.example.service.SongOperate;
+import com.example.service.*;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -29,7 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.*;
 import javafx.util.Duration;
-import javafx.stage.Stage;
 
 public class MainAction {
 	static Button addlistbtn;
@@ -68,10 +66,9 @@ public class MainAction {
 	
 	public void search(Button b, TextField tf, ActionEvent e) {//FIXME
 		String key = tf.getText(); 
-		if(pq.getSize() > 0 
-				&& pq.getPage() instanceof Page.SearchPage 
-				&& ((Page.SearchPage)pq.getPage()).getKey().equals(key))
+		if(GlobalVariable.currentSearch == key)
 			return;
+		GlobalVariable.currentSearch = key;
 		ArrayList<MusicUtils> sl = searchsong();
 		//FIXME
 		Page p = giveSearch(key);
@@ -142,8 +139,9 @@ public class MainAction {
 	}
 	
 	public void musiclist(String key, String date) {
-		if(pq.getSize() > 0 && pq.getPage() instanceof Page.MusicListPage ) 
+		if(GlobalVariable.currentMenu == key) 
 			return;
+		GlobalVariable.currentMenu = key;
 		Page p = giveMusicList(key, date);
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
@@ -213,8 +211,7 @@ public class MainAction {
 		nb.setOnAction(nbe -> {
 			musiclist(nb.getText(), date);// FIXME
 		});
-
-		nb.setContextMenu(tca.getCb().getListContext());
+		nb.setOnMouseClicked(tca);
 	}
 
 	/*
@@ -246,6 +243,7 @@ public class MainAction {
         }
     }
 	*/
+	/*
 	private String formatTime(Duration elapsed, Duration duration) {//FIXME
         int intElapsed = (int) Math.floor(elapsed.toSeconds());
         int elapsedHours = intElapsed / (60 * 60);
@@ -283,7 +281,9 @@ public class MainAction {
             }
         }
     }
-
+	*/
+	
+	
 	private class Extension implements EventHandler<ActionEvent>{//FIXME
 		@Override
 		public void handle(ActionEvent event) {
@@ -291,15 +291,7 @@ public class MainAction {
 				try {
 					String key = tf.getText();
 					Button nb = new Button(key);
-					nb.getStyleClass().remove(0);
-					nb.getStyleClass().add("listButton");
-					SongMenuOperate.addSongMenu(key);
-					gui.getLlC().getListView_musicList().getItems().add(nb);
-					String date = df.format(new Date());
-					nb.setOnAction(nbe -> {
-						musiclist(nb.getText(), date);//FIXME
-					});
-					nb.setOnMouseClicked(tca);
+					createMusicList(nb, new Date());
 					//nb.setContextMenu(tca.getCb().getListContext());
 					//System.out.println(":" + nb.getContextMenu().getOwnerWindow()+":");
 					addlistbtn.fire();

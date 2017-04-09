@@ -31,11 +31,11 @@ public class PageQueue{
 		return index.get();
 	}
 	private int pp(IntegerProperty n) {
-		n.set(index.get() + 1);
+		n.set(n.get() + 1);
 		return n.get();
 	}
 	private int ss(IntegerProperty n) {
-		n.set(index.get() - 1);
+		n.set(n.get() - 1);
 		return n.get();
 	}
 	
@@ -63,11 +63,12 @@ public class PageQueue{
 	 *  Adds a new page into the stack
 	 */
 	public void add(Page page) {
-		pagestack.add(index.get() + 1, page);
-		pp(index);size.set(getIndex() + 1); 
-		if(pagestack.size() > 10 && index.get() == 10) {
+		pagestack.add(pp(index), page);
+		size.set(pagestack.size()); 
+		if(pagestack.size() > 10 ) {
 			pagestack.removeFirst();
 			ss(size);
+			ss(index);
 		}
 		save();
 	}
