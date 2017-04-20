@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.example.controller.*;
 import com.example.event.*;
+import com.example.service.PlayOperate;
 
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
@@ -119,12 +120,10 @@ public class GUI extends Application{
         scene.getStylesheets().addAll(cssList);
         
         stage.show();
+        
 
     }
-    
-    public void init() {
-    	
-    }
+
     
     
     public IntegerProperty getSize() {
@@ -160,6 +159,7 @@ public class GUI extends Application{
 	 * @author Tony Yao
 	 */
 	public static void main(String[] args) {  
-        Application.launch(GUI.class, args);  
+
+        Application.launch(GUI.class, args);
     } 
 }

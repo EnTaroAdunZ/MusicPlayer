@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.Global.PlayState;
 import com.example.event.EnterAction;
 import com.example.event.MainAction;
 import com.example.gui.GUI;
@@ -172,12 +173,16 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
+		
+		
 		if(Button_pause.getStyleClass().get(0).equals("buttonPlay")){
 			Button_pause.getStyleClass().remove(0);
 			Button_pause.getStyleClass().add("buttonPause");
+			PlayState.getPlayState().setState_PAUSEMUSIC();
 		}else{
 			Button_pause.getStyleClass().remove(0);
 			Button_pause.getStyleClass().add("buttonPlay");
+			PlayState.getPlayState().setState_PLAYMUSIC();
 		}
 	}
 	

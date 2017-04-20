@@ -21,10 +21,11 @@ import org.jaudiotagger.audio.mp3.MP3File;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.datatype.Artwork;
 import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
 import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
 import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
-import org.jaudiotagger.tag.images.Artwork;
+
 
 import com.example.entity.Tag;
 
@@ -72,7 +73,7 @@ public class TagInfoUtil {
 			   
 			    tag.setLength(length);
 			    return tag;
-			} catch (IOException | TagException | ReadOnlyFileException | CannotReadException
+			} catch (IOException | TagException | ReadOnlyFileException 
 					| InvalidAudioFrameException e) {
 				e.printStackTrace();
 				throw new RuntimeException("获取Mp3 tag信息出错！");
