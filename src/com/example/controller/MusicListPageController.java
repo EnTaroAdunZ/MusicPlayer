@@ -48,6 +48,9 @@ public class MusicListPageController implements ContentController{
 	private Button Button_searchMusic;//“搜索音乐”按钮id
 	
 	@FXML
+	private Button Button_addMusic;//“+”添加音乐按钮id
+	
+	@FXML
 	private TextField TextField_searchListMusic;//“搜索音乐”文本框id
 	
 	@FXML
@@ -184,6 +187,10 @@ public class MusicListPageController implements ContentController{
 		
 	}
 	
+	public void onAddMusic(ActionEvent event){//“添加音乐”按钮方法
+		
+	}
+	
 	private void setCss(){
 		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 				
@@ -200,6 +207,7 @@ public class MusicListPageController implements ContentController{
 		TableColumn_musicTimeLength.getStyleClass().add("tableColumn");
 		
 		Button_PlayAll.getStyleClass().set(0, "lightButton");
+		Button_addMusic.getStyleClass().set(0, "lightButton");
 		Button_searchMusic.getStyleClass().remove(0);
 		
 		TextField_searchListMusic.getStyleClass().add("ListField");

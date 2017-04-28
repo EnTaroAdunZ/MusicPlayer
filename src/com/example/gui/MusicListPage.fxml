@@ -19,9 +19,9 @@
    <children>
       <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="1009.0">
+            <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="992.0">
                <children>
-                  <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="1009.0" style="-: #1b1d20;">
+                  <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="992.0" style="-: #1b1d20;">
                      <children>
                         <HBox prefHeight="333.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -61,12 +61,17 @@
                                                 <Insets top="20.0" />
                                              </HBox.margin>
                                           </Button>
+                                          <Button fx:id="Button_addMusic" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddMusic" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
                                     </HBox>
                                     <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="%createTime" />
                                     <HBox prefHeight="210.0" prefWidth="609.0">
                                        <children>
-                                          <Label fx:id="Label_introduction" prefHeight="18.0" prefWidth="58.0" style="-fx-text-fill: white;" text="简介：">
+                                          <Label fx:id="Label_introduction" prefHeight="24.0" prefWidth="68.0" style="-fx-text-fill: white;" text="简介：">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -100,18 +105,18 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="AnchorPane_bottomPage" prefHeight="309.0" prefWidth="1009.0">
+                  <AnchorPane fx:id="AnchorPane_bottomPage" prefHeight="309.0" prefWidth="992.0">
                      <children>
-                        <HBox fx:id="HBox_MusicList" prefHeight="391.0" prefWidth="1009.0">
+                        <HBox fx:id="HBox_MusicList" prefHeight="391.0" prefWidth="992.0">
                            <children>
-                              <TableView fx:id="TableView_musicTable" prefHeight="391.0" prefWidth="1059.0">
+                              <TableView fx:id="TableView_musicTable" maxWidth="992.0" prefHeight="391.0" prefWidth="992.0">
                                  <columns>
-                                    <TableColumn fx:id="TableColumn_musicID" maxWidth="154.0" minWidth="-1.0" prefWidth="56.0" resizable="false" />
-                                    <TableColumn fx:id="TableColumn_like" maxWidth="154.0" minWidth="-1.0" prefWidth="68.0" resizable="false" style="-fx-text-fill: white;" text="操作" />
-                                    <TableColumn fx:id="TableColumn_musicTitle" prefWidth="432.0" resizable="false" style="-fx-text-fill: white;" text="音乐标题" />
-                                    <TableColumn fx:id="TableColumn_musicSinger" prefWidth="160.0" resizable="false" style="-fx-text-fill: white;" text="歌手" />
-                                    <TableColumn fx:id="TableColumn_albumName" prefWidth="160.0" resizable="false" style="-fx-text-fill: white;" text="专辑" />
-                                    <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="132.0" resizable="false" text="时长" />
+                                    <TableColumn fx:id="TableColumn_musicID" maxWidth="56.0" minWidth="-1.0" prefWidth="60.0" resizable="false" />
+                                    <TableColumn fx:id="TableColumn_like" maxWidth="68.0" minWidth="-1.0" prefWidth="60.0" resizable="false" style="-fx-text-fill: white;" text="操作" />
+                                    <TableColumn fx:id="TableColumn_musicTitle" maxWidth="400.0" prefWidth="400.0" resizable="false" style="-fx-text-fill: white; -fx-text-alignment: left;" text="音乐标题" />
+                                    <TableColumn fx:id="TableColumn_musicSinger" maxWidth="160.0" prefWidth="160.0" resizable="false" style="-fx-text-fill: white;" text="歌手" />
+                                    <TableColumn fx:id="TableColumn_albumName" prefWidth="192.0" resizable="false" style="-fx-text-fill: white;" text="专辑" />
+                                    <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="120.0" resizable="false" text="时长" />
                                  </columns>
                               </TableView>
                            </children>
