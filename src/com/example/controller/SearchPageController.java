@@ -170,6 +170,8 @@ public class SearchPageController implements ContentController{
 		TableColumn_search_singer.setCellValueFactory(new PropertyValueFactory<>("musicSinger"));
 		TableColumn_search_albumName.setCellValueFactory(new PropertyValueFactory<>("albumName"));
 		TableColumn_search_timeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
+		
+		TableColumn_search_ID.setSortable(false);
 	}
 	
 	private String target = null;

@@ -52,6 +52,7 @@ public class GUI extends Application{
     @Override  
     public void start(Stage stage) { 
     	staticStage = stage;
+    	Thread.currentThread().setName("MusicPlayer");
     	//装载fxml与properties来创建主页面
     	index = new SimpleIntegerProperty();
     	size = new SimpleIntegerProperty();

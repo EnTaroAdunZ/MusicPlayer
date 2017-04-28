@@ -16,10 +16,13 @@ import com.example.gui.MusicUtils;
 import com.example.service.*;
 import com.example.util.SongUtil;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.*;
@@ -86,11 +89,11 @@ public class MainAction {
 	}
 	
 	//-----------------------------------------Bottom---------------------
- 	public void last(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
+ 	public void last() {//FIXME
 		
 	}
 	
-	public void play(Button b, TopAndBottomPageController tbc, ActionEvent e) {//FIXME
+	public void play() {//FIXME
 		/*
 		MediaPlayer mp = tbc.mp;
 		boolean atEndOfMedia = tbc.atEndOfMedia;
@@ -121,10 +124,14 @@ public class MainAction {
         }*/
 	}
 	
-	public void next(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
+	public void next() {//FIXME
 		
 	}
 
+	public void pause() {//FIXME
+		
+	}
+	
 	//-----------------------------------------Left-----------------------
 	public void local() {
 		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
@@ -291,10 +298,9 @@ public class MainAction {
 			if(tf.getText().length() > 0) {
 				try {
 					String key = tf.getText();
+					SongMenuOperate.addSongMenu(key);
 					Button nb = new Button(key);
 					createMusicList(nb, new Date());
-					//nb.setContextMenu(tca.getCb().getListContext());
-					//System.out.println(":" + nb.getContextMenu().getOwnerWindow()+":");
 					addlistbtn.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
@@ -421,6 +427,7 @@ public class MainAction {
 	
 	public MainAction(GUI gui) {//FIXME
 		MainAction.gui = gui;
+		tca = new TagClickAction(this, gui.getLlC().getListView_musicList());
 		pq = gui.getPageManager();
 		vb = gui.getLlC().getVBox_leftMainField();
 		i = new SimpleIntegerProperty();
@@ -447,7 +454,7 @@ public class MainAction {
 	public static GUI gui;
 	public static PageQueue pq;
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
-	private TagClickAction tca = new TagClickAction();
+	public TagClickAction tca;
 
 	public static class IndexFactory<S> implements Callback<CellDataFeatures<S, Integer>, ObservableValue<Integer>> {
 		private TableView<S> tv;
@@ -487,6 +494,24 @@ public class MainAction {
 			MusicUtils m = tv.getItems().get(param);
 			ObservableValue<Boolean> ob = new SimpleBooleanProperty(m.isLike());
 			return ob;
+		}
+	}
+	
+	public static class TableCleaner<S> implements ChangeListener<Boolean>{
+		private TableView<S> tv;
+		public TableView<S> getTv() {
+			return tv;
+		}
+
+		public TableCleaner(TableView<S> tv) {
+			super();
+			this.tv = tv;
+		}
+		
+		@Override
+		public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+			if(newValue == false)
+				tv.getSelectionModel().clearSelection();
 		}
 	}
 	

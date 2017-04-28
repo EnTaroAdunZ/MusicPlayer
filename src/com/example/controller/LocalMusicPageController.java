@@ -195,6 +195,8 @@ public class LocalMusicPageController implements ContentController{
 		TableColumn_albumName.setCellValueFactory(new PropertyValueFactory<>("albumName"));
 		TableColumn_musicTimeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
 		TableColumn_musicSize.setCellValueFactory(new PropertyValueFactory<>("musicSize"));
+		
+		TableColumn_musicID.setSortable(false);
 	}
 	private MainAction ma;
 	static Dirfilter df = new Dirfilter();

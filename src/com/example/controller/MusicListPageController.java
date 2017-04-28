@@ -6,6 +6,8 @@ import com.example.controller.Controller.ContentController;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -178,6 +180,10 @@ public class MusicListPageController implements ContentController{
 		TableColumn_like.setCellFactory(CheckBoxTableCell.forTableColumn(new MainAction.likeCheckBox(TableView_musicTable)));
 		
 		TableColumn_like.setEditable(true);TableView_musicTable.setEditable(true);
+		TableColumn_like.setSortable(false);TableColumn_musicID.setSortable(false);
+		
+		TableView_musicTable.setOnMouseClicked(ma.tca);
+		TableView_musicTable.focusedProperty().addListener(new MainAction.TableCleaner<MusicUtils>(TableView_musicTable));
 	}
 	
 	public void onSearchMusic(ActionEvent event){//“查找音乐”按钮id
