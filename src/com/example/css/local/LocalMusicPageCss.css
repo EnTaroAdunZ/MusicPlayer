@@ -14,7 +14,7 @@
 	-fx-background-image: url("Search.png")
 }
 
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
+.list-cell:filled:selected:focused, .list-cell:filled:selected ,.list-cell:filled:hover {
     -fx-background-color: #434446;
     -fx-text-fill: white;
 }
@@ -26,23 +26,105 @@
 .list-cell:even { /* <=== changed to even */
     -fx-background-color: #242529;
 }
+ 
+//所有table的设置
 
-.list-cell:filled:hover {
-    -fx-background-color: #434446;
-    -fx-text-fill: white;
+ .table-view{
+   -fx-background-color: transparent;
 }
 
-.tableColumn > .label {
-  -fx-text-fill: #ffffff;
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+}
+
+.table-view .column-header{
+	-fx-border-color:white;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: #c0c0c0;
 }
 
 .tableColumn{
-	-fx-background-color: #1b1d20;
+	-fx-border-color:null;
 }
 
-.table-view{
-	-fx-background-color: #1b1d20;
+.table-view .column-header {
+    -fx-background-color: transparent;
 }
+
+.table-view .table-cell{
+    -fx-text-fill: #c0c0c0;
+}
+
+.table-row-cell{
+    -fx-background-color: #1b1d20; 
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #242529; 
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */  
+}
+
+.table-row-cell:selected{
+    -fx-background-color: #a6a6a6;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+    -fx-text-fill: white;
+}
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background, 
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+//
+
+.check-box-table-cell {
+    -fx-alignment: center;
+    -fx-padding: 0;
+}
+.check-box-table-cell > .check-box {
+    -fx-font-size: 15;
+    -fx-opacity: 1;
+    -fx-padding: 0 0 0 0;
+}
+.check-box-table-cell > .check-box > .box {
+	-fx-size:20;
+	-fx-background-image: url("LikeDark.png");
+    -fx-background-color: null;
+    -fx-background-insets: 0,0;
+}
+.check-box-table-cell > .check-box:selected > .box > .mark {
+    -fx-background-color: red;
+    -fx-background-insets: 0;
+}
+
+
+
+//以上是table的设置
+
+
+
 
 #AnchorPane_center{
 	-fx-border-color:#42444a

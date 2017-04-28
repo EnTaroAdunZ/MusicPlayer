@@ -35,8 +35,6 @@ public class LeftMusicListController implements Controller{
 	@FXML
 	private VBox VBox_items;//控制各控件纵向排序的id
 	
-	@FXML
-	private ScrollPane ScrollPane_rollArea;//歌单列表滚动区域
 	
 	@FXML
 	private VBox VBox_leftMainField;//左侧区域纵向排序的id
@@ -91,9 +89,6 @@ public class LeftMusicListController implements Controller{
 		return VBox_items;
 	}
 
-	public ScrollPane getScrollPane_rollArea() {
-		return ScrollPane_rollArea;
-	}
 
 	public VBox getVBox_leftMainField() {
 		return VBox_leftMainField;
@@ -207,7 +202,6 @@ public class LeftMusicListController implements Controller{
 		Button_addMusicList.getStyleClass().remove(0);
 		Button_addMusicList.getStyleClass().add("AddList");
 		
-		ScrollPane_rollArea.getStyleClass().add("noborder");
 		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
 		
 	}

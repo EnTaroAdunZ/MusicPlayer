@@ -3,18 +3,6 @@
 	-fx-text-fill: white;
 	-fx-background-color : null;
 }
- .tableColumn > .label {
-  -fx-text-fill: #ffffff;
-}
-
-.tableColumn{
-	-fx-background-color: #1b1d20;
-	-fx-border-color:#ffffff;
-}
-
-.table-view{
-	-fx-background-color: #1b1d20;
-}
 
 .tab {
 	-fx-background-color: #1b1d20;
