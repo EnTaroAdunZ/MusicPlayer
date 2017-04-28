@@ -18,7 +18,7 @@
               <tabs>
                 <Tab fx:id="Tab_singleMusic" text="                  单曲                 ">
                      <content>
-                        <TableView fx:id="TableView_searchMusicPage" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="TableView_musicTable" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="TableColumn_search_ID" prefWidth="60.0" />
                             <TableColumn fx:id="TableColumn_search_musicTitle" prefWidth="450.0" text="音乐标题" />

@@ -9,7 +9,7 @@ package com.example.gui;
  */
 public class MusicUtils {
 	//以下是将用在显示歌曲总表中每一首音乐的主要属性,待继续完善
-	private String ID;
+	private boolean like;
 	private String musicTitle;
 	private String musicSinger;
 	private String albumName;
@@ -17,11 +17,11 @@ public class MusicUtils {
 	private String musicSize;
 	private String path;
 	
-	public String getID() {
-		return ID;
+	public boolean isLike() {
+		return like;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setLike(boolean like) {
+		this.like = like;
 	}
 	public String getMusicTitle() {
 		return musicTitle;

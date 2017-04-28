@@ -1,5 +1,6 @@
 package com.example.Global;
 
+import com.example.controller.Controller;
 import com.example.gui.MusicUtils;
 
 /** 
@@ -12,6 +13,7 @@ public class GlobalVariable {
 	public static String currentMenu = "";
 	public static String currentSearch = "";
 	public static MusicUtils currentSong;
-	
+	public static int PageType = 0;
+	public static Controller.ContentController currentCtrl = null;
 }
  

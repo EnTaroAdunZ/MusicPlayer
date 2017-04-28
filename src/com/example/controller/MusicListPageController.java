@@ -1,8 +1,12 @@
 package com.example.controller;
 
+import java.util.List;
+
+import com.example.controller.Controller.ContentController;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,13 +15,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MusicListPageController implements Controller{
+public class MusicListPageController implements ContentController{
 	@FXML
 	private AnchorPane AnchorPane_MusicListPage;//底层paneid
 	
@@ -58,10 +63,10 @@ public class MusicListPageController implements Controller{
 	private TableView<MusicUtils> TableView_musicTable;//歌表id
 	
 	@FXML
-	private TableColumn<MusicUtils, String> TableColumn_musicID;//id列id
+	private TableColumn<MusicUtils, Integer> TableColumn_musicID;//id列id
 
 	@FXML
-	private TableColumn<MusicUtils, Button> TableColumn_like;//“喜欢”按钮列id
+	private TableColumn<MusicUtils, Boolean> TableColumn_like;//“喜欢”按钮列id
 
 	@FXML
 	private TableColumn<MusicUtils, String> TableColumn_musicTitle;//音乐标题列id
@@ -128,11 +133,11 @@ public class MusicListPageController implements Controller{
 		return TableView_musicTable;
 	}
 
-	public TableColumn<MusicUtils, String> getTableColumn_musicID() {
+	public TableColumn<MusicUtils, Integer> getTableColumn_musicID() {
 		return TableColumn_musicID;
 	}
 
-	public TableColumn<MusicUtils, Button> getTableColumn_like() {
+	public TableColumn<MusicUtils, Boolean> getTableColumn_like() {
 		return TableColumn_like;
 	}
 
@@ -159,11 +164,20 @@ public class MusicListPageController implements Controller{
 		
 	}
 	
-	public void initData(MainAction ma, String name, String date){//初始化方法，待实现
+	public void initData(MainAction ma, String name, String date, List<MusicUtils> list){
 		setCss();
 		this.ma = ma;
 		Label_ListName.setText(name);
 		Label_ListCreateTime.setText(date);
+		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
+		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
+		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
+		TableColumn_musicSinger.setCellValueFactory(new PropertyValueFactory<>("musicSinger"));
+		TableColumn_albumName.setCellValueFactory(new PropertyValueFactory<>("albumName"));
+		TableColumn_musicTimeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
+		TableColumn_like.setCellFactory(CheckBoxTableCell.forTableColumn(new MainAction.likeCheckBox(TableView_musicTable)));
+		
+		TableColumn_like.setEditable(true);TableView_musicTable.setEditable(true);
 	}
 	
 	public void onSearchMusic(ActionEvent event){//“查找音乐”按钮id

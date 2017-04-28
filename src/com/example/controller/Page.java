@@ -1,6 +1,8 @@
 package com.example.controller;
 
 
+import com.example.controller.Controller.ContentController;
+
 import javafx.scene.Parent;
 
 /**
@@ -21,7 +23,7 @@ public class Page{
 	public int getType() {
 		return type;
 	}
-	public void setType(int type) {
+	protected void setType(int type) {
 		this.type = type;
 	}
 
@@ -29,15 +31,25 @@ public class Page{
 	public Parent getPage() {
 		return page;
 	}
-	public void setPage(Parent page) {
+	protected void setPage(Parent page) {
 		this.page = page;
 	}
+
+	private ContentController ctrl;
+	public ContentController getCtrl() {
+		return ctrl;
+	}
+	protected void setCtrl(ContentController ctrl) {
+		this.ctrl = ctrl;
+	}
+
 
 	public class SearchPage extends Page{
 		
 		public SearchPage(SearchPageController controller) {
 			super();
-			this.controller = controller;
+			setCtrl(controller);
+			setType(Controller.SEARCH);
 		}
 		private String key;
 		public String getKey() {
@@ -47,21 +59,14 @@ public class Page{
 			this.key = name;
 		}
 		
-		private SearchPageController controller;
-		public SearchPageController getController() {
-			return controller;
-		}
 	}
 
 	public class LocalPage extends Page{
 		
 		public LocalPage(LocalMusicPageController controller) {
 			super();
-			this.controller = controller;
-		}
-		private LocalMusicPageController controller;
-		public LocalMusicPageController getController() {
-			return controller;
+			setCtrl(controller);
+			setType(Controller.LOCAL);
 		}
 	}
 	
@@ -69,7 +74,9 @@ public class Page{
 		
 		public MusicListPage(MusicListPageController controller) {
 			super();
-			this.controller = controller;
+			setCtrl(controller);
+			setController(controller);
+			setType(Controller.MUSICLIST);
 		}
 		
 		private String key;
@@ -79,22 +86,21 @@ public class Page{
 		public void setKey(String name) {
 			this.key = name;
 		}
-
 		private MusicListPageController controller;
 		public MusicListPageController getController() {
 			return controller;
 		}
+		protected void setController(MusicListPageController controller) {
+			this.controller = controller;
+		}
+		
 	}
 	
 	public class PlayPage extends Page{
 		
 		public PlayPage(PlayPageController controller) {
 			super();
-			this.controller = controller;
-		}
-		private PlayPageController controller;
-		public PlayPageController getController() {
-			return controller;
+			setType(Controller.PLAY);
 		}
 	}
 	
@@ -104,7 +110,10 @@ public class Page{
 	 *	
 	 */
 	public class SettingPage extends Page{
-		
+		public SettingPage() {
+			
+			setType(Controller.SETTING);
+		}
 	}
 
 

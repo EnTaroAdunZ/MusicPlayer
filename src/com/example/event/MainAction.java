@@ -10,16 +10,23 @@ import java.util.ResourceBundle;
 
 import com.example.Global.GlobalVariable;
 import com.example.controller.*;
+import com.example.entity.Song;
 import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
 import com.example.service.*;
+import com.example.util.SongUtil;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -27,7 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.*;
-import javafx.util.Duration;
+import javafx.util.Callback;
 
 public class MainAction {
 	static Button addlistbtn;
@@ -38,6 +45,7 @@ public class MainAction {
 	static VBox vb;//指定left中的竖箱
 	static IntegerProperty i, s;//指定gui中的目录和大小
 	static Button b, f;//指定topandbottom中的后退和前进
+	static Button adds, addd;//指定left中的添加歌曲和添加目录
 	//static ImageView iv;//指定left中的专面
 	
 	//-----------------------------------------Top------------------------
@@ -77,18 +85,6 @@ public class MainAction {
 		show(p);
 	}
 	
-	public static void refresh() {
-		int ii = i.get();
-		int ss = s.get();
-		if (ii > 0)
-			b.setDisable(false);
-		else
-			b.setDisable(true);
-		if (ii < ss - 1)
-			f.setDisable(false);
-		else
-			f.setDisable(true);
-	}
 	//-----------------------------------------Bottom---------------------
  	public void last(Button b, MediaPlayer mp, ActionEvent e) {//FIXME
 		
@@ -171,9 +167,14 @@ public class MainAction {
 				new FileChooser.ExtensionFilter("flac", "*.flac*"),
 				new FileChooser.ExtensionFilter("所有文件", "*.*"));
 		List<File> selectedFile = fileChooser.showOpenMultipleDialog(GUI.staticStage);
+		List<MusicUtils> ml = new ArrayList<>();
 		if(selectedFile != null)
-			for(File file : selectedFile)
-				SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
+			for(File file : selectedFile) {
+				Song s = SongOperate.addSong(file.getAbsolutePath(),GlobalVariable.currentMenu);
+				MusicUtils mu = SongUtil.songToMucic(s);
+				ml.add(mu);
+			}
+		GlobalVariable.currentCtrl.getTableView_musicTable().getItems().addAll(FXCollections.observableArrayList(ml));
 	}
 	
 	public void addLocalDirectory() {
@@ -318,7 +319,9 @@ public class MainAction {
 					ResourceBundle.getBundle("ini"));
 			localmusic = (AnchorPane) lm.load();
 			lmC = lm.getController();
-			lmC.initData(this);
+			List<MusicUtils> list = new ArrayList<MusicUtils>();
+			//FIXME
+			lmC.initData(this,list);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -328,12 +331,13 @@ public class MainAction {
 	private Page giveMusicList(String name, String date) {
 		MusicListPageController mlC = null;
 		AnchorPane musiclist = null;
+		List<MusicUtils> list = SongMenuOperate.getSongsByMenuName(name);
 		try {
 			FXMLLoader ml = new FXMLLoader(GUI.class.getResource("MusicListPage.fxml"),
 					ResourceBundle.getBundle("ini"));
 			musiclist = (AnchorPane) ml.load();
 			mlC = ml.getController();
-			mlC.initData(this, name, date);
+			mlC.initData(this, name, date, list);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -347,7 +351,9 @@ public class MainAction {
 			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
 			searchpage = (AnchorPane) sp.load();
 			spC = sp.getController();
-			spC.initData(this, name);
+			List<MusicUtils> list = new ArrayList<MusicUtils>();
+			//FIXME
+			spC.initData(this, name, list);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -371,19 +377,42 @@ public class MainAction {
 		if(p instanceof Page.PlayPage) {
 			gui.getPermanent().setCenter(gui.getPlaypage());
 			gui.getPermanent().leftProperty().set(null);
-			refresh();
 			return;
 		}
 		if(p instanceof Page.SettingPage) {
 			gui.getPermanent().leftProperty().set(null);
-			refresh();
 			return;
 		}
 		gui.getPermanent().setCenter(p.getPage());
 		gui.getPermanent().leftProperty().set(gui.getLeftlist());
-		refresh();
+		refresh(p);
 	}
 	
+	private static void refresh(Page p) {
+		//back and fore
+		int ii = i.get();
+		int ss = s.get();
+		if (ii > 0)
+			b.setDisable(false);
+		else
+			b.setDisable(true);
+		if (ii < ss - 1)
+			f.setDisable(false);
+		else
+			f.setDisable(true);
+		
+		GlobalVariable.PageType = p.getType();
+		//adds and addd
+		if(GlobalVariable.PageType == Controller.LOCAL ||
+				GlobalVariable.PageType == Controller.MUSICLIST) {
+			adds.setDisable(false);addd.setDisable(false);
+			GlobalVariable.currentCtrl = p.getCtrl();
+		}else {
+			adds.setDisable(true);addd.setDisable(true);
+			GlobalVariable.currentCtrl = null;
+		}
+	}
+
 	public static ArrayList<MusicUtils> searchsong(){//FIXME
 		ArrayList<MusicUtils> sl = new ArrayList<>();
 		
@@ -400,7 +429,11 @@ public class MainAction {
 		s.bind(gui.getSize());
 		b = gui.getTabC().getButton_back();
 		f = gui.getTabC().getButton_forward();
+		adds = gui.getLlC().getButton_addLocalMusic();
+		addd = gui.getLlC().getButton_addLocalDirectory();
 		//iv = gui.getLlC().getImageView_albumCover();
+		
+		adds.setDisable(true);addd.setDisable(true);
 		
 		tf.setPromptText("请输入歌单名称");
 		addlistbtn = gui.getLlC().getButton_addMusicList();
@@ -415,6 +448,47 @@ public class MainAction {
 	public static PageQueue pq;
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
 	private TagClickAction tca = new TagClickAction();
+
+	public static class IndexFactory<S> implements Callback<CellDataFeatures<S, Integer>, ObservableValue<Integer>> {
+		private TableView<S> tv;
+
+		public TableView<S> getTv() {
+			return tv;
+		}
+
+		public IndexFactory(TableView<S> tv) {
+			super();
+			this.tv = tv;
+		}
+
+		@Override
+		public ObservableValue<Integer> call(CellDataFeatures<S, Integer> param) {
+			S value = param.getValue();
+			Integer i = new Integer(tv.getItems().indexOf(value) + 1);
+			ObservableValue<Integer> index = new ReadOnlyObjectWrapper<Integer>(i);
+			return index;
+		}
+	}
+		
+	public static class likeCheckBox implements Callback<Integer,ObservableValue<Boolean>>{
+		
+		private TableView<MusicUtils> tv;
+		
+		public TableView<MusicUtils> getTv() {
+			return tv;
+		}
+
+		public likeCheckBox(TableView<MusicUtils> tv) {
+			this.tv = tv;
+		}
+		
+		@Override
+		public ObservableValue<Boolean> call(Integer param) {
+			MusicUtils m = tv.getItems().get(param);
+			ObservableValue<Boolean> ob = new SimpleBooleanProperty(m.isLike());
+			return ob;
+		}
+	}
 	
 	public GUI getGui() {
 		return gui;

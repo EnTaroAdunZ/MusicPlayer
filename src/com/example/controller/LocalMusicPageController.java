@@ -1,11 +1,13 @@
 package com.example.controller;
 
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.example.controller.Controller.ContentController;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -18,23 +20,21 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 /**
  * 
  * @author Tony Yao
  * 该类是LocalMusicPage.fxml 即程序本地音乐列表里控件的id和常用方法的操作类 
  */
-public class LocalMusicPageController implements Controller{
+public class LocalMusicPageController implements ContentController{
 	//以下是各控件的ID
 	@FXML
 	private AnchorPane AnchorPane_center;//整个页面的pane的id
@@ -76,7 +76,7 @@ public class LocalMusicPageController implements Controller{
 	private TableView<MusicUtils> TableView_musicTable;//显示本地音乐列表的表id
 	
 	@FXML
-	private TableColumn<MusicUtils, String> TableColumn_musicID;//（隐藏）本地音乐的id列
+	private TableColumn<MusicUtils, Integer> TableColumn_musicID;//（隐藏）本地音乐的id列
 	
 	@FXML
 	private TableColumn<MusicUtils, String> TableColumn_musicTitle;//本地音乐的音乐标题列
@@ -143,7 +143,7 @@ public class LocalMusicPageController implements Controller{
 		return TableView_musicTable;
 	}
 
-	public TableColumn<MusicUtils, String> getTableColumn_musicID() {
+	public TableColumn<MusicUtils, Integer> getTableColumn_musicID() {
 		return TableColumn_musicID;
 	}
 
@@ -182,12 +182,19 @@ public class LocalMusicPageController implements Controller{
 		
 	}
 	
-	public void initData(MainAction ma){//初始化数据，待实现
+	public void initData(MainAction ma, List<MusicUtils> list){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
-		ArrayList<String> list = new ArrayList<>();
-		list.add("C:\\");
-		df.init(list);
+		ArrayList<String> dirList = new ArrayList<>();
+		dirList.add("C:\\");
+		df.init(dirList);
+		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
+		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
+		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
+		TableColumn_musicSinger.setCellValueFactory(new PropertyValueFactory<>("musicSinger"));
+		TableColumn_albumName.setCellValueFactory(new PropertyValueFactory<>("albumName"));
+		TableColumn_musicTimeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
+		TableColumn_musicSize.setCellValueFactory(new PropertyValueFactory<>("musicSize"));
 	}
 	private MainAction ma;
 	static Dirfilter df = new Dirfilter();

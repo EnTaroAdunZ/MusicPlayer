@@ -1,8 +1,13 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.controller.Controller.ContentController;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +16,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -18,7 +25,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是fxml文件SearchPage.fxml 的控制类，用于声明各控件的id和方法接口 
  */
-public class SearchPageController implements Controller{
+public class SearchPageController implements ContentController{
 	@FXML
 	private AnchorPane AnchorPane_searchPage;//整个搜索页面的底层pane
 	
@@ -47,10 +54,10 @@ public class SearchPageController implements Controller{
 	private Tab Tab_musicLyrics;//“歌词”标签的id
 	
 	@FXML
-	private TableView<MusicUtils> TableView_searchMusicPage;//单曲栏下的歌表id
+	private TableView<MusicUtils> TableView_musicTable;//单曲栏下的歌表id
 	
 	@FXML
-	private TableColumn<MusicUtils, String> TableColumn_search_ID;//歌表中隐藏的“ID”栏的id
+	private TableColumn<MusicUtils, Integer> TableColumn_search_ID;//歌表中隐藏的“ID”栏的id
 	
 	@FXML
 	private TableColumn<MusicUtils, String> TableColumn_search_musicTitle;//歌表中的“音乐标题”栏的id
@@ -112,11 +119,11 @@ public class SearchPageController implements Controller{
 		return Tab_musicLyrics;
 	}
 
-	public TableView<MusicUtils> getTableView_searchMusicPage() {
-		return TableView_searchMusicPage;
+	public TableView<MusicUtils> getTableView_musicTable() {
+		return TableView_musicTable;
 	}
 
-	public TableColumn<MusicUtils, String> getTableColumn_search_ID() {
+	public TableColumn<MusicUtils, Integer> getTableColumn_search_ID() {
 		return TableColumn_search_ID;
 	}
 
@@ -152,16 +159,23 @@ public class SearchPageController implements Controller{
 		return ListView_lyricsPage;
 	}
 	
-	public void initData(MainAction ma, String name){//初始化数据，待实现
+	public void initData(MainAction ma, String name, List<MusicUtils> list){//初始化数据，待实现
 		this.ma = ma;
 		setCss();
 		target = name;
+		//FIXME
+		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
+		TableColumn_search_ID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
+		TableColumn_search_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
+		TableColumn_search_singer.setCellValueFactory(new PropertyValueFactory<>("musicSinger"));
+		TableColumn_search_albumName.setCellValueFactory(new PropertyValueFactory<>("albumName"));
+		TableColumn_search_timeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
 	}
 	
 	private String target = null;
 	
 	private void setCss(){
-		TableView_searchMusicPage.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
+		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 		
 		TableColumn_search_ID.getStyleClass().add("tableColumn"); 
 		TableColumn_search_musicTitle.getStyleClass().add("tableColumn"); 
