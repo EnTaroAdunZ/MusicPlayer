@@ -4,6 +4,7 @@
 	<song-menu songMenuName="我的最爱">
 		<song id='1'>
 			<path>E://</path>
+			<length></length>
 			<tag>
 				<album>XX专辑</album>
 				<comment>XX评论</comment>

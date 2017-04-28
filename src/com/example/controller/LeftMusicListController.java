@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.entity.SongMenu;
 import com.example.event.MainAction;
 import com.example.event.TagClickAction;
+import com.example.service.PlayOperate;
 import com.example.service.SongMenuOperate;
 
 import javafx.event.ActionEvent;
@@ -175,6 +176,14 @@ public class LeftMusicListController implements Controller{
 		ma.addMusicList(Button_addMusicList, ListView_musicList);
 	}
 	
+	
+    
+    public static void initPlayer() {
+    	System.out.println("进行了初始化");
+    	 PlayOperate.getPlayOperate();
+    	
+    }
+	
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		initSongMenu(ma);
@@ -184,7 +193,7 @@ public class LeftMusicListController implements Controller{
 			MainAction.pq.add(pp);
 			MainAction.show(pp);
 		});
-		
+//		initPlayer();
 	}
 	
 	private void setCss(){
