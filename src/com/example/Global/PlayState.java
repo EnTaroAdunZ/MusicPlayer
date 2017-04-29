@@ -108,44 +108,44 @@ public class PlayState{
 	}
 
 	//设置暂停
-	public static void setState_PAUSEMUSIC() {
+	public  void setState_PAUSEMUSIC() {
 		playState.current_state =GlobalVariable.PAUSEMUSIC;
 		ObserverManage.getObserver().setMessage(playState);
 	}
 	
 	//设置播放
-	public static void setState_PLAYMUSIC() {
+	public  void setState_PLAYMUSIC() {
 		playState.current_state =GlobalVariable.PLAYMUSIC;
 		ObserverManage.getObserver().setMessage(playState);
 	}
 	
 	//设置上一首
-	public static void setState_PREMUSIC() {
+	public  void setState_PREMUSIC() {
 		playState.current_state =GlobalVariable.PREMUSIC;
 	}
 	
 	//设置下一首
-	public static void setState_NEXTMUSIC() {
+	public  void setState_NEXTMUSIC() {
 		playState.current_state =GlobalVariable.NEXTMUSIC;
 	}
 	
 	//设置列表循环
-	public static void setPlAYMODE_LISTLOOP() {
+	public  void setPlAYMODE_LISTLOOP() {
 		playState.current_mode =GlobalVariable.PlAYMODE_LISTLOOP;
 	}
 	
 	//设置单曲循环
-	public static void setPlAYMODE_SINGLELOOP() {
+	public  void setPlAYMODE_SINGLELOOP() {
 		playState.current_mode =GlobalVariable.PlAYMODE_SINGLELOOP;
 	}
 	
 	//设置循环播放
-	public static void setPlAYMODE_SEQUENCEPLAY() {
+	public  void setPlAYMODE_SEQUENCEPLAY() {
 		playState.current_mode =GlobalVariable.PlAYMODE_SEQUENCEPLAY;
 	}
 	
 	//设置循环播放
-	public static void setPlAYMODE_RAMDOMPLAY() {
+	public  void setPlAYMODE_RAMDOMPLAY() {
 		playState.current_mode =GlobalVariable.PlAYMODE_RAMDOMPLAY;
 	}
 	
