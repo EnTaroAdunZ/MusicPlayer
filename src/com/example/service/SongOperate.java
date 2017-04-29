@@ -32,6 +32,9 @@ public class SongOperate {
 		return songDao.getSongByName(songName, menuName);
 	}
 	
+	public static void deleteSong(String menuName,String songName){
+		songDao.deleteSong(menuName, songName);
+	}
 	
 	//添加一个song，并返回实体
 	public static Song addSong(String path,String menuName){

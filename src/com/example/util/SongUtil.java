@@ -57,8 +57,8 @@ public class SongUtil {
 		MusicUtils musicUtils=new MusicUtils();
 		musicUtils.setAlbumName(song.getTag().getAlbum());
 		musicUtils.setMusicSinger(song.getTag().getArtist());
-		musicUtils.setMusicSize(song.getTag().getLength());
-		musicUtils.setMusicTimeLength(song.getLength());
+		musicUtils.setMusicSize(song.getLength());
+		musicUtils.setMusicTimeLength(song.getTag().getLength());
 		musicUtils.setMusicTitle(song.getTag().getSongName());
 		musicUtils.setPath(song.getPath());
 		return musicUtils;

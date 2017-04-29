@@ -15,23 +15,53 @@ import com.example.service.SongMenuOperate;
 * @Description:   播放状态
 */
 public class PlayState{
-	
+	//只有播放状态是不可以设置的
 	private  static PlayState playState;
-	private  List<MusicUtils> current_songMenu;
-	private  MusicUtils current_song;
+	private  List<MusicUtils> current_songMenu;//当前选择的歌单
+	private  MusicUtils current_song;//当前的歌曲
 	private  int current_state;//当前播放状态
-	private  int current_mode;
-	private int current_volume;
-	private int progress = 0;// 当前播放进度
+	private  int current_mode;//当前播放模式
+	private int current_volume;//当前音量
+	private double progress = 0;// 当前播放进度
+
 	
 	
-	
-	public int getProgress() {
+	public List<MusicUtils> getCurrent_songMenu() {
+		return current_songMenu;
+	}
+
+
+	public void setCurrent_songMenu(List<MusicUtils> current_songMenu) {
+		this.current_songMenu = current_songMenu;
+	}
+
+
+	public void setCurrent_song(MusicUtils current_song) {
+		this.current_song = current_song;
+	}
+
+
+	public void setCurrent_state(int current_state) {
+		this.current_state = current_state;
+	}
+
+
+	public void setCurrent_mode(int current_mode) {
+		this.current_mode = current_mode;
+	}
+
+
+	public void setCurrent_volume(int current_volume) {
+		this.current_volume = current_volume;
+	}
+
+
+	public double getProgress() {
 		return progress;
 	}
 
 
-	public void setProgress(int progress) {
+	public void setProgress(double progress) {
 		this.progress = progress;
 	}
 

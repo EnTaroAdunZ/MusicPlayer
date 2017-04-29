@@ -3,31 +3,26 @@ package com.example.util;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
 
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.flac.FlacFileReader;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.KeyNotFoundException;
-import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.datatype.Artwork;
-import org.jaudiotagger.tag.id3.AbstractID3v2Frame;
-import org.jaudiotagger.tag.id3.AbstractID3v2Tag;
-import org.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
-
-
 import com.example.entity.Tag;
+
+import myorg.jaudiotagger.audio.AudioFile;
+import myorg.jaudiotagger.audio.exceptions.CannotReadException;
+import myorg.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import myorg.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import myorg.jaudiotagger.audio.flac.FlacFileReader;
+import myorg.jaudiotagger.audio.mp3.MP3File;
+import myorg.jaudiotagger.tag.FieldKey;
+import myorg.jaudiotagger.tag.TagException;
+import myorg.jaudiotagger.tag.id3.AbstractID3v2Frame;
+import myorg.jaudiotagger.tag.id3.AbstractID3v2Tag;
+import myorg.jaudiotagger.tag.id3.framebody.FrameBodyAPIC;
+import myorg.jaudiotagger.tag.images.Artwork;
 
 /** 
 * @date 2017年3月16日 下午11:47:16 
@@ -74,11 +69,11 @@ public class TagInfoUtil {
 			    tag.setLength(length);
 			    return tag;
 			} catch (IOException | TagException | ReadOnlyFileException 
-					| InvalidAudioFrameException e) {
+					| InvalidAudioFrameException | CannotReadException e) {
 				e.printStackTrace();
 				throw new RuntimeException("获取Mp3 tag信息出错！");
 				
-			}
+			} 
 
 //		    System.out.println("歌名"+songName);  
 //		    System.out.println("歌手"+singer);  
@@ -116,7 +111,7 @@ public class TagInfoUtil {
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
 			AudioFile read = fileReader.read(new File(path));
-			org.jaudiotagger.tag.Tag tag = read.getTag();
+			myorg.jaudiotagger.tag.Tag tag = read.getTag();
 			String songName = tag.getFirst(FieldKey.TITLE);
 			String artist = tag.getFirst(FieldKey.ARTIST);
 			String album=tag.getFirst(FieldKey.ALBUM);
@@ -143,7 +138,7 @@ public class TagInfoUtil {
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
 			AudioFile read = fileReader.read(new File(flacpath));
-			org.jaudiotagger.tag.Tag tag = read.getTag();
+			myorg.jaudiotagger.tag.Tag tag = read.getTag();
 			Artwork firstArtwork = tag.getFirstArtwork();
 			byte[] imageData = firstArtwork.getBinaryData();
 			Image image=Toolkit.getDefaultToolkit().createImage(imageData, 0,imageData.length);

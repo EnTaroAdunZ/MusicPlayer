@@ -2,10 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="lib/JPlayer-lib.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="lib/musique/alacdecoder-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/musique/cuelib-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/musique/discogs-0.1.jar"/>
@@ -18,7 +14,11 @@
 	<classpathentry kind="lib" path="lib/musique/tta-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/musique/vorbis-java-1.0.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/musique/wavpack-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="lib/JPlayer-lib.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="lib/musique/jaudiotagger-2.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/jaudiotagger-2.2.6-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="lib/myJa.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
