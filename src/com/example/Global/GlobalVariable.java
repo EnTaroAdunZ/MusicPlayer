@@ -46,6 +46,5 @@ public class GlobalVariable {
 	public static final int SERVICEERRORMUSIC = (i++); // 服务播放歌曲错误操作
 	
 	
-	
 }
  
