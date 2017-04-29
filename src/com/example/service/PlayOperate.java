@@ -123,12 +123,12 @@ public class PlayOperate implements Observer{
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		MusicUtils musicUtils=new MusicUtils();
-//		musicUtils.setPath("D:\\的\\南征北战 - 亮晶晶.flac");
-//		playOperate=new PlayOperate();
-//		playOperate.playInfoMusic(musicUtils);
-//	}
-//	
+	public static void main(String[] args) {
+		MusicUtils musicUtils=new MusicUtils();
+		musicUtils.setPath("D:\\CloudMusic\\AKB48 - 恋するフォーチュンクッキー.flac");
+		playOperate=new PlayOperate();
+		playOperate.playInfoMusic(musicUtils);
+	}
+	
 }
  

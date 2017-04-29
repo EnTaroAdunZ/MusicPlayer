@@ -25,9 +25,11 @@ public class SongDaoImpl implements SongDao{
 	
 
 	@Override
-	public void deleteSong(String songPath) {
-		// TODO Auto-generated method stub
-		
+	public void deleteSong(String menuName,String songPath) {
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']/song[path='" + songPath + "']");
+		element.getParent().remove(element);
+		XMLUtil.writeDoc(document);
 	}
 
 	@Override
@@ -99,6 +101,9 @@ public class SongDaoImpl implements SongDao{
 	}
 
 
-	
+	public static void main(String[] args) {
+		SongDaoImpl songDaoImpl=new SongDaoImpl();
+		songDaoImpl.deleteSong("我的最爱","D:\\CloudMusic\\10cm,大橋トリオ - Fine Thank You And You.mp3");
+	}
 }
  

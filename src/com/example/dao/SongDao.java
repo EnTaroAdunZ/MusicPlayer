@@ -18,7 +18,7 @@ public interface SongDao {
 	List<Song> getSongList(String songSheet);
 	List<Song> getSongByName(String songName,String menuName);
 	Song getSongByArtist();
-	void deleteSong(String songPath);
+	void deleteSong(String songPath,String songMenu);
 	void deleteSongWithFile(String songPath);
 	void changeSong(Song song);
 }
