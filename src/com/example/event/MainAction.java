@@ -96,7 +96,7 @@ public class MainAction {
 	}
 	
 	public void play() {
-		int s = PlayState.getState();
+		int s = PlayState.getPlayState().getCurrent_state();
 		if(s == PAUSEMUSIC) {
 			ps.setState_PLAYMUSIC();
 		}
@@ -575,6 +575,8 @@ public class MainAction {
 	}
 	
 	public GUI getGui() {
+		//初始化播放服務d
+		PlayOperate.getPlayOperate();
 		return gui;
 	}
 	

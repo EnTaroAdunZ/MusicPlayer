@@ -174,7 +174,7 @@ public class LeftMusicListController implements Controller{
 	
     
     public static void initPlayer() {
-    	System.out.println("进行了初始化");
+    	 System.out.println("进行了初始化");
     	 PlayOperate.getPlayOperate();
     	
     }

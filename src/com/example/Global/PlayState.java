@@ -103,19 +103,21 @@ public class PlayState{
 	
 
 	//返回播放状态
-	public static int getState() {
+	public int getState() {
 		return playState.current_state;
 	}
 
 	//设置暂停
 	public  void setState_PAUSEMUSIC() {
 		playState.current_state =GlobalVariable.PAUSEMUSIC;
-		ObserverManage.getObserver().setMessage(playState);
+		System.out.println("設置暫停");
+ObserverManage.getObserver().setMessage(playState);
 	}
 	
 	//设置播放
 	public  void setState_PLAYMUSIC() {
 		playState.current_state =GlobalVariable.PLAYMUSIC;
+		System.out.println("設置播放");
 		ObserverManage.getObserver().setMessage(playState);
 	}
 	
@@ -148,7 +150,11 @@ public class PlayState{
 	public  void setPlAYMODE_RAMDOMPLAY() {
 		playState.current_mode =GlobalVariable.PlAYMODE_RAMDOMPLAY;
 	}
-	
+	//退出播放器
+	public  void setEXITMUSIC() {
+		System.out.println("播放器已经退出！");
+		playState.current_mode =GlobalVariable.EXITMUSIC;
+	}
 	
 }
  
