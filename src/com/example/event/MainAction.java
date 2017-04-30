@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.example.Global.GlobalVariable;
+import com.example.Global.PlayState;
 import com.example.controller.*;
+import com.example.controller.Page.SearchPage;
 import com.example.entity.Song;
 import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
 import com.example.service.*;
 import com.example.util.SongUtil;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -27,29 +27,30 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.*;
 import javafx.util.Callback;
 
+import static com.example.Global.GlobalVariable.*;
+
 public class MainAction {
-	static Button addlistbtn;
 	static TextField tf = new TextField();//扩展输入栏
 	static Button btn = new Button();//扩展添加按钮
 	static HBox hb = new HBox();//扩展横箱
 	
-	static VBox vb;//指定left中的竖箱
-	static IntegerProperty i, s;//指定gui中的目录和大小
-	static Button b, f;//指定topandbottom中的后退和前进
+	static Button addl;//指定left中的添加歌单
 	static Button adds, addd;//指定left中的添加歌曲和添加目录
 	//static ImageView iv;//指定left中的专面
+	static VBox vb;//指定left中的竖箱
+	static ListView<Button> ml;//指定left中的列表
+	static IntegerProperty i, s;//指定gui中的目录和大小
+	static Button b, f;//指定topandbottom中的后退和前进
+	static Button pb,lb,nb;//指定topandbottom中的播放,上一首和下一首
 	
 	//-----------------------------------------Top------------------------
  	public void back() {
@@ -77,10 +78,7 @@ public class MainAction {
 	
 	public void search(Button b, TextField tf, ActionEvent e) {//FIXME
 		String key = tf.getText(); 
-		if(GlobalVariable.currentSearch == key)
-			return;
-		GlobalVariable.currentSearch = key;
-		ArrayList<MusicUtils> sl = searchsong();
+		ArrayList<MusicUtils> sl = searchsong(key);
 		//FIXME
 		Page p = giveSearch(key);
 		((Page.SearchPage)p).setKey(key);
@@ -89,47 +87,64 @@ public class MainAction {
 	}
 	
 	//-----------------------------------------Bottom---------------------
- 	public void last() {//FIXME
-		
+ 	public void last() throws InterruptedException {
+		play();
+		Thread.sleep(100);
+		ps.setState_PREMUSIC();
+		Thread.sleep(100);
+		play();		
 	}
 	
-	public void play() {//FIXME
-		/*
-		MediaPlayer mp = tbc.mp;
-		boolean atEndOfMedia = tbc.atEndOfMedia;
-		
-		updateValues(tbc);
-		Status status = mp.getStatus();
-
-        if (status == Status.UNKNOWN
-                || status == Status.HALTED) {
-            System.out.println("Player is in a bad or unknown state, can't play.");
-            return;
-        }
-
-        if (status == Status.PAUSED
-                || status == Status.READY
-                || status == Status.STOPPED) {
-            // rewind the movie if we're sitting at the end
-            if (atEndOfMedia) {
-                mp.seek(mp.getStartTime());
-                atEndOfMedia = false;
-                b.setText(">");
-                updateValues(tbc);
-            }
-            mp.play();
-            b.setText("||");
-        } else {
-            mp.pause();
-        }*/
+	public void play() {
+		int s = PlayState.getState();
+		if(s == PAUSEMUSIC) {
+			ps.setState_PLAYMUSIC();
+		}
+		else if(s == PLAYMUSIC) {
+			ps.setState_PAUSEMUSIC();
+		}
+		refresh(s);
 	}
 	
-	public void next() {//FIXME
-		
+	public void next() throws InterruptedException {
+		play();
+		Thread.sleep(100);
+		ps.setState_NEXTMUSIC();
+		Thread.sleep(100);
+		play();
 	}
-
-	public void pause() {//FIXME
-		
+	
+	public void modiProgress(double progress) {
+		ps.setProgress(progress);
+	}
+	
+	public void modiVolume(double volume) {
+		int v = Math.round((float)volume);
+		ps.setCurrent_volume(v);
+	}
+	
+	public void modeSwitch(Button b) {
+		String mode = b.getStyleClass().get(0);
+		b.getStyleClass().remove(0);
+		switch (mode) {
+		case "buttonRepeatInOne":
+			b.getStyleClass().add("buttonRepeat");	
+			ps.setPlAYMODE_LISTLOOP();
+			break;
+		case "buttonRepeat":
+			b.getStyleClass().add("buttonOrderPlay");
+			ps.setPlAYMODE_SEQUENCEPLAY();
+			break;
+		case "buttonOrderPlay":
+			b.getStyleClass().add("buttonRandomPlay");
+			ps.setPlAYMODE_RAMDOMPLAY();
+			break;
+		case "buttonRandomPlay":
+			b.getStyleClass().add("buttonRepeatInOne");
+			ps.setPlAYMODE_SINGLELOOP();
+			break;
+		default:	break;
+		}
 	}
 	
 	//-----------------------------------------Left-----------------------
@@ -141,10 +156,15 @@ public class MainAction {
 		show(p);
 	}
 	
-	public void musiclist(String key, String date) {
+	public void musiclist(String key) {
 		if(GlobalVariable.currentMenu == key) 
 			return;
 		GlobalVariable.currentMenu = key;
+//		SongMenu sm = SongMenu.findSongmenuByName(key);
+//		String name = sm.getName();FIXME
+//		Date d = sm.getCreateDate();
+//		
+		String date = df.format(new Date());//FIXME
 		Page p = giveMusicList(key, date);
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
@@ -182,6 +202,8 @@ public class MainAction {
 				ml.add(mu);
 			}
 		GlobalVariable.currentCtrl.getTableView_musicTable().getItems().addAll(FXCollections.observableArrayList(ml));
+		for(MusicUtils m : ml)
+			System.out.println(m.getMusicTitle());
 	}
 	
 	public void addLocalDirectory() {
@@ -211,13 +233,12 @@ public class MainAction {
 		}
 	}
 
-	public void createMusicList(Button nb, Date createDate) {
+	public void createMusicList(Button nb) {
 		nb.getStyleClass().remove(0);
 		nb.getStyleClass().add("listButton");
-		String date = df.format(createDate);
-		gui.getLlC().getListView_musicList().getItems().add(nb);
+		ml.getItems().add(nb);
 		nb.setOnAction(nbe -> {
-			musiclist(nb.getText(), date);// FIXME
+			musiclist(nb.getText());// FIXME
 		});
 		nb.setOnMouseClicked(tca);
 	}
@@ -298,10 +319,10 @@ public class MainAction {
 			if(tf.getText().length() > 0) {
 				try {
 					String key = tf.getText();
-					SongMenuOperate.addSongMenu(key);
+					SongMenuOperate.addSongMenu(key/*, new Date()*/);
 					Button nb = new Button(key);
-					createMusicList(nb, new Date());
-					addlistbtn.fire();
+					createMusicList(nb);
+					addl.fire();
 				} catch (RuntimeException e2) {
 			        Alert _alert = new Alert(Alert.AlertType.ERROR,e2.getMessage(),new ButtonType("返回", ButtonBar.ButtonData.YES));
 			        _alert.show();
@@ -326,7 +347,7 @@ public class MainAction {
 			localmusic = (AnchorPane) lm.load();
 			lmC = lm.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
-			//FIXME
+			//FIXME 读入
 			lmC.initData(this,list);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -358,7 +379,7 @@ public class MainAction {
 			searchpage = (AnchorPane) sp.load();
 			spC = sp.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
-			//FIXME
+			//FIXME 搜索
 			spC.initData(this, name, list);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -407,6 +428,7 @@ public class MainAction {
 		else
 			f.setDisable(true);
 		
+		if(p == null) return;
 		GlobalVariable.PageType = p.getType();
 		//adds and addd
 		if(GlobalVariable.PageType == Controller.LOCAL ||
@@ -417,33 +439,64 @@ public class MainAction {
 			adds.setDisable(true);addd.setDisable(true);
 			GlobalVariable.currentCtrl = null;
 		}
+		if(p instanceof SearchPage) {
+			String key =((SearchPage)p).getKey();
+			if(GlobalVariable.currentSearch == key)
+				return;
+			GlobalVariable.currentSearch = key;
+		}
+	}
+	
+	private static void refresh(int s) {
+		//pb and lb and nb
+		if(s == PLAYMUSIC){
+			pb.getStyleClass().remove(0);
+			pb.getStyleClass().add("buttonPause");
+		}
+		if(s == PAUSEMUSIC){
+			pb.getStyleClass().remove(0);
+			pb.getStyleClass().add("buttonPlay");
+		}
+		List<MusicUtils> l = ps.getCurrent_songMenu();
+		if(l == null || l.size() == 0) 
+			buttonDis(true, pb, lb, nb);
+		else 
+			buttonDis(false, pb, lb, nb);
 	}
 
-	public static ArrayList<MusicUtils> searchsong(){//FIXME
+	public static ArrayList<MusicUtils> searchsong(String key){//FIXME
 		ArrayList<MusicUtils> sl = new ArrayList<>();
 		
 		return sl;
 	}
 	
-	public MainAction(GUI gui) {//FIXME
+	public MainAction(GUI gui) {
 		MainAction.gui = gui;
 		tca = new TagClickAction(this, gui.getLlC().getListView_musicList());
 		pq = gui.getPageManager();
-		vb = gui.getLlC().getVBox_leftMainField();
+		ps = PlayState.getPlayState();
+		ps.setPlAYMODE_SEQUENCEPLAY();
+		//--------main---------
 		i = new SimpleIntegerProperty();
 		s = new SimpleIntegerProperty();
 		i.bind(gui.getIndex());
 		s.bind(gui.getSize());
 		b = gui.getTabC().getButton_back();
 		f = gui.getTabC().getButton_forward();
+		pb = gui.getTabC().getButton_pause();
+		lb = gui.getTabC().getButton_last();
+		nb = gui.getTabC().getButton_next();
+		//--------left---------
 		adds = gui.getLlC().getButton_addLocalMusic();
 		addd = gui.getLlC().getButton_addLocalDirectory();
+		addl = gui.getLlC().getButton_addMusicList();
+		vb = gui.getLlC().getVBox_leftMainField();	
+		ml = gui.getLlC().getListView_musicList();
 		//iv = gui.getLlC().getImageView_albumCover();
 		
-		adds.setDisable(true);addd.setDisable(true);
+		buttonDis(true, adds, addd, pb, lb, nb);
 		
 		tf.setPromptText("请输入歌单名称");
-		addlistbtn = gui.getLlC().getButton_addMusicList();
 		hb.getChildren().addAll(tf, btn);
 		btn.getStyleClass().remove(0); btn.getStyleClass().add("AddList");
 		tf.getStyleClass().add("ListField");
@@ -453,9 +506,15 @@ public class MainAction {
 	}
 	public static GUI gui;
 	public static PageQueue pq;
+	public static PlayState ps;
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
 	public TagClickAction tca;
 
+	public static void buttonDis(boolean r, Button... bl) {
+		for(Button b : bl) 
+			b.setDisable(r);
+	}
+	
 	public static class IndexFactory<S> implements Callback<CellDataFeatures<S, Integer>, ObservableValue<Integer>> {
 		private TableView<S> tv;
 

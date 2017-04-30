@@ -91,11 +91,11 @@ public class PlayState{
 			playState=new PlayState();
 			//初始化
 			playState.current_state=GlobalVariable.PAUSEMUSIC;
-			playState.current_mode=GlobalVariable.PlAYMODE_SINGLELOOP;
+			playState.current_mode=GlobalVariable.PlAYMODE_LISTLOOP;
 			
 			//测试用初始化
-			playState.current_songMenu=SongMenuOperate.getSongsByMenuName("我的最爱");
-			playState.current_song=playState.current_songMenu.get(0);
+//			playState.current_songMenu=SongMenuOperate.getSongsByMenuName("我的最爱");
+//			playState.current_song=playState.current_songMenu.get(0);
 			
 		}
 		return playState.playState;

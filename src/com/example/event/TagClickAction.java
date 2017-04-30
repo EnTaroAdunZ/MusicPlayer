@@ -1,13 +1,13 @@
 package com.example.event;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.example.Global.GlobalVariable;
 import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -40,28 +40,41 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 		return listVessel;
 	}
 
-	@SuppressWarnings("rawtypes")
+	private List<MusicUtils> ml;
+	
 	@Override
 	public void handle(MouseEvent event) {
 		Node source = (Node)event.getSource();
+		double x = event.getScreenX(), y = event.getScreenY();
 		ContextMenu cm;
 		if(source instanceof Button) cm = cb.getListContext();
 		else cm = cb.getSongContext();
 		if(event.getButton() == MouseButton.SECONDARY) {
-			cm.show(source, event.getScreenX(), event.getScreenY());
-			if(cm == cb.getSongContext() &&
-					cm.getOwnerNode() instanceof TableView &&
-					((TableView)cm.getOwnerNode()).getSelectionModel().getSelectedItems().isEmpty()) {
+			cm.show(source, x, y);
+			if(checkEmpty(cm, source, x, y)) 
 				cm.hide();
-			}
+			
 		}
 		if(event.getButton() == MouseButton.PRIMARY) {
 			cm.hide();
 			int count = event.getClickCount();
 			if(count == 2) {
-				//TODO
+				cm.show(source, x, y);
+				cm.hide();
+				if(!checkEmpty(cm, source, x, y)) {
+					ContextBox.play.fire();		
+				}
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean checkEmpty(ContextMenu cm, Node source, double x, double y) {
+		if(cm == cb.getSongContext() && cm.getOwnerNode() instanceof TableView ) {
+			ml = ((TableView<MusicUtils>)cm.getOwnerNode()).getSelectionModel().getSelectedItems(); 
+			return ml.isEmpty();
+		}
+		return false;
 	}
 	
 }
@@ -79,8 +92,8 @@ class ContextBox {
 	public static MenuItem remove_song = new MenuItem("\u79fb\u9664\u6b4c\u66f2");
 	public static MenuItem remove_list = new MenuItem("\u79fb\u9664\u6b4c\u5355");
 	
-	@SuppressWarnings({ "rawtypes" })
-	public ContextBox(TagClickAction action) {//FIXME
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ContextBox(TagClickAction action) {
 		this.action = action;
 		
 		listContext.getItems().addAll(play_all, new SeparatorMenuItem(), remove_list);
@@ -90,13 +103,24 @@ class ContextBox {
 		});
 		
 		play_all.setOnAction(e ->{
-			//FIXME
+			String menuName = ((Button)listContext.getOwnerNode()).getText();
+			List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(menuName);
+			MainAction.ps.setCurrent_songMenu(l);
+			MainAction.ps.setCurrent_song(l.get(0));
+			action.getMa().play();
 		});
 		play.setOnAction(e ->{
-			//FIXME
+			List<MusicUtils> l = ml;
+			MainAction.ps.setCurrent_songMenu(l);
+			MainAction.ps.setCurrent_song(l.get(0));
+			action.getMa().play();
+			System.out.println(MainAction.ps.getCurrent_song().getMusicTitle());
 		});
 		play_next.setOnAction(e ->{
-			//FIXME
+			List<MusicUtils> l = ml;
+			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
+			int i = cl.indexOf(MainAction.ps.getCurrent_song());
+			cl.addAll(i+1, l);			
 		});
 		remove_list.setOnAction(e ->{
 			Button target = (Button)listContext.getOwnerNode();
@@ -107,14 +131,10 @@ class ContextBox {
 		remove_song.setOnAction(e ->{
 			TableView target = (TableView)songContext.getOwnerNode();
 			if(target == null) return;
+			target.getItems().removeAll(ml);
 			for(MusicUtils m : ml) {
-				
-				//FIXME SongOperate.
+				SongOperate.deleteSong(GlobalVariable.currentMenu, m.getMusicTitle());
 			}
-		});
-		play.setOnAction(e ->{
-			//FIXME
-			
 		});
 		path.setOnAction(e ->{
 			String p = ml.get(0).getPath();
@@ -139,8 +159,10 @@ class ContextBox {
 			i.setOnAction(ie ->{
 				for(MusicUtils m : ml) {
 					String p = m.getPath();
+					System.out.println(p);
 					String n = b.getText();
-					SongOperate.addSong(p, n);
+					System.out.println(n);
+					//SongOperate.addSong(p, n);
 				}
 			});
 			add.getItems().add(i);

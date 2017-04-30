@@ -168,44 +168,28 @@ public class TopAndBottomPageController implements Controller{
 
 	@FXML
 	private void onButtonLast(ActionEvent event){//按钮“上一首”的响应方法
-		
+		try {
+			ma.last();
+		} catch (InterruptedException e) {
+		}
 	}
 	
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
-		
-		
-		if(Button_pause.getStyleClass().get(0).equals("buttonPlay")){
-			Button_pause.getStyleClass().remove(0);
-			Button_pause.getStyleClass().add("buttonPause");
-			PlayState.getPlayState().setState_PAUSEMUSIC();
-		}else{
-			Button_pause.getStyleClass().remove(0);
-			Button_pause.getStyleClass().add("buttonPlay");
-			PlayState.getPlayState().setState_PLAYMUSIC();
-		}
+		ma.play();		
 	}
 	
 	@FXML
 	private void onButtonNext(ActionEvent event){//按钮“下一首”的响应方法
-		
+		try {
+			ma.next();
+		} catch (InterruptedException e) {
+		}
 	}
 	
 	@FXML
 	private void onButtonModeSwitch(ActionEvent event){//按钮“Switch”的响应方法
-		String mode = Button_modeSwitch.getStyleClass().get(0);
-		Button_modeSwitch.getStyleClass().remove(0);
-		switch (mode) {
-		case "buttonRepeatInOne":
-			Button_modeSwitch.getStyleClass().add("buttonRepeat");	break;
-		case "buttonRepeat":
-			Button_modeSwitch.getStyleClass().add("buttonOrderPlay");		break;
-		case "buttonOrderPlay":
-			Button_modeSwitch.getStyleClass().add("buttonRandomPlay");		break;
-		case "buttonRandomPlay":
-			Button_modeSwitch.getStyleClass().add("buttonRepeatInOne");		break;
-		default:	break;
-		}
+		ma.modeSwitch(Button_modeSwitch);
 	}
 	
 	@FXML
@@ -242,6 +226,16 @@ public class TopAndBottomPageController implements Controller{
 		setCss();
 		this.ma = ma;
 		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
+		Slider_songProgress.valueProperty().addListener((o, ov, nv)->{
+			double d = (double)nv;
+			ma.modiProgress(d);
+//			System.out.println(d);
+		});
+		Slider_volumn.valueProperty().addListener((o, ov, nv)->{
+			int i = Math.round((float)(double)nv);
+			ma.modiProgress(i);
+//			System.out.println(i);
+		});
 	}
 	
 	private void setCss(){
@@ -258,7 +252,7 @@ public class TopAndBottomPageController implements Controller{
 		Button_close.getStyleClass().remove(0);
 		
 		Button_modeSwitch.getStyleClass().remove(0);
-		Button_modeSwitch.getStyleClass().add("buttonRepeatInOne");
+		Button_modeSwitch.getStyleClass().add("buttonOrderPlay");
 		
 		Label_FXName.getStyleClass().add("lightLabel");
 		Label_currentTime.getStyleClass().add("lightLabel");
