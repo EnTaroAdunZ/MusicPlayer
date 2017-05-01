@@ -176,7 +176,7 @@ public class PlayOperate implements Observer {
 				mediaPlayer.addListener(new PlayerListener() {
 					@Override
 					public void onEvent(PlayerEvent e) {
-						if (PlayState.getPlayState().isBeginPlay())
+						if (PlayState.getPlayState().isBeginPlay()){
 							if (e.getEventCode() == PlayerEventCode.STOPPED) {
 								int playIndex = PlayState.getPlayState().getCurrent_index();
 //								System.out.println("现在的播放序列号" + playIndex);
@@ -185,6 +185,8 @@ public class PlayOperate implements Observer {
 								nextMusic();
 //								System.out.println("下一首" + PlayState.getPlayState().getCurrent_index());
 							}
+						}
+
 					}
 				});
 				initVolume();
@@ -285,7 +287,7 @@ public class PlayOperate implements Observer {
 		PlayState.getPlayState().setBeginPlay(false);
 		try {
 			if (mediaPlayer != null) {
-				mediaPlayer.stop();
+				mediaPlayer.pause();
 				mediaPlayer = null;
 
 			}
