@@ -24,12 +24,23 @@ public class PlayState {
 	private int current_state;// 当前播放状态
 	private int current_mode;// 当前播放模式
 	private int current_volume;// 当前音量
-	private double progress = 0;// 当前播放进度：百分比
+	private double progress = 0;// 当前播放进度：百分比、用于响应设置
 	private long progress_long=0;// 当前播放进度：毫秒
 	private int current_op;
 	private int current_index;//当前索引号
 	private boolean isBeginPlay;
+	private double progress_show=0;//反馈给界面的进度百分比
 	
+	
+	
+	public double getProgress_show() {
+		return progress_show;
+	}
+
+	public void setProgress_show(double progress_show) {
+		this.progress_show = progress_show;
+	}
+
 	public boolean isBeginPlay() {
 		return isBeginPlay;
 	}

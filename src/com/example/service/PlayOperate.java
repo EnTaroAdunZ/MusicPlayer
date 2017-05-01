@@ -224,6 +224,7 @@ public class PlayOperate implements Observer {
 							double cur_progress = (double) progress / (double) totalLen;
 							System.out.println(cur_progress);
 							// 下面更新UI
+							PlayState.getPlayState().setProgress_show(cur_progress);
 						}
 					}
 
@@ -296,6 +297,7 @@ public class PlayOperate implements Observer {
 		}
 		PlayState.getPlayState().setCurProgress(0);
 		PlayState.getPlayState().setProgress_long(0);
+		PlayState.getPlayState().setProgress_show(0);
 		baseCurrentMillis = 0;
 	}
 
