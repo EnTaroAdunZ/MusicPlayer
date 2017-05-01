@@ -29,17 +29,10 @@ public class PlayState {
 	private int current_op;
 	private int current_index;//当前索引号
 	private boolean isBeginPlay;
-	private double progress_show=0;//反馈给界面的进度百分比
 	
 	
 	
-	public double getProgress_show() {
-		return progress_show;
-	}
-
-	public void setProgress_show(double progress_show) {
-		this.progress_show = progress_show;
-	}
+	
 
 	public boolean isBeginPlay() {
 		return isBeginPlay;
