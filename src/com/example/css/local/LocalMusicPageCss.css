@@ -30,11 +30,11 @@
 //所有table的设置
 
  .table-view{
-   -fx-background-color: transparent;
+   -fx-background-color: #1b1d20;
 }
 
 .table-view:focused{
-    -fx-background-color: transparent;
+    -fx-background-color: #1b1d20;
 }
 
 .table-view .column-header-background{
@@ -65,13 +65,13 @@
 .table-row-cell{
     -fx-background-color: #1b1d20; 
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em; /* 0 */
+    -fx-padding: 0.0em; 
 }
 
 .table-row-cell:odd{
     -fx-background-color: #242529; 
     -fx-background-insets: 0, 0 0 1 0;
-    -fx-padding: 0.0em; /* 0 */  
+    -fx-padding: 0.0em; 
 }
 
 .table-row-cell:selected{
@@ -97,26 +97,32 @@
     -fx-opacity: 0;
 }
 
-//
-
 .check-box-table-cell {
     -fx-alignment: center;
     -fx-padding: 0;
 }
 .check-box-table-cell > .check-box {
-    -fx-font-size: 15;
     -fx-opacity: 1;
     -fx-padding: 0 0 0 0;
 }
 .check-box-table-cell > .check-box > .box {
-	-fx-size:20;
-	-fx-background-image: url("LikeDark.png");
-    -fx-background-color: null;
-    -fx-background-insets: 0,0;
+	-fx-pref-height: 19;
+	-fx-pref-width: 19;
+    -fx-background-color: #bfbfbf;
+    -fx-background-insets: 0, 0 0 0 0;
+    -fx-shape: "m240.75349,246.24733c-19.67957,-16.53836 -26.71553,-26.99994 -26.77217,-39.80664c-0.05231,-11.67738 8.633,-22.94395 17.6339,-22.88075c4.49556,0.03326 14.13744,4.33099 17.5517,7.82373c1.72049,1.75967 2.53487,1.5867 6.36438,-1.35718c10.42403,-8.00502 20.6032,-8.173 27.19536,-0.4474c10.53561,12.34599 8.6178,27.09033 -5.51373,42.38446c-7.51349,8.12979 -23.92108,22.55653 -25.65549,22.55653c-0.5284,0 -5.39021,-3.72223 -10.80394,-8.27275l0,0z";
 }
+
+.check-box-table-cell > .check-box:selected > .box {
+    -fx-background-color: null;
+}
+
 .check-box-table-cell > .check-box:selected > .box > .mark {
+	-fx-min-height: 19;
+	-fx-min-width: 19;
     -fx-background-color: red;
-    -fx-background-insets: 0;
+    -fx-background-insets: 0, 1 0 0 0;
+    -fx-shape: "m308.50922,243.51909c-30.9054,-26.30971 -41.95804,-42.95123 -42.05154,-63.32677c-0.07797,-18.57214 13.5625,-36.50041 27.70175,-36.39917c7.05408,0.05774 22.19885,6.89209 27.56296,12.44633c2.70462,2.79889 3.98291,2.52402 9.99246,-2.15517c16.37622,-12.73573 32.36386,-13.00334 42.71512,-0.7159c16.54074,19.64244 13.53146,43.09985 -8.65979,67.42815c-11.80194,12.93759 -37.57077,35.88528 -40.29871,35.88528c-0.82617,0 -8.4584,-5.92317 -16.96225,-13.16277l0,0z";
 }
 
 
