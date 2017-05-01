@@ -60,5 +60,17 @@ public class MusicUtils {
 		this.path = path;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		MusicUtils other=(MusicUtils)obj;
+		return this.getPath().equals(other.getPath());
+	}
+	@Override
+	public String toString() {
+		return "MusicUtils [like=" + like + ", musicTitle=" + musicTitle + ", musicSinger=" + musicSinger
+				+ ", albumName=" + albumName + ", musicTimeLength=" + musicTimeLength + ", musicSize=" + musicSize
+				+ ", path=" + path + "]";
+	}
+	
 	
 }

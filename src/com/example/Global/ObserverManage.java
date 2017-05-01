@@ -14,13 +14,13 @@ public class ObserverManage extends Observable{
 	public static ObserverManage getObserver() {
 		if (myObserverManage == null) {
 			myObserverManage = new ObserverManage();
-			System.out.println("ObserverManage被创建了");
+//			System.out.println("ObserverManage被创建了");
 		}
 		return myObserverManage;
 	}
 	
 	public void setMessage(Object data) {
-		System.out.println("myObserverManage被设置了");
+//		System.out.println("myObserverManage被设置了");
 		myObserverManage.setChanged();
 		myObserverManage.notifyObservers(data);
 	}

@@ -14,7 +14,6 @@ public interface SongMenuDao {
 	void addSongMenu(String songMenuName); 
 	void deleteSongMenu(String songMenuName); 
 	void alterSongMenu(String new_songMenuName,String old_songMenuName);
-	List<SongMenu> getSongMenu();
 	List<SongMenu> getAllSongMenu();
 	List<Song> getSongByMenuName(String menuName);
 }

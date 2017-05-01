@@ -38,11 +38,6 @@ public class SongMenuOperate {
 		return songMenuDao.getAllSongMenu();
 	}
 	
-	//得到歌单名
-	public static List<SongMenu> getSongMenu(){
-		return songMenuDao.getSongMenu();
-	}
-	
 	//通过歌单名得到歌单下的歌
 	public static List<MusicUtils> getSongsByMenuName(String menuName){
 		List<Song> songByMenuName = songMenuDao.getSongByMenuName(menuName);

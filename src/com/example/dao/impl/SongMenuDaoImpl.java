@@ -68,21 +68,6 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		return songMenus;
 	}
 
-	//只得到歌名
-	@Override
-	public List<SongMenu> getSongMenu() {
-		Document document = XMLUtil.getDoc();
-		List<Element> elements=document.getRootElement().elements();
-		List<SongMenu> songMenuList=new ArrayList<SongMenu>();
-        if(elements!=null){
-            for(Element e:elements){
-            	SongMenu songMenu=new SongMenu();
-            	songMenu.setSongMenuName(e.attributeValue("songMenuName"));
-            	songMenuList.add(songMenu);
-            }
-        }
-		return songMenuList;
-	}
 
 	@Override
 	public List<Song> getSongByMenuName(String menuName) {

@@ -86,7 +86,7 @@ public class TagInfoUtil {
 			String url = mp3path;  
 			    File sourceFile = new File(url);  
 			    MP3File mp3file = new MP3File(sourceFile);  
-			      
+			
 			    AbstractID3v2Tag tag = mp3file.getID3v2Tag();  
 			    AbstractID3v2Frame frame = (AbstractID3v2Frame) tag.getFrame("APIC");  
 			    FrameBodyAPIC body = (FrameBodyAPIC) frame.getBody();  
@@ -123,6 +123,7 @@ public class TagInfoUtil {
 			tag2.setSongName(songName.trim());
 			tag2.setArtist(artist.trim());
 			tag2.setAlbum(album.trim());
+			tag2.setLength(length);
 			return tag2;
 //			System.out.println(songName);
 //			System.out.println(artist);
