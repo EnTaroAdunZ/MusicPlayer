@@ -1,6 +1,7 @@
 package com.example.event;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.Global.GlobalVariable;
@@ -8,7 +9,6 @@ import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -62,7 +62,9 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 				cm.show(source, x, y);
 				cm.hide();
 				if(!checkEmpty(cm, source, x, y)) {
-					ContextBox.play.fire();		
+					ContextBox.play.fire();
+					if(MainAction.ps.getCurrent_state() == GlobalVariable.PAUSEMUSIC)
+						ContextBox.play.fire();		
 				}
 			}
 		}
@@ -81,12 +83,14 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 
 class ContextBox {
 	private TagClickAction action;
-	private ObservableList<MusicUtils> ml = FXCollections.observableArrayList();
+	private List<MusicUtils> ml;
+	private int mli;
 	private ContextMenu listContext = new ContextMenu();
 	private ContextMenu songContext = new ContextMenu();
 	public static Menu add = new Menu("\u6dfb\u52a0\u5230\u6b4c\u5355");
-	public static MenuItem play = new MenuItem("\u64ad\u653e");
 	public static MenuItem play_all = new MenuItem("\u5168\u90e8\u64ad\u653e");
+	public static MenuItem play_all_next = new MenuItem("\u7a0d\u540e\u64ad\u653e");
+	public static MenuItem play = new MenuItem("\u64ad\u653e");
 	public static MenuItem play_next = new MenuItem("\u4e0b\u4e00\u9996\u64ad\u653e");
 	public static MenuItem path = new MenuItem("\u6253\u5f00\u6587\u4ef6\u76ee\u5f55");
 	public static MenuItem remove_song = new MenuItem("\u79fb\u9664\u6b4c\u66f2");
@@ -96,31 +100,35 @@ class ContextBox {
 	public ContextBox(TagClickAction action) {
 		this.action = action;
 		
-		listContext.getItems().addAll(play_all, new SeparatorMenuItem(), remove_list);
+		listContext.getItems().addAll(play_all, play_all_next, new SeparatorMenuItem(), remove_list);
 		songContext.getItems().addAll(play, play_next, new SeparatorMenuItem(), add, path, new SeparatorMenuItem(), remove_song);
+		listContext.setOnShowing(e ->{
+			refreshMenuL();
+		});
 		songContext.setOnShowing(e ->{
-			refreshMenu();
+			refreshMenuS();
 		});
 		
 		play_all.setOnAction(e ->{
-			String menuName = ((Button)listContext.getOwnerNode()).getText();
-			List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(menuName);
-			MainAction.ps.setCurrent_songMenu(l);
-			MainAction.ps.setCurrent_song(l.get(0));
+			MainAction.ps.setCurrent_songMenu(ml);
+			MainAction.ps.setCurrent_song(ml.get(0));
 			action.getMa().play();
 		});
-		play.setOnAction(e ->{
-			List<MusicUtils> l = ml;
-			MainAction.ps.setCurrent_songMenu(l);
-			MainAction.ps.setCurrent_song(l.get(0));
-			action.getMa().play();
-			System.out.println(MainAction.ps.getCurrent_song().getMusicTitle());
-		});
-		play_next.setOnAction(e ->{
-			List<MusicUtils> l = ml;
+		play_all_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
 			int i = cl.indexOf(MainAction.ps.getCurrent_song());
-			cl.addAll(i+1, l);			
+			cl.addAll(i+1, ml);			
+		});
+		play.setOnAction(e ->{
+			MainAction.ps.setCurrent_songMenu(SongMenuOperate.getSongsByMenuName(GlobalVariable.currentMenu));
+			MainAction.ps.setCurrent_song(ml.get(mli));
+			action.getMa().play();
+//			System.out.println(MainAction.ps.getCurrent_song().getMusicTitle());
+		});
+		play_next.setOnAction(e ->{
+			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
+			int i = cl.indexOf(MainAction.ps.getCurrent_song());
+			cl.addAll(i+1, ml);			
 		});
 		remove_list.setOnAction(e ->{
 			Button target = (Button)listContext.getOwnerNode();
@@ -149,20 +157,29 @@ class ContextBox {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void refreshMenu() {
+	private void refreshMenuS() {
 		ObservableList<Button> bl = action.getListVessel().getItems();
-		ml.setAll(((TableView<MusicUtils>)songContext.getOwnerNode()).getSelectionModel().getSelectedItems());
+		TableView<MusicUtils> tv = (TableView<MusicUtils>)songContext.getOwnerNode();
+		ObservableList<MusicUtils> l0 = tv.getSelectionModel().getSelectedItems();
+//		System.out.println("l0daxiao:"+l0.size());
+//		System.out.println("quanju dangqiangedan:"+GlobalVariable.currentMenu);
+		mli = l0.indexOf(l0.get(0));//FIXME
+//		System.out.println("ge:" + l0.get(mli));
+//		System.out.println("mli:"+mli);
+		List<MusicUtils> l1 = new ArrayList<>();
+		for(MusicUtils m : l0) 
+			l1.add(m);
+		ml = l1;
 		add.getItems().clear();
 		for(Button b : bl) {
-			String text = b.getText();
-			MenuItem i = new MenuItem(text);
+			String n = b.getText();
+			MenuItem i = new MenuItem(n);
 			i.setOnAction(ie ->{
 				for(MusicUtils m : ml) {
 					String p = m.getPath();
-					System.out.println(p);
-					String n = b.getText();
-					System.out.println(n);
-					//SongOperate.addSong(p, n);
+//					System.out.println(p);
+//					System.out.println(n);
+					SongOperate.addSong(p, n);
 				}
 			});
 			add.getItems().add(i);
@@ -174,6 +191,18 @@ class ContextBox {
 		}
 	}
 	
+	private void refreshMenuL() {
+		String menuName = ((Button)listContext.getOwnerNode()).getText();
+		List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(menuName);
+		ml = l;
+	}
+	
+	void setMli(int index) {
+		mli = index;
+	}
+	void setMl(List<MusicUtils> ml) {
+		this.ml = ml;
+	}
 	public ContextMenu getListContext() {
 		return listContext;
 	}	

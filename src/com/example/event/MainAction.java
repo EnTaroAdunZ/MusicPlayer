@@ -103,6 +103,7 @@ public class MainAction {
 		else if(s == PLAYMUSIC) {
 			ps.setState_PAUSEMUSIC();
 		}
+//		System.out.println(SongMenuOperate.getSongsByMenuName(currentMenu).size());
 		refresh(s);
 	}
 	
@@ -449,11 +450,11 @@ public class MainAction {
 	
 	private static void refresh(int s) {
 		//pb and lb and nb
-		if(s == PLAYMUSIC){
+		if(s == PAUSEMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPause");
 		}
-		if(s == PAUSEMUSIC){
+		if(s == PLAYMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPlay");
 		}

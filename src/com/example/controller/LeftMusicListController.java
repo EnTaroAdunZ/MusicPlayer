@@ -174,7 +174,7 @@ public class LeftMusicListController implements Controller{
 	
     
     public static void initPlayer() {
-    	 System.out.println("进行了初始化");
+//    	 System.out.println("进行了初始化");
     	 PlayOperate.getPlayOperate();
     	
     }
@@ -207,7 +207,7 @@ public class LeftMusicListController implements Controller{
 	}
 	
 	private void initSongMenu(MainAction ma){	//调用歌单接口在初始化时加载所有本地歌单
-		List<SongMenu> list = SongMenuOperate.getSongMenu();
+		List<SongMenu> list = SongMenuOperate.getAllSongMenu();
 		if(!list.isEmpty()){
 			for(SongMenu item : list){
 				Button nb = new Button(item.getSongMenuName());

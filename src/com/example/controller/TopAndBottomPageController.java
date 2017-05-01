@@ -227,14 +227,16 @@ public class TopAndBottomPageController implements Controller{
 		this.ma = ma;
 		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
 		Slider_songProgress.valueProperty().addListener((o, ov, nv)->{
-			double d = (double)nv;
-			ma.modiProgress(d);
-//			System.out.println(d);
+			double d = Slider_songProgress.getValue();
+			if(d!=progressOldValue){
+				ma.modiProgress(d);
+			}
+			
+			progressOldValue=d;
 		});
 		Slider_volumn.valueProperty().addListener((o, ov, nv)->{
 			int i = Math.round((float)(double)nv);
-			ma.modiProgress(i);
-//			System.out.println(i);
+			ma.modiVolume(i);
 		});
 	}
 	
@@ -261,5 +263,6 @@ public class TopAndBottomPageController implements Controller{
 	}
 	
 	private MainAction ma;
+	private double progressOldValue;
 }
 
