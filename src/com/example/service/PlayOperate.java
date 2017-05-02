@@ -1,7 +1,6 @@
 package com.example.service;
 
 import java.io.File;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -10,7 +9,6 @@ import java.util.UUID;
 import com.example.Global.GlobalVariable;
 import com.example.Global.ObserverManage;
 import com.example.Global.PlayState;
-import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 import com.tulskiy.musique.audio.AudioFileReader;
 import com.tulskiy.musique.audio.player.Player;
@@ -152,6 +150,7 @@ public class PlayOperate implements Observer {
 				double currentMS = currPro * totalLen / 100;
 				long progress = Math.round(currentMS);
 				baseCurrentMillis = progress;
+				System.out.println(baseCurrentMillis);
 				mediaPlayer = null;
 			}
 		} catch (Exception e) {
@@ -224,6 +223,7 @@ public class PlayOperate implements Observer {
 								e.printStackTrace();
 							}
 							// 这里完成进度条的更新
+							if(PlayState.getPlayState().getCurrent_op() == GlobalVariable.SEEKTOMUSIC)
 							if (id==PlayOperate.getPlayOperate().getOverThread()&&mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
 								String length = mediaPlayer.getTrack().getTrackData().getLength();
 								double currentMS = mediaPlayer.getCurrentMillis();
@@ -231,7 +231,6 @@ public class PlayOperate implements Observer {
 								String[] split = length.split(":");
 								long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
 								double cur_progress = (double) progress / (double) totalLen;
-								System.out.println(cur_progress);
 								updateValue(cur_progress);
 						
 							}
