@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.example.Global.PlayState;
 import com.example.controller.*;
 import com.example.event.*;
 
@@ -23,17 +24,19 @@ import javafx.stage.StageStyle;
 public class GUI extends Application{
 	public static Stage staticStage;
 	public static GUI gui; 
-	
+
 	private PageQueue pageManager = new PageQueue();
 	private IntegerProperty index; 
 	private IntegerProperty size;
 	
 	private BorderPane permanent;
 	private AnchorPane leftlist;
+	private AnchorPane playlist;
 	private StackPane playpage;
 	
 	private TopAndBottomPageController tabC = null;
 	private LeftMusicListController llC = null;
+	private PlayListPageController plC = null;
 	private PlayPageController ppC = null;
 	
 	private double xOffset = 0;  
@@ -68,6 +71,11 @@ public class GUI extends Application{
 			leftlist = (AnchorPane) ll.load();
 			llC = ll.getController();
 			
+			FXMLLoader pl = new FXMLLoader(getClass().getResource("PlayListPage.fxml"),
+					ResourceBundle.getBundle("ini"));
+			playlist = (AnchorPane) pl.load();
+			plC = pl.getController();
+						
 			FXMLLoader pp = new FXMLLoader(getClass().getResource("PlayPage.fxml"),
 					ResourceBundle.getBundle("ini"));
 			playpage = (StackPane) pp.load();
@@ -77,8 +85,10 @@ public class GUI extends Application{
 			pageManager.bind(index, size);
 			tabC.getButton_back().setDisable(true);
 			tabC.getButton_forward().setDisable(true);
+			playpage.getChildren().add(playlist);
+			playlist.setVisible(false);
 			
-			MainAction ma = new MainAction(this);
+			MainAction ma = new MainAction(this);	
 			tabC.initData(ma);
 			llC.initData(ma);
 			ppC.initData(ma);
@@ -139,6 +149,9 @@ public class GUI extends Application{
 	public LeftMusicListController getLlC() {
 		return llC;
 	}
+	public PlayListPageController getPlC() {
+		return plC;
+	}
 	public PlayPageController getPpC() {
 		return ppC;
 	}
@@ -156,6 +169,9 @@ public class GUI extends Application{
 	}
 	public StackPane getPlaypage() {
 		return playpage;
+	}
+	public AnchorPane getPlaylist() {
+		return playlist;
 	}
 
 	/**

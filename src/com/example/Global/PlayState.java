@@ -165,7 +165,7 @@ public class PlayState {
 		if (playState == null) {
 			playState = new PlayState();
 			// 初始化
-			playState.current_state = GlobalVariable.PAUSEMUSIC;
+			playState.current_state = GlobalVariable.PAUSINGMUSIC;
 			playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
 			playState.current_op=GlobalVariable.HASDONOTHING;
 			playState.current_volume=0;
@@ -185,14 +185,14 @@ public class PlayState {
 
 	// 在播放与暂停切换
 	public void setState_PAUSEMUSIC() {
-		playState.current_state = GlobalVariable.PAUSEMUSIC;
+		playState.current_state = GlobalVariable.SERVICE_PAUSEMUSIC;
 		System.out.println("設置暫停");
 		ObserverManage.getObserver().setMessage(playState);
 	}
 
 	// 从某首歌开始播放
 	public void setState_PLAYMUSIC() {
-		playState.current_state = GlobalVariable.PLAYMUSIC;
+		playState.current_state = GlobalVariable.SERVICE_PLAYMUSIC;
 		System.out.println("开始播放");
 		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
 		playState.setCurrent_index(indexOf);

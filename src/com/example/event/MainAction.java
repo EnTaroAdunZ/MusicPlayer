@@ -27,7 +27,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -80,47 +79,29 @@ public class MainAction {
 	
 	//-----------------------------------------Bottom---------------------
  	public void last() throws InterruptedException {
-		play();
 		Thread.sleep(100);
 		ps.setState_PREMUSIC();
-		Thread.sleep(100);
-		play();		
-	}
-	
-	public void play() {
-		int s = PlayState.getPlayState().getCurrent_state();
-		ps.setState_PLAYMUSIC();
-		progressFeedBack(0);
-//		if(s == PLAYMUSIC) {
-//			ps.setState_PLAYMUSIC();
-//		}
-//		else if(s == PAUSEMUSIC) {
-//			ps.setState_PAUSEMUSIC();
-//		}
-//		System.out.println(SongMenuOperate.getSongsByMenuName(currentMenu).size());
-		refresh(s);
+		Thread.sleep(100);	
 	}
 	
 	public void pause() {
 		int s = PlayState.getPlayState().getCurrent_state();
-		if(s == GlobalVariable.PAUSINGMUSIC) {
+		System.out.println(s+"+"+PAUSINGMUSIC);
+		if(s == PAUSINGMUSIC) {
 			System.out.println("播放");
 			ps.setState_PLAYMUSIC();
 		}
-		else if(s == GlobalVariable.PLAYINFOMUSIC) {
+		else if(s == PLAYINGMUSIC) {
 			System.out.println("暂停");
 			ps.setState_PAUSEMUSIC();
 		}
-//		System.out.println(SongMenuOperate.getSongsByMenuName(currentMenu).size());
 		refresh(s);
 	}
 	
 	public void next() throws InterruptedException {
-		play();
 		Thread.sleep(100);
 		ps.setState_NEXTMUSIC();
 		Thread.sleep(100);
-		play();
 	}
 	
 	public void modiProgress(double progress) {
@@ -231,9 +212,8 @@ public class MainAction {
 				MusicUtils mu = SongUtil.songToMucic(s);
 				ml.add(mu);
 			}
-		GlobalVariable.currentCtrl.getTableView_musicTable().getItems().addAll(FXCollections.observableArrayList(ml));
-		for(MusicUtils m : ml)
-			System.out.println(m.getMusicTitle());
+		TableView<MusicUtils> tv = GlobalVariable.currentCtrl.getTableView_musicTable();
+		tv.getItems().addAll(FXCollections.observableArrayList(ml));
 	}
 	
 	public void addLocalDirectory() {
@@ -298,16 +278,23 @@ public class MainAction {
 			show(null);
 	}
 	
-	//-----------------------------------------List------------------------
-		public void playAll() {
-			tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
-			ContextBox.play_all.fire();
-		}
-		
-		public void playAllNext() {
-			tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
-			ContextBox.play_all_next.fire();
-		}
+	// -----------------------------------------List------------------------
+	public void playAll() {
+		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+		ContextBox.play_all.fire();
+	}
+
+	public void playAllNext() {
+		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+		ContextBox.play_all_next.fire();
+	}
+
+	// -----------------------------------------PlayList---------------------
+	public void playList() {
+		listOn = !listOn;
+		gui.getPlaylist().setVisible(listOn);
+	}
+
 	//-----------------------------------------Item------------------------
 	private Page giveLocal() {
 		LocalMusicPageController lmC = null;
@@ -316,6 +303,7 @@ public class MainAction {
 			FXMLLoader lm = new FXMLLoader(GUI.class.getResource("LocalMusicPage.fxml"),
 					ResourceBundle.getBundle("ini"));
 			localmusic = (StackPane) lm.load();
+			localmusic.getChildren().add(gui.getPlaylist());
 			lmC = lm.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
 			//FIXME 读入
@@ -334,6 +322,7 @@ public class MainAction {
 			FXMLLoader ml = new FXMLLoader(GUI.class.getResource("MusicListPage.fxml"),
 					ResourceBundle.getBundle("ini"));
 			musiclist = (StackPane) ml.load();
+			musiclist.getChildren().add(gui.getPlaylist());
 			mlC = ml.getController();
 			mlC.initData(this, name, date, list);
 		} catch (IOException e) {
@@ -348,6 +337,7 @@ public class MainAction {
 		try {
 			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
 			searchpage = (StackPane) sp.load();
+			searchpage.getChildren().add(gui.getPlaylist());
 			spC = sp.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
 			//FIXME 搜索
@@ -426,13 +416,13 @@ public class MainAction {
 		
 	private static void refresh(int s) {
 		//pb and lb and nb
-		if(s == PLAYMUSIC){
-			pb.getStyleClass().remove(0);
-			pb.getStyleClass().add("buttonPause");
-		}
-		if(s == PAUSEMUSIC){
+		if(s == PLAYINGMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPlay");
+		}
+		if(s == PAUSINGMUSIC){
+			pb.getStyleClass().remove(0);
+			pb.getStyleClass().add("buttonPause");
 		}
 		List<MusicUtils> l = ps.getCurrent_songMenu();
 		if(l == null || l.size() == 0) 
@@ -481,7 +471,8 @@ public class MainAction {
 		//iv = gui.getLlC().getImageView_albumCover();
 		
 		buttonDis(true, adds, addd, pb, lb, nb);
-		
+
+		pb.getStyleClass().set(0, "buttonPlay");		
 		tf.setPromptText("请输入歌单名称");
 		hb.getChildren().addAll(tf, btn);
 		btn.getStyleClass().remove(0); btn.getStyleClass().add("AddList");
@@ -499,8 +490,8 @@ public class MainAction {
 	public static PageQueue pq;
 	public static PlayState ps;
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
-	public TagClickAction tca;	
-	private static Task<Double> task;
+	public TagClickAction tca;
+	private boolean listOn = false;
 	
 	static TextField tf = new TextField();//扩展输入栏
 	static Button btn = new Button();//扩展添加按钮

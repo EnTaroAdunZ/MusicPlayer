@@ -1,13 +1,10 @@
 package com.example.controller;
 
-import com.example.Global.PlayState;
 import com.example.event.EnterAction;
 import com.example.event.MainAction;
 import com.example.gui.GUI;
 
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -226,7 +223,7 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonPlayList(ActionEvent event){//右下角按钮“播放列表”的响应方法
-		
+		ma.playList();
 	}
 	
 	@FXML

@@ -25,10 +25,10 @@ public class GlobalVariable {
 	
 	//与播放线程有关的操作
 	public static final int PREMUSIC = (i++); // 上一首歌曲操作
-	public static final int PLAYMUSIC = (i++); // 播放歌曲操作
-	public static final int PLAYINFOMUSIC = (i++); // 反馈播放按钮
-	public static final int PAUSINGMUSIC = (i++); //  反馈暂停按钮
-	public static final int PAUSEMUSIC = (i++); // 暂停歌曲操作
+	public static final int SERVICE_PLAYMUSIC = (i++); // 用户操作：点击播放
+	public static final int SERVICE_PAUSEMUSIC = (i++); //  用户操作：切换播放、暂停状态
+	public static final int PLAYINGMUSIC = (i++); // 目前状态：正在播放
+	public static final int PAUSINGMUSIC = (i++); //  目前状态：正在暂停
 	public static final int STOPMUSIC = (i++); // 结束歌曲操作
 	public static final int NEXTMUSIC = (i++); // 下一首歌曲操作
 	public static final int EXITMUSIC = (i++); // 退出播放器

@@ -92,12 +92,12 @@ public class PlayOperate implements Observer {
 				seekToWhenPause();
 				PlayState.getPlayState().setCurrent_op(GlobalVariable.HASDONOTHING);
 			}
-			if (PlayState.getPlayState().getState() == GlobalVariable.PLAYMUSIC) {
+			if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PLAYMUSIC) {
 				// System.out.println("开始播放");
 				pauseMusic();
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
-				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINFOMUSIC);
-			} else if (PlayState.getPlayState().getState() == GlobalVariable.PAUSEMUSIC) {
+				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
+			} else if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PAUSEMUSIC) {
 				// System.out.println("暂停播放");
 				pauseMusic();
 				PlayState.getPlayState().setCurrent_state(GlobalVariable.PAUSINGMUSIC);
@@ -107,14 +107,14 @@ public class PlayOperate implements Observer {
 				alterNextMusic();
 				System.out.println(PlayState.getPlayState().getCurrent_song().getPath() + ":"
 						+ PlayState.getPlayState().getCurrent_index());
-				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINFOMUSIC);
+				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.PREMUSIC) {
 				PlayState.getPlayState().setBeginPlay(false);
 				stopMusic();
 				alterPreMusic();
 				// System.out.println(PlayState.getPlayState().getCurrent_song().getPath()+":"+PlayState.getPlayState().getCurrent_index());
-				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINFOMUSIC);
+				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 			}
 
@@ -169,7 +169,7 @@ public class PlayOperate implements Observer {
 		try {
 			if (mediaPlayer != null) {
 				String length=null;
-				if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINFOMUSIC){
+				if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINGMUSIC){
 					mediaPlayer.pause();
 					length = mediaPlayer.getTrack().getTrackData().getLength();
 				}
@@ -186,7 +186,7 @@ public class PlayOperate implements Observer {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINFOMUSIC)
+		if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINGMUSIC)
 		playInfoMusic(PlayState.getPlayState().getCurrent_song());
 	}
 

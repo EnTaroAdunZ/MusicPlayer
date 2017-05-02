@@ -51,7 +51,6 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 		else cm = cb.getSongContext();
 		if(event.getButton() == MouseButton.SECONDARY) {
 			cm.show(source, x, y);
-			System.out.println(ma.pb.isDisable());
 			if(checkEmpty(cm, source, x, y)) 
 				cm.hide();
 			
@@ -65,7 +64,7 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 				ContextBox.add.hide();
 				if(!checkEmpty(cm, source, x, y)) {
 					ContextBox.play.fire();
-					if(MainAction.ps.getCurrent_state() == GlobalVariable.PAUSEMUSIC)
+					if(MainAction.ps.getCurrent_state() == GlobalVariable.SERVICE_PAUSEMUSIC)
 						ContextBox.play.fire();		
 				}
 			}
@@ -98,7 +97,7 @@ class ContextBox {
 	public static MenuItem remove_song = new MenuItem("\u79fb\u9664\u6b4c\u66f2");
 	public static MenuItem remove_list = new MenuItem("\u79fb\u9664\u6b4c\u5355");
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public ContextBox(TagClickAction action) {
 		this.action = action;
 		
@@ -114,7 +113,7 @@ class ContextBox {
 		play_all.setOnAction(e ->{
 			MainAction.ps.setCurrent_songMenu(ml);
 			MainAction.ps.setCurrent_song(ml.get(0));
-			action.getMa().play();
+			action.getMa().pause();
 		});
 		play_all_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
@@ -124,7 +123,7 @@ class ContextBox {
 		play.setOnAction(e ->{
 			MainAction.ps.setCurrent_songMenu(SongMenuOperate.getSongsByMenuName(GlobalVariable.currentMenu));
 			MainAction.ps.setCurrent_song(ml.get(mli));
-			action.getMa().play();
+			action.getMa().pause();
 //			System.out.println(MainAction.ps.getCurrent_song().getMusicTitle());
 		});
 		play_next.setOnAction(e ->{
