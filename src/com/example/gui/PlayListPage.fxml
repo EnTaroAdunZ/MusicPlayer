@@ -4,8 +4,6 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,107 +11,61 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.PlayListPageController">
+<AnchorPane fx:id="AnchorPane_playListPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.PlayListPageController">
    <children>
       <VBox prefHeight="600.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" text="x">
-               <VBox.margin>
-                  <Insets left="670.0" />
-               </VBox.margin>
-            </Button>
-            <TabPane prefHeight="615.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="                              播放列表                             ">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+            <AnchorPane fx:id="AnchorPane_titlePane" prefHeight="50.0" prefWidth="700.0">
+               <children>
+                  <Label fx:id="Label_title" text="播放列表" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="Button_playListClose" mnemonicParsing="false" onAction="#onButtonPlayListClose" prefHeight="30.0" prefWidth="30.0" text="" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="AnchorPane_infoArea" prefHeight="550.0" prefWidth="700.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="40.0" prefWidth="700.0">
                            <children>
-                              <HBox prefHeight="30.0" prefWidth="700.0">
-                                 <children>
-                                    <Label prefHeight="27.0" prefWidth="150.0" text="总0首">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <HBox.margin>
-                                          <Insets top="2.0" />
-                                       </HBox.margin>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <padding>
-                                          <Insets left="20.0" />
-                                       </padding>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="收藏全部">
-                                       <HBox.margin>
-                                          <Insets left="400.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="清空">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <TableView prefHeight="513.0" prefWidth="700.0">
-                                <columns>
-                                  <TableColumn editable="false" prefWidth="450.0" sortable="false" text="歌名" />
-                                  <TableColumn editable="false" prefWidth="125.0" sortable="false" text="歌手" />
-                                    <TableColumn editable="false" prefWidth="125.0" sortable="false" text="时长" />
-                                </columns>
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </TableView>
+                              <Label fx:id="Label_playListNum" prefHeight="30.0" prefWidth="150.0" text="总0首">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </Label>
+                              <Button fx:id="Button_playListClear" mnemonicParsing="false" onAction="#onButtonPlayListClear" prefHeight="40.0" prefWidth="84.0" >
+                                 <HBox.margin>
+                                    <Insets left="450.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
-                        </VBox>
-                     </content>
-                </Tab>
-                <Tab text="                              历史记录                              ">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <HBox prefHeight="30.0" prefWidth="700.0">
-                                 <children>
-                                    <Label prefHeight="27.0" prefWidth="150.0" text="总0首">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <padding>
-                                          <Insets left="20.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets top="2.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Button mnemonicParsing="false" text="清空">
-                                       <HBox.margin>
-                                          <Insets left="490.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <TableView prefHeight="513.0" prefWidth="700.0">
-                                 <columns>
-                                    <TableColumn editable="false" prefWidth="450.0" sortable="false" text="歌名" />
-                                    <TableColumn editable="false" prefWidth="125.0" sortable="false" text="歌手" />
-                                    <TableColumn editable="false" prefWidth="125.0" sortable="false" text="时长" />
-                                 </columns>
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </TableView>
-                           </children>
-                        </VBox>
-                     </content>
-                </Tab>
-              </tabs>
-            </TabPane>
+                        </HBox>
+                        <TableView fx:id="TableView_playList" prefHeight="510.0" prefWidth="700.0">
+                           <columns>
+                              <TableColumn fx:id="TableColumn_song" editable="false" prefWidth="450.0" sortable="false" text="歌名" />
+                              <TableColumn fx:id="TableColumn_singer" editable="false" prefWidth="125.0" sortable="false" text="歌手" />
+                              <TableColumn fx:id="TableColumn_length" editable="false" prefWidth="125.0" sortable="false" text="时长" />
+                           </columns>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
    </children>

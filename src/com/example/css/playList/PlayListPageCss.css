@@ -1,0 +1,28 @@
+//´ýÍêÉÆ
+.lightLabel{
+	-fx-text-fill: white;
+	-fx-background-color : null;
+}
+
+.paneStyleSet{
+	-fx-background-color : #1b1d20;
+	-fx-border-color: white;
+}
+
+#Button_playListClose{
+	-fx-background-image: url("CloseDark.png")
+}
+
+#Button_playListClose:hover{
+	-fx-background-image: url("Close.png")
+}
+
+#Button_playListClear{
+	-fx-background-image: url("playListClearDark.png")
+}
+
+#Button_playListClear:hover{
+	-fx-background-image: url("playListClear.png")
+}
+
+
