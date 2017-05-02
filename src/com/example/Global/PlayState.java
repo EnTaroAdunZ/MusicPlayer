@@ -1,5 +1,8 @@
 package com.example.Global;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -9,6 +12,11 @@ import com.example.entity.SongMenu;
 import com.example.gui.MusicUtils;
 import com.example.service.PlayOperate;
 import com.example.service.SongMenuOperate;
+import com.example.util.TagInfoUtil;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.WritableImage;
 
 /**
  * @author ZTF
@@ -29,13 +37,11 @@ public class PlayState {
 	private int current_op;
 	private int current_index;//当前索引号
 	private boolean isBeginPlay;
-	
-	
-	
-	
-	
-	
+	private Image current_image;
 
+	public Image getCurrent_image() {
+		return current_image;
+	}
 
 	public boolean isBeginPlay() {
 		return isBeginPlay;
@@ -80,6 +86,23 @@ public class PlayState {
 	}
 
 	public void setCurrent_song(MusicUtils current_song) {
+		 String path = current_song.getPath();
+		if(path.endsWith(".flac")){
+			try {
+				TagInfoUtil.writePhoto(TagInfoUtil.getFlacPicture(path), path);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		else if(path.endsWith(".mp3")){
+			try {
+				TagInfoUtil.writePhoto(TagInfoUtil.getMp3Picture(path), path);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+ 		}
+		File file=new File("E://MusicPlay//current_image.jpg");
+		this.current_image=new Image(file.toURI().toString());
 		this.current_song = current_song;
 	}
 
@@ -106,9 +129,14 @@ public class PlayState {
 	}
 
 	public void setProgress(double progress) {
-		setCurrent_op(GlobalVariable.SEEKTOMUSIC);
+		
 		this.progress = progress;
 		if(PlayOperate.hasMedia()){
+			setCurrent_op(GlobalVariable.SEEKTOMUSIC);
+			ObserverManage.getObserver().setMessage(playState);
+		}
+		else{
+			setCurrent_op(GlobalVariable.SEEKTOMUSICWHENPAUSE);
 			ObserverManage.getObserver().setMessage(playState);
 		}
 	}
@@ -141,6 +169,7 @@ public class PlayState {
 			playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
 			playState.current_op=GlobalVariable.HASDONOTHING;
 			playState.current_volume=0;
+			
 			// 测试用初始化
 			// playState.current_songMenu=SongMenuOperate.getSongsByMenuName("我的最爱");
 			// playState.current_song=playState.current_songMenu.get(0);

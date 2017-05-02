@@ -2,11 +2,15 @@ package com.example.util;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.example.entity.Tag;
@@ -70,7 +74,6 @@ public class TagInfoUtil {
 			    return tag;
 			} catch (IOException | TagException | ReadOnlyFileException 
 					| InvalidAudioFrameException | CannotReadException e) {
-				e.printStackTrace();
 				throw new RuntimeException("获取Mp3 tag信息出错！");
 				
 			} 
@@ -80,7 +83,7 @@ public class TagInfoUtil {
 //		    System.out.println("专辑:"+author);  
 	}
 	
-	public static Image getMp3Picture(String mp3path){
+	public static Image getMp3Picture(String mp3path) throws RuntimeException{
 		Image img;
 		try {
 			String url = mp3path;  
@@ -101,7 +104,6 @@ public class TagInfoUtil {
 			    fos.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 			throw new RuntimeException("读取Mp3图片出错");
 		} 
 	    return img;
@@ -135,7 +137,7 @@ public class TagInfoUtil {
 		} 
 	}
 	
-	public static Image getFlacPicture(String flacpath){
+	public static Image getFlacPicture(String flacpath) throws RuntimeException{
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
 			AudioFile read = fileReader.read(new File(flacpath));
@@ -158,7 +160,18 @@ public class TagInfoUtil {
 		}
 	}
 	
-
+	public static void writePhoto(Image image,String pathName){
+		File file=new File("E://MusicPlay//current_image.jpg");
+		
+		try {
+		    BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_RGB);
+		    bi.getGraphics().drawImage(image,0,0, null);
+		    ImageIO.write(bi, "JPG", file);
+		} catch ( IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
  

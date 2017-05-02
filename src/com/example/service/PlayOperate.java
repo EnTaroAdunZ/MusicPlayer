@@ -38,6 +38,7 @@ public class PlayOperate implements Observer {
 	public static DoubleProperty cur_p = new SimpleDoubleProperty(0);
 	private boolean isHasSeekTo;
 	private double last_p;
+	private String length_temp=null;
 	private int i=0;
 	
 	public UUID getOverThread() {
@@ -86,9 +87,14 @@ public class PlayOperate implements Observer {
 				seekTo();
 				PlayState.getPlayState().setCurrent_op(GlobalVariable.HASDONOTHING);
 			}
+			else if(PlayState.getPlayState().getCurrent_op() == GlobalVariable.SEEKTOMUSICWHENPAUSE){
+				isHasSeekTo=true;
+				seekToWhenPause();
+				PlayState.getPlayState().setCurrent_op(GlobalVariable.HASDONOTHING);
+			}
 			if (PlayState.getPlayState().getState() == GlobalVariable.PLAYMUSIC) {
 				// System.out.println("开始播放");
-				stopMusic();
+				pauseMusic();
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINFOMUSIC);
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.PAUSEMUSIC) {
@@ -112,6 +118,22 @@ public class PlayOperate implements Observer {
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 			}
 
+		}
+	}
+
+	private void seekToWhenPause() {
+		try {
+			if (mediaPlayer == null) {;
+				double currPro = PlayState.getPlayState().getProgress();
+//				System.out.println("暂停快进中:"+currPro);
+				String[] split = length_temp.split(":");
+				long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
+				double currentMS = currPro * totalLen / 100;
+				long progress = Math.round(currentMS);
+				baseCurrentMillis = progress;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 
@@ -146,11 +168,14 @@ public class PlayOperate implements Observer {
 	private void seekTo() {
 		try {
 			if (mediaPlayer != null) {
-				mediaPlayer.pause();
-
+				String length=null;
+				if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINFOMUSIC){
+					mediaPlayer.pause();
+					length = mediaPlayer.getTrack().getTrackData().getLength();
+				}
 				double currPro = PlayState.getPlayState().getProgress();
-				System.out.println("快进中:"+currPro);
-				String length = mediaPlayer.getTrack().getTrackData().getLength();
+//				System.out.println("快进中:"+currPro);
+				
 				String[] split = length.split(":");
 				long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
 				double currentMS = currPro * totalLen / 100;
@@ -161,6 +186,7 @@ public class PlayOperate implements Observer {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		if(PlayState.getPlayState().getState() == GlobalVariable.PLAYINFOMUSIC)
 		playInfoMusic(PlayState.getPlayState().getCurrent_song());
 	}
 
@@ -202,10 +228,12 @@ public class PlayOperate implements Observer {
 				initVolume();
 				AudioFileReader audioFileReader = TrackIO.getAudioFileReader(songFile.getName());
 				Track track = audioFileReader.read(songFile);
+				
 				mediaPlayer.open(track);
 				long seekBytes = AudioMath.millisToSamples(baseCurrentMillis, track.getTrackData().getSampleRate());
 				mediaPlayer.seek(seekBytes);
 				PlayState.getPlayState().setBeginPlay(true);
+				
 			}
 			PlayOperate.getPlayOperate().setOverThread();
 			i++;
@@ -295,12 +323,13 @@ public class PlayOperate implements Observer {
 
 		try {
 			if (mediaPlayer != null) {
+				length_temp=mediaPlayer.getTrack().getTrackData().getLength();
 				mediaPlayer.pause();
-
 				double currentMS = mediaPlayer.getCurrentMillis();
 				long progress = Math.round(currentMS);
 				baseCurrentMillis = progress;
 				PlayState.getPlayState().setCurProgress(currentMS);
+				System.out.println(baseCurrentMillis);
 				mediaPlayer = null;
 			}
 		} catch (Exception e) {

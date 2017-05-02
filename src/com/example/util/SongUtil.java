@@ -38,6 +38,7 @@ public class SongUtil {
         tag.setAlbum(tagElement.elementText("album"));
         tag.setSongName(tagElement.elementText("songName"));
         tag.setLength(tagElement.elementText("length"));
+        tag.setArtist(tagElement.elementText("artist"));
         song.setTag(tag);
         return song;
 	}
