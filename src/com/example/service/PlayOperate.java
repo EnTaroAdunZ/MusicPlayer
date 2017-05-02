@@ -187,7 +187,7 @@ public class PlayOperate implements Observer {
 								int playIndex = PlayState.getPlayState().getCurrent_index();
 //								System.out.println("现在的播放序列号" + playIndex);
 								stopMusic();
-//								System.out.println("停止成功,开始播放下一首");
+								System.out.println("停止成功,开始播放下一首");
 								nextMusic();
 //								System.out.println("下一首" + PlayState.getPlayState().getCurrent_index());
 							}
@@ -217,17 +217,14 @@ public class PlayOperate implements Observer {
 						while (true) {
 							if(isCancelled())
 								break;
-							if(id!=PlayOperate.getPlayOperate().getOverThread()){
-								System.out.println(id+".已经死了");
-								this.cancel();
-							}
+
 							try {
 								Thread.sleep(300);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
 							// 这里完成进度条的更新
-							if (mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
+							if (id==PlayOperate.getPlayOperate().getOverThread()&&mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
 								String length = mediaPlayer.getTrack().getTrackData().getLength();
 								double currentMS = mediaPlayer.getCurrentMillis();
 								long progress = Math.round(currentMS);
@@ -237,6 +234,10 @@ public class PlayOperate implements Observer {
 								System.out.println(cur_progress);
 								updateValue(cur_progress);
 						
+							}
+							if(id!=PlayOperate.getPlayOperate().getOverThread()){
+								System.out.println(id+".已经死了");
+								this.cancel();
 							}
 						}
 						return null;

@@ -157,12 +157,12 @@ public class MainAction {
 	}
 	
 	public static void progressFeedBack(double progress) {
-		cp.set(progress);
 		ct.setText(progressCal(tt.getText(), progress));
+		pl.setValue(progress * 100);
 	}
 	
 	private static String progressCal(String timeLength, double progress) {
-		System.out.println("currentdouble:" + progress);
+//		System.out.println("currentdouble:" + progress);
 		int sum = 0, mc = 0, sc =0;
 		String m, s;
 		String[] t = timeLength.split(":");
@@ -172,7 +172,7 @@ public class MainAction {
 		sum *= progress;
 		int rm = sum / 60, rs = sum % 60;
 		String r = String.format("%02d:%02d", rm, rs);
-		System.out.println("currenttime:" + r);
+//		System.out.println("currenttime:" + r);
 		return r;
 	}
 	
@@ -469,6 +469,7 @@ public class MainAction {
 		ct = gui.getTabC().getLabel_currentTime();
 		tt = gui.getTabC().getLabel_totalTime();
 		cp = new SimpleDoubleProperty(0);
+		cp.unbind();
 		cp.bind(PlayOperate.cur_p);
 		//--------left---------
 		adds = gui.getLlC().getButton_addLocalMusic();
