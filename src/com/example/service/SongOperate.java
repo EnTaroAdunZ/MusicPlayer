@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.example.Global.PlayState;
 import com.example.dao.SongDao;
 import com.example.dao.impl.SongDaoImpl;
 import com.example.entity.Song;
@@ -32,8 +33,12 @@ public class SongOperate {
 		return songDao.getSongByName(songName, menuName);
 	}
 	
-	public static void deleteSong(String menuName,String songName){
-		songDao.deleteSong(menuName, songName);
+	public static void deleteSong(String menuName,String songPath) throws RuntimeException{
+		String path = PlayState.getPlayState().getCurrent_song().getPath();
+		if(path==songPath){
+			throw new RuntimeException("正在播放，无法删除！");
+		}
+		songDao.deleteSong(menuName, songPath);
 	}
 	
 	//添加一个song，并返回实体

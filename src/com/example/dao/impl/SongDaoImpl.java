@@ -27,7 +27,7 @@ public class SongDaoImpl implements SongDao{
 	@Override
 	public void deleteSong(String menuName,String songPath) {
 		Document document= XMLUtil.getDoc();
-		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']/song[path='" + songPath + "']");
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']/song[contains(path,'"+songPath+"')]");
 		element.getParent().remove(element);
 		XMLUtil.writeDoc(document);
 	}

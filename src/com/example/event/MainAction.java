@@ -124,6 +124,7 @@ public class MainAction {
 	}
 	
 	public void modiProgress(double progress) {
+		System.out.println("用户点击了:"+progress);
 		ps.setProgress(progress);
 	}
 	

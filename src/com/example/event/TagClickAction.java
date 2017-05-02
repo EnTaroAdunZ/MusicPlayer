@@ -141,9 +141,18 @@ class ContextBox {
 		remove_song.setOnAction(e ->{
 			TableView target = (TableView)songContext.getOwnerNode();
 			if(target == null) return;
-			target.getItems().removeAll(ml);
+			
 			for(MusicUtils m : ml) {
-				SongOperate.deleteSong(GlobalVariable.currentMenu, m.getMusicTitle());
+				try {
+					SongOperate.deleteSong(GlobalVariable.currentMenu, m.getPath());
+					target.getItems().remove(m);
+				} catch (Exception e2) {
+					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+					_alert.setTitle("警告");
+					_alert.setHeaderText("歌曲还在播放中哦  w(ﾟДﾟ)w");
+					 _alert.setContentText("["+m.getMusicTitle()+"]"+e2.getMessage());
+					 _alert.show();
+				}	
 			}
 		});
 		path.setOnAction(e ->{

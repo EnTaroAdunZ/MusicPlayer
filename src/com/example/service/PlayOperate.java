@@ -36,6 +36,9 @@ public class PlayOperate implements Observer {
 	private long baseCurrentMillis = 0;
 	private UUID overThread;
 	public static DoubleProperty cur_p = new SimpleDoubleProperty(0);
+	private boolean isHasSeekTo;
+	private double last_p;
+	private int i=0;
 	
 	public UUID getOverThread() {
 		return overThread;
@@ -79,6 +82,7 @@ public class PlayOperate implements Observer {
 				alterVolume(PlayState.getPlayState().getCurrent_volume());
 				PlayState.getPlayState().setCurrent_op(GlobalVariable.HASDONOTHING);
 			} else if (PlayState.getPlayState().getCurrent_op() == GlobalVariable.SEEKTOMUSIC) {
+				isHasSeekTo=true;
 				seekTo();
 				PlayState.getPlayState().setCurrent_op(GlobalVariable.HASDONOTHING);
 			}
@@ -143,14 +147,15 @@ public class PlayOperate implements Observer {
 		try {
 			if (mediaPlayer != null) {
 				mediaPlayer.pause();
+
 				double currPro = PlayState.getPlayState().getProgress();
+				System.out.println("快进中:"+currPro);
 				String length = mediaPlayer.getTrack().getTrackData().getLength();
 				String[] split = length.split(":");
 				long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
 				double currentMS = currPro * totalLen / 100;
 				long progress = Math.round(currentMS);
 				baseCurrentMillis = progress;
-				System.out.println(baseCurrentMillis);
 				mediaPlayer = null;
 			}
 		} catch (Exception e) {
@@ -203,27 +208,23 @@ public class PlayOperate implements Observer {
 				PlayState.getPlayState().setBeginPlay(true);
 			}
 			PlayOperate.getPlayOperate().setOverThread();
+			i++;
 			new Thread(
 				new Task<Double>() {
 					{
+						updateValue(last_p);
 						cur_p.unbind();
 						cur_p.bind(valueProperty());
 					}
 					@Override
 					protected Double call() throws Exception {
 						UUID id=PlayOperate.getPlayOperate().getOverThread();
-						System.out.println(id+",开了一个新线程");
+//						System.out.println(id+",开了一个新线程");
 						while (true) {
-							if(isCancelled())
+							if(isCancelled()){
 								break;
-
-							try {
-								Thread.sleep(300);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
 							}
 							// 这里完成进度条的更新
-							if(PlayState.getPlayState().getCurrent_op() == GlobalVariable.SEEKTOMUSIC)
 							if (id==PlayOperate.getPlayOperate().getOverThread()&&mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
 								String length = mediaPlayer.getTrack().getTrackData().getLength();
 								double currentMS = mediaPlayer.getCurrentMillis();
@@ -231,12 +232,23 @@ public class PlayOperate implements Observer {
 								String[] split = length.split(":");
 								long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
 								double cur_progress = (double) progress / (double) totalLen;
-								updateValue(cur_progress);
-						
+								if (!isHasSeekTo) {
+//									System.out.println(i+"刷新进度条："+(int)(cur_progress*100));
+									updateValue(cur_progress);
+									last_p=cur_progress;
+								}
+//								else{
+////									System.out.println(i+"快进中");
+//								}
+							}
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
 							}
 							if(id!=PlayOperate.getPlayOperate().getOverThread()){
-								System.out.println(id+".已经死了");
 								this.cancel();
+								isHasSeekTo=false;
 							}
 						}
 						return null;
@@ -286,7 +298,6 @@ public class PlayOperate implements Observer {
 				mediaPlayer.pause();
 
 				double currentMS = mediaPlayer.getCurrentMillis();
-				System.out.println(currentMS);
 				long progress = Math.round(currentMS);
 				baseCurrentMillis = progress;
 				PlayState.getPlayState().setCurProgress(currentMS);
@@ -316,8 +327,8 @@ public class PlayOperate implements Observer {
 	private void nextMusic() {
 		int playIndex = PlayState.getPlayState().getCurrent_index();
 		int size = PlayState.getPlayState().getCurrent_songMenu().size();
-		System.out.println("现在的播放序列号" + playIndex);
-		System.out.println("size" + size);
+//		System.out.println("现在的播放序列号" + playIndex);
+//		System.out.println("size" + size);
 		switch (PlayState.getPlayState().getCurrent_mode()) {
 		case 0:
 			// 单曲循环

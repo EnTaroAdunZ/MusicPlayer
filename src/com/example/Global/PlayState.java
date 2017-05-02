@@ -109,7 +109,6 @@ public class PlayState {
 		setCurrent_op(GlobalVariable.SEEKTOMUSIC);
 		this.progress = progress;
 		if(PlayOperate.hasMedia()){
-//			System.out.println("通知改音量");
 			ObserverManage.getObserver().setMessage(playState);
 		}
 	}
