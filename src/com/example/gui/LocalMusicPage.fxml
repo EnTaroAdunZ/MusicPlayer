@@ -9,12 +9,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane_center" prefHeight="724.0" prefWidth="1009.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LocalMusicPageController">
+
+<StackPane fx:id="StackPane_center" fx:controller="com.example.controller.LocalMusicPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="VBox_LocalPage" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="VBox_LocalPage" prefHeight="724.0" prefWidth="1009.0">
          <children>
             <AnchorPane fx:id="topLocalTitle" prefHeight="75.0" prefWidth="1009.0">
                <children>
@@ -71,4 +73,4 @@
          </children>
       </VBox>
    </children>
-</AnchorPane>
+</StackPane>

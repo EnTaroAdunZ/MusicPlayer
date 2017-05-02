@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.event.MainAction;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -48,7 +48,7 @@ public class PlayPageController implements Controller{
 	private ImageView ImageView_albumCover;//专辑封面的id
 	
 	@FXML
-	private AnchorPane AnchorPane_playPage;//整个播放页面的paneid
+	private StackPane StackPane_playPage;//整个播放页面的paneid
 	
 	@FXML
 	private AnchorPane AnchorPane_leftPlayPage;//左半部分页面的paneid
@@ -112,8 +112,8 @@ public class PlayPageController implements Controller{
 		return ImageView_albumCover;
 	}
 
-	public AnchorPane getAnchorPane_playPage() {
-		return AnchorPane_playPage;
+	public StackPane getStackPane_playPage() {
+		return StackPane_playPage;
 	}
 
 	public AnchorPane getAnchorPane_leftPlayPage() {

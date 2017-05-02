@@ -1,34 +1,28 @@
 package com.example.gui;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.example.controller.*;
 import com.example.event.*;
-import com.example.service.PlayOperate;
 
 import javafx.application.Application;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class GUI extends Application{
 	public static Stage staticStage;
+	public static GUI gui; 
 	
 	private PageQueue pageManager = new PageQueue();
 	private IntegerProperty index; 
@@ -36,7 +30,7 @@ public class GUI extends Application{
 	
 	private BorderPane permanent;
 	private AnchorPane leftlist;
-	private AnchorPane playpage;
+	private StackPane playpage;
 	
 	private TopAndBottomPageController tabC = null;
 	private LeftMusicListController llC = null;
@@ -45,6 +39,13 @@ public class GUI extends Application{
 	private double xOffset = 0;  
     private double yOffset = 0;  
 	
+    @Override
+    public void init() throws Exception {
+    	super.init();
+    	if(gui == null)
+    		gui = this;    	
+    }
+    
 	/**
 	 * 借用fxml启动的fx程序
 	 * @author Tony Yao
@@ -69,7 +70,7 @@ public class GUI extends Application{
 			
 			FXMLLoader pp = new FXMLLoader(getClass().getResource("PlayPage.fxml"),
 					ResourceBundle.getBundle("ini"));
-			playpage = (AnchorPane) pp.load();
+			playpage = (StackPane) pp.load();
 			ppC = pp.getController();
 			
 			permanent.setLeft(leftlist);
@@ -126,7 +127,9 @@ public class GUI extends Application{
     }
 
     
-    
+    public static GUI getGui() {
+    	return gui;
+    }
     public IntegerProperty getSize() {
 		return size;
 	}
@@ -151,7 +154,7 @@ public class GUI extends Application{
 	public AnchorPane getLeftlist() {
 		return leftlist;
 	}
-	public AnchorPane getPlaypage() {
+	public StackPane getPlaypage() {
 		return playpage;
 	}
 

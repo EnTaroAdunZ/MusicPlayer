@@ -51,6 +51,7 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 		else cm = cb.getSongContext();
 		if(event.getButton() == MouseButton.SECONDARY) {
 			cm.show(source, x, y);
+			System.out.println(ma.pb.isDisable());
 			if(checkEmpty(cm, source, x, y)) 
 				cm.hide();
 			
@@ -61,6 +62,7 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 			if(count == 2) {
 				cm.show(source, x, y);
 				cm.hide();
+				ContextBox.add.hide();
 				if(!checkEmpty(cm, source, x, y)) {
 					ContextBox.play.fire();
 					if(MainAction.ps.getCurrent_state() == GlobalVariable.PAUSEMUSIC)

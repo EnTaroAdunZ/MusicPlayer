@@ -24,6 +24,7 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -37,7 +38,7 @@ import javafx.stage.Stage;
 public class LocalMusicPageController implements ContentController{
 	//以下是各控件的ID
 	@FXML
-	private AnchorPane AnchorPane_center;//整个页面的pane的id
+	private StackPane StackPane_center;//整个页面的pane的id
 	
 	@FXML
 	private VBox VBox_LocalPage;//控制页面纵向排序的id
@@ -95,8 +96,8 @@ public class LocalMusicPageController implements ContentController{
 	
 	//以下是响应方法的接口
 	
-	public AnchorPane getAnchorPane_center() {
-		return AnchorPane_center;
+	public StackPane getStackPane_center() {
+		return StackPane_center;
 	}
 
 	public VBox getVBox_LocalPage() {

@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.example.controller.Controller.ContentController;
@@ -16,9 +15,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -27,7 +25,7 @@ import javafx.scene.layout.VBox;
  */
 public class SearchPageController implements ContentController{
 	@FXML
-	private AnchorPane AnchorPane_searchPage;//整个搜索页面的底层pane
+	private StackPane StackPane_searchPage;//整个搜索页面的底层pane
 	
 	@FXML
 	private VBox VBox_vbox;//搜索页面的排列框
@@ -83,8 +81,8 @@ public class SearchPageController implements ContentController{
 	@FXML
 	private ListView<Button> ListView_lyricsPage;//歌词栏下的按钮列表id
 
-	public AnchorPane getAnchorPane_searchPage() {
-		return AnchorPane_searchPage;
+	public StackPane getStackPane_searchPage() {
+		return StackPane_searchPage;
 	}
 
 	public VBox getVBox_vbox() {

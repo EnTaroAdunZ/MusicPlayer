@@ -27,10 +27,12 @@ public class GlobalVariable {
 	public static final int PREMUSIC = (i++); // 上一首歌曲操作
 	public static final int PLAYMUSIC = (i++); // 播放歌曲操作
 	public static final int PLAYINFOMUSIC = (i++); // 播放歌曲
+	public static final int PAUSINGMUSIC = (i++); // 播放歌曲
 	public static final int PAUSEMUSIC = (i++); // 暂停歌曲操作
 	public static final int STOPMUSIC = (i++); // 结束歌曲操作
 	public static final int NEXTMUSIC = (i++); // 下一首歌曲操作
 	public static final int EXITMUSIC = (i++); // 退出播放器
+	
 	
 	//无关操作
 	public static final int HASDONOTHING = (i++); // 退出播放器

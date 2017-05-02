@@ -7,12 +7,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane_playPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.PlayPageController">
+
+<StackPane fx:id="StackPane_playPage" fx:controller="com.example.controller.PlayPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="HBox_totalHBox" layoutX="388.0" layoutY="351.0" prefHeight="724.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="HBox_totalHBox" prefHeight="724.0" prefWidth="1300.0">
          <children>
             <VBox fx:id="VBox_leftVBox" prefHeight="200.0" prefWidth="520.0">
                <children>
@@ -97,4 +99,4 @@
          </children>
       </HBox>
    </children>
-</AnchorPane>
+</StackPane>

@@ -27,7 +27,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、歌词、用户">
+                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、专辑">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>

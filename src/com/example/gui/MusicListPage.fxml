@@ -12,12 +12,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane_MusicListPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MusicListPageController">
+
+<StackPane fx:id="StackPane_MusicListPage" fx:controller="com.example.controller.MusicListPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" prefHeight="724.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" prefHeight="724.0" prefWidth="1009.0">
          <content>
             <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="992.0">
                <children>
@@ -93,7 +95,8 @@
                                           <Button fx:id="Button_searchMusic" mnemonicParsing="false" onAction="#onSearchMusic" prefHeight="30.0" prefWidth="30.0">
                                              <HBox.margin>
                                                 <Insets bottom="3.0" left="5.0" />
-                                             </HBox.margin></Button>
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
                                        <VBox.margin>
                                           <Insets right="50.0" />
@@ -128,4 +131,4 @@
          </content>
       </ScrollPane>
    </children>
-</AnchorPane>
+</StackPane>

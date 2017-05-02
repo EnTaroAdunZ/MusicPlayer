@@ -176,7 +176,8 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
-		ma.play();		
+		ma.pause();		
+//		System.out.println("??");System.out.println("??");
 	}
 	
 	@FXML
@@ -220,13 +221,16 @@ public class TopAndBottomPageController implements Controller{
 	@FXML
 	private void onButtonClose(ActionEvent event){//
 		Platform.exit();
+		System.exit(0);
 	}
 	
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
+		Slider_volumn.setValue(100);
+		ma.modiVolume(100);
 		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
-		Slider_songProgress.valueProperty().addListener((o, ov, nv)->{
+		Slider_songProgress.setOnMouseClicked(e ->{
 			double d = Slider_songProgress.getValue();
 			if(d!=progressOldValue){
 				ma.modiProgress(d);

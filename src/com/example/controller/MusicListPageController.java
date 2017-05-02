@@ -6,8 +6,6 @@ import com.example.controller.Controller.ContentController;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,11 +20,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class MusicListPageController implements ContentController{
 	@FXML
-	private AnchorPane AnchorPane_MusicListPage;//底层paneid
+	private StackPane StackPane_MusicListPage;//底层paneid
 	
 	@FXML
 	private ScrollPane ScrollPane_totalPage;//整个歌单滚动页面id
@@ -86,8 +85,8 @@ public class MusicListPageController implements ContentController{
 	private TableColumn<MusicUtils, String> TableColumn_musicTimeLength;//时长列id
 	
 	
-	public AnchorPane getAnchorPane_MusicListPage() {
-		return AnchorPane_MusicListPage;
+	public StackPane getStackPane_MusicListPage() {
+		return StackPane_MusicListPage;
 	}
 
 	public ScrollPane getScrollPane_totalPage() {

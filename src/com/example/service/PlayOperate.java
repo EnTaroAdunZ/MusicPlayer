@@ -10,6 +10,7 @@ import java.util.UUID;
 import com.example.Global.GlobalVariable;
 import com.example.Global.ObserverManage;
 import com.example.Global.PlayState;
+import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 import com.tulskiy.musique.audio.AudioFileReader;
 import com.tulskiy.musique.audio.player.Player;
@@ -19,6 +20,10 @@ import com.tulskiy.musique.audio.player.PlayerEvent.PlayerEventCode;
 import com.tulskiy.musique.model.Track;
 import com.tulskiy.musique.system.TrackIO;
 import com.tulskiy.musique.util.AudioMath;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.concurrent.Task;
 
 /**
  * @author ZTF
@@ -32,6 +37,7 @@ public class PlayOperate implements Observer {
 	private static PlayOperate playOperate;
 	private long baseCurrentMillis = 0;
 	private UUID overThread;
+	public static DoubleProperty cur_p = new SimpleDoubleProperty(0);
 	
 	public UUID getOverThread() {
 		return overThread;
@@ -86,7 +92,7 @@ public class PlayOperate implements Observer {
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.PAUSEMUSIC) {
 				// System.out.println("暂停播放");
 				pauseMusic();
-				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINFOMUSIC);
+				PlayState.getPlayState().setCurrent_state(GlobalVariable.PAUSINGMUSIC);
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.NEXTMUSIC) {
 				PlayState.getPlayState().setBeginPlay(false);
 				stopMusic();
@@ -198,38 +204,45 @@ public class PlayOperate implements Observer {
 				PlayState.getPlayState().setBeginPlay(true);
 			}
 			PlayOperate.getPlayOperate().setOverThread();
-			new Thread() {
-				@Override
-				public void run() {
-					
-					UUID id=PlayOperate.getPlayOperate().getOverThread();
-					System.out.println(id+",开了一个新线程");
-					while (true) {
-						if(id!=PlayOperate.getPlayOperate().getOverThread()){
-							System.out.println(id+".已经死了");
-							break;
-						}
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						// 这里完成进度条的更新
-						if (mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
-							String length = mediaPlayer.getTrack().getTrackData().getLength();
-							double currentMS = mediaPlayer.getCurrentMillis();
-							long progress = Math.round(currentMS);
-							String[] split = length.split(":");
-							long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
-							double cur_progress = (double) progress / (double) totalLen;
-							System.out.println(cur_progress);
-							// 下面更新UI
-							
-						}
+			new Thread(
+				new Task<Double>() {
+					{
+						cur_p.unbind();
+						cur_p.bind(valueProperty());
 					}
-
-				}
-			}.start();
+					@Override
+					protected Double call() throws Exception {
+						UUID id=PlayOperate.getPlayOperate().getOverThread();
+						System.out.println(id+",开了一个新线程");
+						while (true) {
+							if(isCancelled())
+								break;
+							if(id!=PlayOperate.getPlayOperate().getOverThread()){
+								System.out.println(id+".已经死了");
+								this.cancel();
+							}
+							try {
+								Thread.sleep(300);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							// 这里完成进度条的更新
+							if (mediaPlayer != null && mediaPlayer.getTrack() != null&&mediaPlayer.isPlaying()) {
+								String length = mediaPlayer.getTrack().getTrackData().getLength();
+								double currentMS = mediaPlayer.getCurrentMillis();
+								long progress = Math.round(currentMS);
+								String[] split = length.split(":");
+								long totalLen = Long.valueOf(split[0]) * 60 * 1000 + Long.valueOf(split[1]) * 1000;
+								double cur_progress = (double) progress / (double) totalLen;
+								System.out.println(cur_progress);
+								updateValue(cur_progress);
+						
+							}
+						}
+						return null;
+					}
+				}	
+			).start();
 
 		} catch (Exception e) {
 			PlayState.getPlayState().setState_NEXTMUSIC();

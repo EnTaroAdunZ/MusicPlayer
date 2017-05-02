@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -6,34 +6,35 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:controller="com.example.controller.SearchPageController" fx:id="AnchorPane_searchPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+
+<StackPane fx:id="StackPane_searchPage" fx:controller="com.example.controller.SearchPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="VBox_vbox" layoutX="419.0" layoutY="235.0" prefHeight="732.0" prefWidth="820.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox fx:id="VBox_vbox" prefHeight="732.0" prefWidth="820.0">
          <children>
             <Label fx:id="Label_searchResult" prefHeight="47.0" prefWidth="820.0" text="%searchResult" />
             <TabPane fx:id="TabPane_tabPane" prefHeight="687.0" prefWidth="820.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab fx:id="Tab_singleMusic" text="                  单曲                 ">
+               <tabs>
+                  <Tab fx:id="Tab_singleMusic" text="                  单曲                 ">
                      <content>
                         <TableView fx:id="TableView_musicTable" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="TableColumn_search_ID" prefWidth="60.0" />
-                            <TableColumn fx:id="TableColumn_search_musicTitle" prefWidth="450.0" text="音乐标题" />
+                           <columns>
+                              <TableColumn fx:id="TableColumn_search_ID" prefWidth="60.0" />
+                              <TableColumn fx:id="TableColumn_search_musicTitle" prefWidth="450.0" text="音乐标题" />
                               <TableColumn fx:id="TableColumn_search_singer" minWidth="0.0" prefWidth="165.0" text="歌手" />
                               <TableColumn fx:id="TableColumn_search_albumName" prefWidth="165.0" text="专辑名称" />
                               <TableColumn fx:id="TableColumn_search_timeLength" minWidth="0.0" prefWidth="165.0" text="时长" />
-                          </columns>
+                           </columns>
                         </TableView>
                      </content>
-                </Tab>
-                <Tab fx:id="Tab_musicSinger" text="                  歌手                 ">
+                  </Tab>
+                  <Tab fx:id="Tab_musicSinger" text="                  歌手                 ">
                      <content>
                         <ListView fx:id="ListView_SingerPage" prefHeight="509.0" prefWidth="820.0" />
                      </content>
-                </Tab>
+                  </Tab>
                   <Tab fx:id="Tab_album" text="                 专辑                 ">
                      <content>
                         <ListView fx:id="ListView_albumPage" prefHeight="509.0" prefWidth="820.0" />
@@ -49,9 +50,9 @@
                         <ListView fx:id="ListView_lyricsPage" prefHeight="509.0" prefWidth="820.0" />
                      </content>
                   </Tab>
-              </tabs>
+               </tabs>
             </TabPane>
          </children>
       </VBox>
    </children>
-</AnchorPane>
+</StackPane>

@@ -18,20 +18,23 @@ import com.example.gui.MusicUtils;
 import com.example.service.*;
 import com.example.util.SongUtil;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import javafx.util.Callback;
@@ -39,31 +42,20 @@ import javafx.util.Callback;
 import static com.example.Global.GlobalVariable.*;
 
 public class MainAction {
-	static TextField tf = new TextField();//扩展输入栏
-	static Button btn = new Button();//扩展添加按钮
-	static HBox hb = new HBox();//扩展横箱
-	
-	static Button addl;//指定left中的添加歌单
-	static Button adds, addd;//指定left中的添加歌曲和添加目录
-	//static ImageView iv;//指定left中的专面
-	static VBox vb;//指定left中的竖箱
-	static ListView<Button> ml;//指定left中的列表
-	static IntegerProperty i, s;//指定gui中的目录和大小
-	static Button b, f;//指定topandbottom中的后退和前进
-	static Button pb,lb,nb;//指定topandbottom中的播放,上一首和下一首
 	
 	//-----------------------------------------Top------------------------
- 	public void back() {
+	public boolean back() {
  		PageQueue pq = gui.getPageManager();
  		IntegerProperty i = gui.getIndex(); IntegerProperty s = gui.getSize();
  		int ii = i.get();
  		if(ii < 1)
- 			return;
+ 			return false;
 		Page p;int ss = s.get();
 		if(ss < 2) 
-			return;
+			return false;
 		p = pq.backward();
 		show(p);
+		return true;
 	}
 	
 	public void fore() {
@@ -97,10 +89,26 @@ public class MainAction {
 	
 	public void play() {
 		int s = PlayState.getPlayState().getCurrent_state();
-		if(s == PAUSEMUSIC) {
+		ps.setState_PLAYMUSIC();
+		progressFeedBack(0);
+//		if(s == PLAYMUSIC) {
+//			ps.setState_PLAYMUSIC();
+//		}
+//		else if(s == PAUSEMUSIC) {
+//			ps.setState_PAUSEMUSIC();
+//		}
+//		System.out.println(SongMenuOperate.getSongsByMenuName(currentMenu).size());
+		refresh(s);
+	}
+	
+	public void pause() {
+		int s = PlayState.getPlayState().getCurrent_state();
+		if(s == GlobalVariable.PAUSINGMUSIC) {
+			System.out.println("播放");
 			ps.setState_PLAYMUSIC();
 		}
-		else if(s == PLAYMUSIC) {
+		else if(s == GlobalVariable.PLAYINFOMUSIC) {
+			System.out.println("暂停");
 			ps.setState_PAUSEMUSIC();
 		}
 //		System.out.println(SongMenuOperate.getSongsByMenuName(currentMenu).size());
@@ -146,6 +154,26 @@ public class MainAction {
 			break;
 		default:	break;
 		}
+	}
+	
+	public static void progressFeedBack(double progress) {
+		cp.set(progress);
+		ct.setText(progressCal(tt.getText(), progress));
+	}
+	
+	private static String progressCal(String timeLength, double progress) {
+		System.out.println("currentdouble:" + progress);
+		int sum = 0, mc = 0, sc =0;
+		String m, s;
+		String[] t = timeLength.split(":");
+		m = t[0];s = t[1];
+		mc = Integer.valueOf(m);sc = Integer.valueOf(s);
+		sum = mc * 60 + sc;
+		sum *= progress;
+		int rm = sum / 60, rs = sum % 60;
+		String r = String.format("%02d:%02d", rm, rs);
+		System.out.println("currenttime:" + r);
+		return r;
 	}
 	
 	//-----------------------------------------Left-----------------------
@@ -239,81 +267,11 @@ public class MainAction {
 		nb.getStyleClass().add("listButton");
 		ml.getItems().add(nb);
 		nb.setOnAction(nbe -> {
-			musiclist(nb.getText());// FIXME
+			musiclist(nb.getText());
 		});
 		nb.setOnMouseClicked(tca);
 	}
 
-	/*
-	protected void updateValues(TopAndBottomPageController tbc) {
-		MediaPlayer mp = tbc.mp;
-		Duration duration = tbc.duration;
-		Slider timeSlider = tbc.timeSlider;
-		Label playTime = tbc.playTime;
-		Slider volumeSlider = tbc.volumeSlider;
-		
-		
-		
-		if (playTime != null && timeSlider != null && volumeSlider != null) {
-            Platform.runLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    Duration currentTime = mp.getCurrentTime();
-                    playTime.setText(formatTime(currentTime, duration));
-                    timeSlider.setDisable(duration.isUnknown());
-                    if (!timeSlider.isDisabled() && duration.greaterThan(Duration.ZERO) && !timeSlider.isValueChanging()) {
-                        timeSlider.setValue(currentTime.divide(duration.toMillis()).toMillis() * 100.0);
-                    }
-                    if (!volumeSlider.isValueChanging()) {
-                        volumeSlider.setValue((int) Math.round(mp.getVolume() * 100));
-                    }
-                }
-            });
-        }
-    }
-	*/
-	/*
-	private String formatTime(Duration elapsed, Duration duration) {//FIXME
-        int intElapsed = (int) Math.floor(elapsed.toSeconds());
-        int elapsedHours = intElapsed / (60 * 60);
-        if (elapsedHours > 0) {
-            intElapsed -= elapsedHours * 60 * 60;
-        }
-        int elapsedMinutes = intElapsed / 60;
-        int elapsedSeconds = intElapsed - elapsedHours * 60 * 60 - elapsedMinutes * 60;
-
-        if (duration.greaterThan(Duration.ZERO)) {
-            int intDuration = (int) Math.floor(duration.toSeconds());
-            int durationHours = intDuration / (60 * 60);
-            if (durationHours > 0) {
-                intDuration -= durationHours * 60 * 60;
-            }
-            int durationMinutes = intDuration / 60;
-            int durationSeconds = intDuration - durationHours * 60 * 60 - durationMinutes * 60;
-
-            if (durationHours > 0) {
-                return String.format("%d:%02d:%02d/%d:%02d:%02d",
-                        elapsedHours, elapsedMinutes, elapsedSeconds,
-                        durationHours, durationMinutes, durationSeconds);
-            } else {
-                return String.format("%02d:%02d/%02d:%02d",
-                        elapsedMinutes, elapsedSeconds,
-                        durationMinutes, durationSeconds);
-            }
-        } else {
-            if (elapsedHours > 0) {
-                return String.format("%d:%02d:%02d",
-                        elapsedHours, elapsedMinutes, elapsedSeconds);
-            } else {
-                return String.format("%02d:%02d",
-                        elapsedMinutes, elapsedSeconds);
-            }
-        }
-    }
-	*/
-	
-	
 	private class Extension implements EventHandler<ActionEvent>{//FIXME
 		@Override
 		public void handle(ActionEvent event) {
@@ -335,17 +293,28 @@ public class MainAction {
 	
 	//-----------------------------------------Play------------------------
 	public void reverse() {
-		back();
+		if(!back())
+			show(null);
 	}
 	
+	//-----------------------------------------List------------------------
+		public void playAll() {
+			tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+			ContextBox.play_all.fire();
+		}
+		
+		public void playAllNext() {
+			tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+			ContextBox.play_all_next.fire();
+		}
 	//-----------------------------------------Item------------------------
 	private Page giveLocal() {
 		LocalMusicPageController lmC = null;
-		AnchorPane localmusic = null;
+		StackPane localmusic = null;
 		try {
 			FXMLLoader lm = new FXMLLoader(GUI.class.getResource("LocalMusicPage.fxml"),
 					ResourceBundle.getBundle("ini"));
-			localmusic = (AnchorPane) lm.load();
+			localmusic = (StackPane) lm.load();
 			lmC = lm.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
 			//FIXME 读入
@@ -358,12 +327,12 @@ public class MainAction {
     
 	private Page giveMusicList(String name, String date) {
 		MusicListPageController mlC = null;
-		AnchorPane musiclist = null;
+		StackPane musiclist = null;
 		List<MusicUtils> list = SongMenuOperate.getSongsByMenuName(name);
 		try {
 			FXMLLoader ml = new FXMLLoader(GUI.class.getResource("MusicListPage.fxml"),
 					ResourceBundle.getBundle("ini"));
-			musiclist = (AnchorPane) ml.load();
+			musiclist = (StackPane) ml.load();
 			mlC = ml.getController();
 			mlC.initData(this, name, date, list);
 		} catch (IOException e) {
@@ -373,11 +342,11 @@ public class MainAction {
     }
  
 	private Page giveSearch(String name) {
-		AnchorPane searchpage = null;
+		StackPane searchpage = null;
 		SearchPageController spC = null;
 		try {
 			FXMLLoader sp = new FXMLLoader(GUI.class.getResource("SearchPage.fxml"), ResourceBundle.getBundle("ini"));
-			searchpage = (AnchorPane) sp.load();
+			searchpage = (StackPane) sp.load();
 			spC = sp.getController();
 			List<MusicUtils> list = new ArrayList<MusicUtils>();
 			//FIXME 搜索
@@ -402,17 +371,23 @@ public class MainAction {
 	}
 	
 	public static void show(Page p) {
-		if(p instanceof Page.PlayPage) {
+		if(p ==null) {
+			gui.getPermanent().setCenter(null);
+			gui.getPermanent().leftProperty().set(gui.getLeftlist());
+		}
+		else if(p instanceof Page.PlayPage) {
 			gui.getPermanent().setCenter(gui.getPlaypage());
 			gui.getPermanent().leftProperty().set(null);
 			return;
 		}
-		if(p instanceof Page.SettingPage) {
+		else if(p instanceof Page.SettingPage) {
 			gui.getPermanent().leftProperty().set(null);
 			return;
 		}
-		gui.getPermanent().setCenter(p.getPage());
-		gui.getPermanent().leftProperty().set(gui.getLeftlist());
+		else {
+			gui.getPermanent().setCenter(p.getPage());
+			gui.getPermanent().leftProperty().set(gui.getLeftlist());
+		}
 		refresh(p);
 	}
 	
@@ -447,14 +422,14 @@ public class MainAction {
 			GlobalVariable.currentSearch = key;
 		}
 	}
-	
+		
 	private static void refresh(int s) {
 		//pb and lb and nb
-		if(s == PAUSEMUSIC){
+		if(s == PLAYMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPause");
 		}
-		if(s == PLAYMUSIC){
+		if(s == PAUSEMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPlay");
 		}
@@ -463,6 +438,9 @@ public class MainAction {
 			buttonDis(true, pb, lb, nb);
 		else 
 			buttonDis(false, pb, lb, nb);
+		//tt
+		String n = ps.getCurrent_song().getMusicTimeLength();
+		tt.setText(n);
 	}
 
 	public static ArrayList<MusicUtils> searchsong(String key){//FIXME
@@ -487,6 +465,11 @@ public class MainAction {
 		pb = gui.getTabC().getButton_pause();
 		lb = gui.getTabC().getButton_last();
 		nb = gui.getTabC().getButton_next();
+		pl = gui.getTabC().getSlider_songProgress();
+		ct = gui.getTabC().getLabel_currentTime();
+		tt = gui.getTabC().getLabel_totalTime();
+		cp = new SimpleDoubleProperty(0);
+		cp.bind(PlayOperate.cur_p);
 		//--------left---------
 		adds = gui.getLlC().getButton_addLocalMusic();
 		addd = gui.getLlC().getButton_addLocalDirectory();
@@ -504,14 +487,36 @@ public class MainAction {
 		tf.setPrefHeight(80);tf.setPrefWidth(250);
 		btn.setOnAction(new Extension());
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
+		cp.addListener((o, ov, nv) ->{
+			progressFeedBack((double)nv);
+//			pl.setValue((double)nv);
+		});
 	}
 	public static GUI gui;
+	private static MainAction ma;
 	public static PageQueue pq;
 	public static PlayState ps;
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
-	public TagClickAction tca;
+	public TagClickAction tca;	
+	private static Task<Double> task;
+	
+	static TextField tf = new TextField();//扩展输入栏
+	static Button btn = new Button();//扩展添加按钮
+	static HBox hb = new HBox();//扩展横箱
+	
+	static Button addl;//指定left中的添加歌单
+	static Button adds, addd;//指定left中的添加歌曲和添加目录
+	//static ImageView iv;//指定left中的专面
+	static VBox vb;//指定left中的竖箱
+	static ListView<Button> ml;//指定left中的列表
+	static IntegerProperty i, s;//指定gui中的目录和大小
+	static DoubleProperty cp;
+	static Button b, f;//指定topandbottom中的后退和前进
+	static Button pb,lb,nb;//指定topandbottom中的播放,上一首和下一首
+	static Slider pl;//指定topandbottom中的进度条
+	static Label ct, tt;//指定topandbottom中的当前时间和总时间
 
-	public static void buttonDis(boolean r, Button... bl) {
+ 	public static void buttonDis(boolean r, Button... bl) {
 		for(Button b : bl) 
 			b.setDisable(r);
 	}
@@ -581,5 +586,9 @@ public class MainAction {
 		return gui;
 	}
 	
-	
+	public static MainAction getMa() {
+		if(ma == null)
+			ma = new MainAction(GUI.getGui());
+		return ma;
+	}
 }

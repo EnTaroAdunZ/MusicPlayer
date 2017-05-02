@@ -33,6 +33,9 @@ public class PlayState {
 	
 	
 	
+	
+	
+
 
 	public boolean isBeginPlay() {
 		return isBeginPlay;
