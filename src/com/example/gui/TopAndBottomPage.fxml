@@ -27,7 +27,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、专辑">
+                  <TextField fx:id="TextField_searchSong" prefHeight="14.0" prefWidth="220.0" promptText="搜索音乐、歌手、歌词、用户">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
@@ -70,14 +70,27 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="Slider_songProgress" prefHeight="50.0" prefWidth="600.0" />
+                  <Slider fx:id="Slider_songProgress" prefHeight="50.0" prefWidth="520.0" />
                   <Label fx:id="Label_totalTime" prefHeight="50.0" text="%totalTime">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="Slider_volumn" prefHeight="50.0" prefWidth="200.0" />
+                  <Slider fx:id="Slider_volumn" prefHeight="50.0" prefWidth="180.0" />
                   <Button fx:id="Button_modeSwitch" mnemonicParsing="false" onAction="#onButtonModeSwitch" prefHeight="50.0" prefWidth="50.0" />
+                  <HBox>
+                     <children>
+                        <Button fx:id="Button_playList" mnemonicParsing="false" onAction="#onButtonPlayList" prefHeight="50.0" prefWidth="50.0" />
+                        <Label fx:id="Label_playListNum" prefHeight="50.0" prefWidth="50.0" text="%playListNum">
+                        	<font>
+                    		    <Font size="20.0" />
+                   			</font>
+                		</Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </HBox>
                </children>
             </HBox>
          </children>

@@ -56,6 +56,12 @@ public class TopAndBottomPageController implements Controller{
 	private Button Button_close;//关闭按钮的id
 	
 	@FXML
+	private Button Button_playList;//按钮“播放列表”的id
+	
+	@FXML
+	private Label Label_playListNum;//文本“播放列表”按钮旁边的播放列表歌曲数量id
+	
+	@FXML
 	private Label Label_currentTime;//当前播放歌曲的当前播放时间id
 	
 	@FXML
@@ -214,12 +220,17 @@ public class TopAndBottomPageController implements Controller{
 	}
 	
 	@FXML
-	private void onButtonMinimize(ActionEvent event){//
+	private void onButtonMinimize(ActionEvent event){//按钮“最小化”的响应方法
 		GUI.staticStage.setIconified(true);
 	}
 	
 	@FXML
-	private void onButtonClose(ActionEvent event){//
+	private void onButtonPlayList(ActionEvent event){//右下角按钮“播放列表”的响应方法
+		
+	}
+	
+	@FXML
+	private void onButtonClose(ActionEvent event){//按钮“关闭程序”id
 		Platform.exit();
 		System.exit(0);
 	}
@@ -245,8 +256,6 @@ public class TopAndBottomPageController implements Controller{
 	}
 	
 	private void setCss(){
-		Button_pause.getStyleClass().remove(0);
-		Button_pause.getStyleClass().add("buttonPlay");
 		
 		Button_last.getStyleClass().remove(0);
 		Button_next.getStyleClass().remove(0);
@@ -256,13 +265,15 @@ public class TopAndBottomPageController implements Controller{
 		Button_forward.getStyleClass().remove(0);
 		Button_minimize.getStyleClass().remove(0);
 		Button_close.getStyleClass().remove(0);
+		Button_playList.getStyleClass().remove(0);
 		
-		Button_modeSwitch.getStyleClass().remove(0);
-		Button_modeSwitch.getStyleClass().add("buttonOrderPlay");
+		Button_modeSwitch.getStyleClass().set(0, "buttonOrderPlay");
+		Button_pause.getStyleClass().set(0, "buttonPlay");
 		
 		Label_FXName.getStyleClass().add("lightLabel");
 		Label_currentTime.getStyleClass().add("lightLabel");
 		Label_totalTime.getStyleClass().add("lightLabel");
+		Label_playListNum.getStyleClass().add("lightLabel");
 		TextField_searchSong.getStyleClass().add("ListField");
 	}
 	

@@ -114,6 +114,14 @@
 	-fx-background-image: url("Forward.png")
 }
 
+#Button_playList{
+	-fx-background-image: url("playListDark.png")
+}
+
+#Button_playList:hover{
+	-fx-background-image: url("playList.png")
+}
+
 #AnchorPane_bottom{
 	-fx-background-color: #1b1d20;
 }
