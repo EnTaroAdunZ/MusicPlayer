@@ -89,6 +89,7 @@ public class GUI extends Application{
 			playlist.setVisible(false);
 			
 			MainAction ma = new MainAction(this);	
+			plC.initData(ma);
 			tabC.initData(ma);
 			llC.initData(ma);
 			ppC.initData(ma);

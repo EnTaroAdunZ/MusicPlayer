@@ -279,6 +279,7 @@ public class PlayOperate implements Observer {
 								isHasSeekTo=false;
 							}
 						}
+						cur_p.unbind();
 						return null;
 					}
 				}	
@@ -379,7 +380,7 @@ public class PlayOperate implements Observer {
 			} else {
 				PlayState.getPlayState().setCurrent_index(playIndex);
 			}
-			PlayState.getPlayState().setCurrent_song(PlayState.getPlayState().getCurrent_songMenu().get(playIndex));
+			PlayState.getPlayState().setCurrent_song(PlayState.getPlayState().getCurrent_songMenu().get(PlayState.getPlayState().getCurrent_index()));
 			playInfoMusic(PlayState.getPlayState().getCurrent_song());
 			System.out.println("列表循环" + playIndex);
 			break;

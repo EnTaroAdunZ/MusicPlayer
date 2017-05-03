@@ -161,8 +161,6 @@ public class MusicListPageController implements ContentController{
 		return TableColumn_musicTimeLength;
 	}
 	
-	
-
 	@FXML
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮id
 		

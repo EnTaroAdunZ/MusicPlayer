@@ -32,6 +32,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -140,7 +141,7 @@ public class MainAction {
 	
 	public static void progressFeedBack(double progress) {
 		ct.setText(progressCal(tt.getText(), progress));
-		pl.setValue(progress * 100);
+		sl.setValue(progress * 100);
 	}
 	
 	private static String progressCal(String timeLength, double progress) {
@@ -168,9 +169,9 @@ public class MainAction {
 	}
 	
 	public void musiclist(String key) {
-		if(GlobalVariable.currentMenu == key) 
+		if(currentMenu.get() == key) 
 			return;
-		GlobalVariable.currentMenu = key;
+		currentMenu.set(key);
 //		SongMenu sm = SongMenu.findSongmenuByName(key);
 //		String name = sm.getName();FIXME
 //		Date d = sm.getCreateDate();
@@ -208,7 +209,7 @@ public class MainAction {
 		List<MusicUtils> ml = new ArrayList<>();
 		if(selectedFile != null)
 			for(File file : selectedFile) {
-				Song s = SongOperate.addSong(file.getAbsolutePath(),GlobalVariable.currentMenu);
+				Song s = SongOperate.addSong(file.getAbsolutePath(),currentMenu.get());
 				MusicUtils mu = SongUtil.songToMucic(s);
 				ml.add(mu);
 			}
@@ -280,12 +281,12 @@ public class MainAction {
 	
 	// -----------------------------------------List------------------------
 	public void playAll() {
-		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu.get()));
 		ContextBox.play_all.fire();
 	}
 
 	public void playAllNext() {
-		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu));
+		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu.get()));
 		ContextBox.play_all_next.fire();
 	}
 
@@ -293,6 +294,8 @@ public class MainAction {
 	public void playList() {
 		listOn = !listOn;
 		gui.getPlaylist().setVisible(listOn);
+		System.out.println(currentSong.getMusicTitle());
+		gui.getPlC().getTableView_playList().getSelectionModel().select(currentSong);
 	}
 
 	//-----------------------------------------Item------------------------
@@ -408,9 +411,9 @@ public class MainAction {
 		}
 		if(p instanceof SearchPage) {
 			String key =((SearchPage)p).getKey();
-			if(GlobalVariable.currentSearch == key)
+			if(currentSearch.get() == key)
 				return;
-			GlobalVariable.currentSearch = key;
+			currentSearch.set(key);
 		}
 	}
 		
@@ -440,6 +443,13 @@ public class MainAction {
 		return sl;
 	}
 	
+	public static void setCurrentList(List<MusicUtils> list) {
+		currentList = list;
+		currentSum.set(list.size());
+		gui.getPlC().getTableView_playList().getItems().clear();
+		gui.getPlC().getTableView_playList().getItems().addAll(list);
+	}
+	
 	public MainAction(GUI gui) {
 		MainAction.gui = gui;
 		tca = new TagClickAction(this, gui.getLlC().getListView_musicList());
@@ -456,7 +466,7 @@ public class MainAction {
 		pb = gui.getTabC().getButton_pause();
 		lb = gui.getTabC().getButton_last();
 		nb = gui.getTabC().getButton_next();
-		pl = gui.getTabC().getSlider_songProgress();
+		sl = gui.getTabC().getSlider_songProgress();
 		ct = gui.getTabC().getLabel_currentTime();
 		tt = gui.getTabC().getLabel_totalTime();
 		cp = new SimpleDoubleProperty(0);
@@ -469,6 +479,9 @@ public class MainAction {
 		vb = gui.getLlC().getVBox_leftMainField();	
 		ml = gui.getLlC().getListView_musicList();
 		//iv = gui.getLlC().getImageView_albumCover();
+		//--------playlist---------
+		pl = gui.getPlaylist();
+		
 		
 		buttonDis(true, adds, addd, pb, lb, nb);
 
@@ -482,7 +495,16 @@ public class MainAction {
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
 		cp.addListener((o, ov, nv) ->{
 			progressFeedBack((double)nv);
-//			pl.setValue((double)nv);
+			currentSong = ps.getCurrent_song();
+		});
+		pl.focusedProperty().addListener((o, ov, nv) ->{
+			if(nv == false) {
+				gui.getTabC().getButton_playList().fire();
+			}
+		});
+		currentSum.addListener((o, ov, nv) ->{
+			gui.getTabC().getLabel_playListNum().setText(nv.toString());
+			gui.getPlC().getLabel_playListNum().setText("总"+nv.toString()+"首");
 		});
 	}
 	public static GUI gui;
@@ -503,11 +525,12 @@ public class MainAction {
 	static VBox vb;//指定left中的竖箱
 	static ListView<Button> ml;//指定left中的列表
 	static IntegerProperty i, s;//指定gui中的目录和大小
-	static DoubleProperty cp;
+	static DoubleProperty cp;//指定进度条的值
 	static Button b, f;//指定topandbottom中的后退和前进
 	static Button pb,lb,nb;//指定topandbottom中的播放,上一首和下一首
-	static Slider pl;//指定topandbottom中的进度条
+	static Slider sl;//指定topandbottom中的进度条
 	static Label ct, tt;//指定topandbottom中的当前时间和总时间
+	static AnchorPane pl;//指定playlist版面
 
  	public static void buttonDis(boolean r, Button... bl) {
 		for(Button b : bl) 

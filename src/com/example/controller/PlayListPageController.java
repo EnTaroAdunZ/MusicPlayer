@@ -1,7 +1,14 @@
 package com.example.controller;
 
+import java.util.ArrayList;
+
+import com.example.Global.GlobalVariable;
+import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +17,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -47,19 +55,77 @@ public class PlayListPageController {
 	@FXML
 	private Label Label_playListNum;//历史记录里当前歌曲的总数文本id
 
+	public AnchorPane getAnchorPane_playListPage() {
+		return AnchorPane_playListPage;
+	}
+
+	public AnchorPane getAnchorPane_titlePane() {
+		return AnchorPane_titlePane;
+	}
+
+	public AnchorPane getAnchorPane_infoArea() {
+		return AnchorPane_infoArea;
+	}
+
+	public Button getButton_playListClose() {
+		return Button_playListClose;
+	}
+
+	public Button getButton_playListClear() {
+		return Button_playListClear;
+	}
+
+	public TableView<MusicUtils> getTableView_playList() {
+		return TableView_playList;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_song() {
+		return TableColumn_song;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_singer() {
+		return TableColumn_singer;
+	}
+
+	public TableColumn<MusicUtils, String> getTableColumn_length() {
+		return TableColumn_length;
+	}
+
+	public Label getLabel_title() {
+		return Label_title;
+	}
+
+	public Label getLabel_playListNum() {
+		return Label_playListNum;
+	}
+
 	//
 	@FXML
 	private void onButtonPlayListClose(ActionEvent event){//右上角“关闭”按钮响应方法
-		
+		ma.getGui().getTabC().getButton_playList().fire();
 	}
 
 	@FXML
 	private void onButtonPlayListClear(ActionEvent event){//播放列表里“清空”按钮响应方法
-		
+		ma.setCurrentList(defaultEmptyList);
 	}
 	
-	@FXML
-	public void initialize(){//本页面的初始化方法
+	
+	public void initData(MainAction ma){//本页面的初始化方法
+		setCss();
+		this.ma = ma;
+		
+		TableView_playList.getItems().addAll(GlobalVariable.currentList);
+		TableColumn_song.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
+		TableColumn_singer.setCellValueFactory(new PropertyValueFactory<>("musicSinger"));
+		TableColumn_length.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
+		TableView_playList.setOnMouseClicked(ma.tca);
+		sum.addListener((o, ov, nv) ->{
+			Label_playListNum.setText("总"+ (int) nv+"首");
+		});
+	}
+	
+	private void setCss() {
 		Label_title.getStyleClass().add("lightLabel");
 		Label_playListNum.getStyleClass().add("lightLabel");
 		
@@ -69,5 +135,10 @@ public class PlayListPageController {
 		
 		Button_playListClose.getStyleClass().remove(0);
 		Button_playListClear.getStyleClass().remove(0);
+		
 	}
+	
+	public static ArrayList<MusicUtils> defaultEmptyList = new ArrayList<>();
+	private MainAction ma;
+	private IntegerProperty sum = new SimpleIntegerProperty(0);
 }

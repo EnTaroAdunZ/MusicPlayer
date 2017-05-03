@@ -1,7 +1,16 @@
 package com.example.Global;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.controller.Controller;
+import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /** 
 * @author ZTF  
@@ -10,9 +19,11 @@ import com.example.gui.MusicUtils;
 * @Description:   TODO(用一句话描述该文件做什么)
 */
 public class GlobalVariable {
-	public static String currentMenu = "";
-	public static String currentSearch = "";
+	public static StringProperty currentMenu = new SimpleStringProperty("");
+	public static StringProperty currentSearch = new SimpleStringProperty("");
 	public static MusicUtils currentSong;
+	public static List<MusicUtils> currentList = new ArrayList<>();
+	public static IntegerProperty currentSum = new SimpleIntegerProperty(0);
 	public static int PageType = 0;
 	public static Controller.ContentController currentCtrl = null;
 	
@@ -39,5 +50,7 @@ public class GlobalVariable {
 	public static final int ALTERVOLUME = (i++); // 修改音乐播放器
 	public static final int SEEKTOMUSIC = (i++); // 歌曲快进操作
 	public static final int SEEKTOMUSICWHENPAUSE = (i++); // 歌曲快进操作
+	
+	
 }
  

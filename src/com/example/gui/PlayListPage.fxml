@@ -31,7 +31,7 @@
                      <children>
                         <HBox prefHeight="40.0" prefWidth="700.0">
                            <children>
-                              <Label fx:id="Label_playListNum" prefHeight="30.0" prefWidth="150.0" text="总0首">
+                              <Label fx:id="Label_playListNum" prefHeight="30.0" prefWidth="150.0" text="">
                                  <font>
                                     <Font size="20.0" />
                                  </font>

@@ -5,6 +5,8 @@ import com.example.event.MainAction;
 import com.example.gui.GUI;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -125,8 +127,16 @@ public class TopAndBottomPageController implements Controller{
 		return Button_setting;
 	}
 
+	public Button getButton_playList() {
+		return Button_playList;
+	}
+
 	public Label getLabel_currentTime() {
 		return Label_currentTime;
+	}
+
+	public Label getLabel_playListNum() {
+		return Label_playListNum;
 	}
 
 	public Label getLabel_totalTime() {
@@ -250,6 +260,9 @@ public class TopAndBottomPageController implements Controller{
 			int i = Math.round((float)(double)nv);
 			ma.modiVolume(i);
 		});
+		sum.addListener((o, ov, nv) ->{
+			Label_playListNum.setText("总"+ (int) nv+"首");
+		});
 	}
 	
 	private void setCss(){
@@ -276,5 +289,6 @@ public class TopAndBottomPageController implements Controller{
 	
 	private MainAction ma;
 	private double progressOldValue;
+	private IntegerProperty sum = new SimpleIntegerProperty(0);
 }
 
