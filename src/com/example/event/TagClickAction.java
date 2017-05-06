@@ -66,7 +66,7 @@ public class TagClickAction implements EventHandler<MouseEvent>{
 				ContextBox.add.hide();
 				if(!checkEmpty(cm, source, x, y)) {
 					ContextBox.play.fire();
-					if(MainAction.ps.getCurrent_state() == GlobalVariable.SERVICE_PAUSEMUSIC)
+					if(MainAction.ps.getCurrent_state() == GlobalVariable.PAUSINGMUSIC)
 						ContextBox.play.fire();		
 				}
 			}
@@ -131,7 +131,6 @@ class ContextBox {
 			MainAction.ps.setCurrent_song(ml.get(mli));
 			MainAction.setCurrentList(l);
 			action.getMa().pause();
-//			System.out.println(MainAction.ps.getCurrent_song().getMusicTitle());
 		});
 		play_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();

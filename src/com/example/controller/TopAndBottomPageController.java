@@ -190,7 +190,6 @@ public class TopAndBottomPageController implements Controller{
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
 		ma.pause();		
-//		System.out.println("??");System.out.println("??");
 	}
 	
 	@FXML

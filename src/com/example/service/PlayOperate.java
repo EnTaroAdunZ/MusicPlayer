@@ -94,7 +94,9 @@ public class PlayOperate implements Observer {
 			}
 			if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PLAYMUSIC) {
 				// System.out.println("开始播放");
+				
 				pauseMusic();
+				baseCurrentMillis=0;
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PAUSEMUSIC) {
@@ -279,7 +281,6 @@ public class PlayOperate implements Observer {
 								isHasSeekTo=false;
 							}
 						}
-						cur_p.unbind();
 						return null;
 					}
 				}	

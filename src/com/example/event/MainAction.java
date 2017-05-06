@@ -87,7 +87,6 @@ public class MainAction {
 	
 	public void pause() {
 		int s = PlayState.getPlayState().getCurrent_state();
-		System.out.println(s+"+"+PAUSINGMUSIC);
 		if(s == PAUSINGMUSIC) {
 			System.out.println("播放");
 			ps.setState_PLAYMUSIC();
@@ -145,7 +144,6 @@ public class MainAction {
 	}
 	
 	private static String progressCal(String timeLength, double progress) {
-//		System.out.println("currentdouble:" + progress);
 		int sum = 0, mc = 0, sc =0;
 		String m, s;
 		String[] t = timeLength.split(":");
@@ -155,7 +153,6 @@ public class MainAction {
 		sum *= progress;
 		int rm = sum / 60, rs = sum % 60;
 		String r = String.format("%02d:%02d", rm, rs);
-//		System.out.println("currenttime:" + r);
 		return r;
 	}
 	
@@ -294,7 +291,6 @@ public class MainAction {
 	public void playList() {
 		listOn = !listOn;
 		gui.getPlaylist().setVisible(listOn);
-		System.out.println(currentSong.getMusicTitle());
 		gui.getPlC().getTableView_playList().getSelectionModel().select(currentSong);
 	}
 
