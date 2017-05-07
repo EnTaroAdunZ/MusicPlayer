@@ -1,12 +1,15 @@
 package com.example.controller;
 
 import com.example.event.MainAction;
+import com.example.service.LrcAnalyzer.LrcData;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -42,7 +45,10 @@ public class PlayPageController implements Controller{
 	private Label Label_source;//文本来源的id
 
 	@FXML
-	private TextArea TextArea_lyricsArea;//歌词滚动板的id
+	private TableView<LrcData> TableView_lyricsArea;//歌词滚动板的id
+	
+	@FXML
+	private TableColumn<LrcData, String> TableColumn_lyric;//歌词行列的id
 	
 	@FXML
 	private ImageView ImageView_albumCover;//专辑封面的id
@@ -104,8 +110,8 @@ public class PlayPageController implements Controller{
 		return Label_source;
 	}
 
-	public TextArea getTextArea_lyricsArea() {
-		return TextArea_lyricsArea;
+	public TableView<LrcData> getTableView_lyricsArea() {
+		return TableView_lyricsArea;
 	}
 
 	public ImageView getImageView_albumCover() {
@@ -162,6 +168,8 @@ public class PlayPageController implements Controller{
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
+		TableColumn_lyric.setCellValueFactory(new PropertyValueFactory<>("lrcLine"));
+		TableColumn_lyric.setSortable(false);
 	}
 	
 	public void setCss(){

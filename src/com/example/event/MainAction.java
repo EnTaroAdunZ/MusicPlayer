@@ -16,6 +16,7 @@ import com.example.entity.Song;
 import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
 import com.example.service.*;
+import com.example.service.LrcAnalyzer.LrcData;
 import com.example.util.SongUtil;
 
 import javafx.beans.property.DoubleProperty;
@@ -27,10 +28,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -139,21 +143,29 @@ public class MainAction {
 	}
 	
 	public static void progressFeedBack(double progress) {
-		ct.setText(progressCal(tt.getText(), progress));
+		int sec = progressTotalSec(tt.getText(), progress);
+		ct.setText(progressCal(sec, progress));
 		sl.setValue(progress * 100);
+		loadLrc();
+		scrollLrc(sec, progress);
 	}
 	
-	private static String progressCal(String timeLength, double progress) {
-		int sum = 0, mc = 0, sc =0;
-		String m, s;
-		String[] t = timeLength.split(":");
-		m = t[0];s = t[1];
-		mc = Integer.valueOf(m);sc = Integer.valueOf(s);
-		sum = mc * 60 + sc;
+	private static String progressCal(int sec,double progress) {
+		int sum = sec;
 		sum *= progress;
 		int rm = sum / 60, rs = sum % 60;
 		String r = String.format("%02d:%02d", rm, rs);
 		return r;
+	}
+	
+	private static int progressTotalSec(String timeLength, double progress) {
+		int  mc = 0, sc =0;
+		String m, s;
+		String[] t = timeLength.split(":");
+		m = t[0];s = t[1];
+		mc = Integer.valueOf(m);sc = Integer.valueOf(s);
+		int sum = mc * 60 + sc;
+		return sum;
 	}
 	
 	//-----------------------------------------Left-----------------------
@@ -166,7 +178,7 @@ public class MainAction {
 	}
 	
 	public void musiclist(String key) {
-		if(currentMenu.get() == key) 
+		if(currentMenu.get() == key && currentMenu.get().equals("")) 
 			return;
 		currentMenu.set(key);
 //		SongMenu sm = SongMenu.findSongmenuByName(key);
@@ -221,8 +233,9 @@ public class MainAction {
 		if(selectedFile != null) {
 			ArrayList<File> fl = new ArrayList<>();
 			loopDirectory(selectedFile, fl);
-			for(File file : fl)
-			SongOperate.addSong(file.getAbsolutePath(),"我的最爱");
+			for(File file : fl) {
+				SongOperate.addSong(file.getAbsolutePath(),currentMenu.get());
+			}
 		}
 	}
 	
@@ -276,6 +289,64 @@ public class MainAction {
 			show(null);
 	}
 	
+	private static void loadLrc() {
+		if(isExist()) 
+			return;
+		String name = ps.getCurrent_song().getPath();
+		StringBuilder sb = new StringBuilder(name);
+		sb.delete(name.lastIndexOf('.'), name.length());
+		sb.append(".lrc");
+		
+		lyric = new LrcAnalyzer(sb.toString()).LrcGetList();
+		tl.getItems().clear();
+		tl.getItems().addAll(lyric);
+		
+		playingRefresh();
+
+		currentLrc = ps.getCurrent_song().getMusicTitle();
+	}
+	
+	private static void playingRefresh() {
+		if(isExist()) 
+			return;
+		MusicUtils m = ps.getCurrent_song();
+		String name = m.getPath();
+		StringBuilder sb = new StringBuilder(name);
+		sb.delete(name.lastIndexOf('.'), name.length());
+		sb.append(".jpg");
+		String url = new File(sb.toString()).toURI().toString();
+		Image image = new Image(url);
+		piv.setImage(image);
+		liv.setImage(image);
+		pmt.setText(m.getMusicTitle());
+		lmt.setText(m.getMusicTitle());
+		pmb.setText(m.getAlbumName());
+		pms.setText(m.getMusicSinger());
+		lms.setText(m.getMusicSinger());
+		pmc.setText(currentMenu.get());
+	}
+	
+	private static boolean isExist() {
+		String name = ps.getCurrent_song().getMusicTitle();
+		return name.equals(currentLrc);
+	}
+	
+	private static void scrollLrc(int totalSec, double progress) {
+		long cm = (long)(progress * 1000 * totalSec), pm;
+		int index = 0;
+		for(int i = 0; i < lyric.size(); i++) {
+			LrcData ld = lyric.get(i);
+			if (ld.type != LrcAnalyzer.LRC_ZONE)
+				continue;
+			if(i-1 >= 0 ) pm = lyric.get(i-1).timeMs; else pm =0;
+			if (cm < ld.timeMs && cm >= pm) {
+				index = i-1;
+				break;
+			}
+		}
+		tl.scrollTo(index);
+		tl.getSelectionModel().select(index);
+	}
 	// -----------------------------------------List------------------------
 	public void playAll() {
 		tca.getCb().setMl(SongMenuOperate.getSongsByMenuName(currentMenu.get()));
@@ -474,10 +545,18 @@ public class MainAction {
 		addl = gui.getLlC().getButton_addMusicList();
 		vb = gui.getLlC().getVBox_leftMainField();	
 		ml = gui.getLlC().getListView_musicList();
-		//iv = gui.getLlC().getImageView_albumCover();
-		//--------playlist---------
+		liv = gui.getLlC().getImageView_albumCover();
+		lmt = gui.getLlC().getLabel_musicTitle();
+		lms = gui.getLlC().getLabel_singer();
+		//--------playlist-----
 		pl = gui.getPlaylist();
-		
+		//--------play---------
+		tl = gui.getPpC().getTableView_lyricsArea();
+		pmt = gui.getPpC().getLabel_musicTitle();
+		pmb = gui.getPpC().getLabel_albumName();
+		pms = gui.getPpC().getLabel_singer();
+		pmc = gui.getPpC().getLabel_source();
+		piv = gui.getPpC().getImageView_albumCover();
 		
 		buttonDis(true, adds, addd, pb, lb, nb);
 
@@ -510,6 +589,7 @@ public class MainAction {
 	public static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd\u521b\u5efa");
 	public TagClickAction tca;
 	private boolean listOn = false;
+	private static List<LrcData> lyric;
 	
 	static TextField tf = new TextField();//扩展输入栏
 	static Button btn = new Button();//扩展添加按钮
@@ -520,6 +600,8 @@ public class MainAction {
 	//static ImageView iv;//指定left中的专面
 	static VBox vb;//指定left中的竖箱
 	static ListView<Button> ml;//指定left中的列表
+	static ImageView liv;//指定left中封面
+	static Label lmt, lms;//指定left中的标题，歌手
 	static IntegerProperty i, s;//指定gui中的目录和大小
 	static DoubleProperty cp;//指定进度条的值
 	static Button b, f;//指定topandbottom中的后退和前进
@@ -527,6 +609,9 @@ public class MainAction {
 	static Slider sl;//指定topandbottom中的进度条
 	static Label ct, tt;//指定topandbottom中的当前时间和总时间
 	static AnchorPane pl;//指定playlist版面
+	static TableView<LrcData> tl;//指定play的歌词版
+	static Label pmt, pmb, pms, pmc;//指定play中的标题，专辑，歌手，来源
+	static ImageView piv;//指定play中的封面
 
  	public static void buttonDis(boolean r, Button... bl) {
 		for(Button b : bl) 

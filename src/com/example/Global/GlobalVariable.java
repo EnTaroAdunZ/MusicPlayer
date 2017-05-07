@@ -25,6 +25,7 @@ public class GlobalVariable {
 	public static List<MusicUtils> currentList = new ArrayList<>();
 	public static IntegerProperty currentSum = new SimpleIntegerProperty(0);
 	public static int PageType = 0;
+	public static String currentLrc;
 	public static Controller.ContentController currentCtrl = null;
 	
 	public static int i=10000;

@@ -51,13 +51,16 @@ public class LrcAnalyzer {
     // lrc data contract  
     public class LrcData {  
         public int type;  
-        public String Time; // time of string format  
-        public long TimeMs; // time of long format ms  
+        public String time; // time of string format  
+        public long timeMs; // time of long format ms  
         // public char TimeHour; // hour of time  
         // public char TimeMinute; // minute of time  
         // public char TimeSecond; // second of time  
         // public char TimeMilliSecond; // millisecond of time  
-        public String LrcLine; // one line lrc  
+        public String lrcLine; // one line lrc  
+		public String getLrcLine() {
+			return lrcLine;
+		}
     }  
   
     // record analyzed lrc  
@@ -120,35 +123,35 @@ public class LrcAnalyzer {
         if (ContentLine.indexOf(TagAr) != -1) {// whether artist or not  
             LrcData lrcdata = new LrcData();  
             lrcdata.type = ARTIST_ZONE;  
-            lrcdata.LrcLine = ContentLine.substring(  
+            lrcdata.lrcLine = ContentLine.substring(  
                     ContentLine.indexOf(':') + 1, ContentLine.lastIndexOf(']'));  
             // System.out.println(lrcline.LrcLine);  
             LrcList.add(lrcdata);  
         } else if (ContentLine.indexOf(TagAl) != -1) {// whether album or not  
             LrcData lrcdata = new LrcData();  
             lrcdata.type = ALBUM_ZONE;  
-            lrcdata.LrcLine = ContentLine.substring(  
+            lrcdata.lrcLine = ContentLine.substring(  
                     ContentLine.indexOf(':') + 1, ContentLine.lastIndexOf(']'));  
             // System.out.println(lrcline.LrcLine);  
             LrcList.add(lrcdata);  
         } else if (ContentLine.indexOf(TagTi) != -1) {// whether tittle or not  
             LrcData lrcdata = new LrcData();  
             lrcdata.type = TITTLE_ZONE;  
-            lrcdata.LrcLine = ContentLine.substring(  
+            lrcdata.lrcLine = ContentLine.substring(  
                     ContentLine.indexOf(':') + 1, ContentLine.lastIndexOf(']'));  
             // System.out.println(lrcline.LrcLine);  
             LrcList.add(lrcdata);  
         } else if (ContentLine.indexOf(TagBy) != -1) {// whether author or not  
             LrcData lrcdata = new LrcData();  
             lrcdata.type = AOTHOR_ZONE;  
-            lrcdata.LrcLine = ContentLine.substring(  
+            lrcdata.lrcLine = ContentLine.substring(  
                     ContentLine.indexOf(':') + 1, ContentLine.lastIndexOf(']'));  
             // System.out.println(lrcline.LrcLine);  
             LrcList.add(lrcdata);  
         } else if (ContentLine.indexOf(TagOff) != -1) {// whether offset or not  
             LrcData lrcdata = new LrcData();  
             lrcdata.type = OFFSET_ZONE;  
-            lrcdata.LrcLine = ContentLine.substring(  
+            lrcdata.lrcLine = ContentLine.substring(  
                     ContentLine.indexOf(':') + 1, ContentLine.lastIndexOf(']'));  
             // System.out.println(lrcline.LrcLine);  
             LrcList.add(lrcdata);  
@@ -158,10 +161,10 @@ public class LrcAnalyzer {
                 for (int i = 0; i < cut.length - 1; i++) {  
                     LrcData lrcdata = new LrcData();  
                     lrcdata.type = LRC_ZONE;  
-                    lrcdata.Time = cut[i]  
+                    lrcdata.time = cut[i]  
                             .substring(ContentLine.indexOf('[') + 1);  
-                    lrcdata.TimeMs = LrcAnalyzeTimeStringToValue(lrcdata.Time);  
-                    lrcdata.LrcLine = cut[cut.length - 1];  
+                    lrcdata.timeMs = LrcAnalyzeTimeStringToValue(lrcdata.time);  
+                    lrcdata.lrcLine = cut[cut.length - 1];  
                     // System.out.println("------" + i + "-----"  
                     // + ">>>>>>>" + lrcdata.Time  
                     // + ">>>>>>>" + lrcdata.LrcLine  
@@ -196,8 +199,8 @@ public class LrcAnalyzer {
     public void toUTF8() {
     	for(LrcData ld : LrcList) {
     		try {
-    			byte[] charl = ld.LrcLine.getBytes("utf-8");
-				ld.LrcLine = new String(charl, "utf-8");
+    			byte[] charl = ld.lrcLine.getBytes("utf-8");
+				ld.lrcLine = new String(charl, "utf-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
