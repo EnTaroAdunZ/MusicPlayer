@@ -69,8 +69,7 @@ public class LrcAnalyzer {
     /** 
      * constract 
      * */  
-    public LrcAnalyzer(File file) {  
-        try {  
+    public LrcAnalyzer(File file) throws FileNotFoundException{  
             filein = new FileInputStream(file);  
             
             this.file = file;  
@@ -78,16 +77,12 @@ public class LrcAnalyzer {
             LrcList = new ArrayList<LrcData>();  
   
             LrcAnalyzeStart();  
-        } catch (FileNotFoundException e) {  
-            e.printStackTrace();  
-        } 
     }  
   
     /** 
      * constract 
      * */  
-    public LrcAnalyzer(String path) {  
-        try {  
+    public LrcAnalyzer(String path) throws FileNotFoundException{  
             filein = new FileInputStream(path);  
   
             file = new File(path);  
@@ -95,9 +90,6 @@ public class LrcAnalyzer {
             LrcList = new ArrayList<LrcData>();  
   
             LrcAnalyzeStart();  
-        } catch (FileNotFoundException e) {  
-            e.printStackTrace();  
-        }  
     }  
   
     private long LrcAnalyzeTimeStringToValue(String time) {  

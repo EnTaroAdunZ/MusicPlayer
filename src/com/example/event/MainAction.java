@@ -146,8 +146,8 @@ public class MainAction {
 		int sec = progressTotalSec(tt.getText(), progress);
 		ct.setText(progressCal(sec, progress));
 		sl.setValue(progress * 100);
-		loadLrc();
-		scrollLrc(sec, progress);
+		if(loadLrc())
+			scrollLrc(sec, progress);
 	}
 	
 	private static String progressCal(int sec,double progress) {
@@ -289,21 +289,33 @@ public class MainAction {
 			show(null);
 	}
 	
-	private static void loadLrc() {
+	private static boolean loadLrc() {
 		if(isExist()) 
-			return;
+			return false;
 		String name = ps.getCurrent_song().getPath();
 		StringBuilder sb = new StringBuilder(name);
 		sb.delete(name.lastIndexOf('.'), name.length());
 		sb.append(".lrc");
-		
-		lyric = new LrcAnalyzer(sb.toString()).LrcGetList();
-		tl.getItems().clear();
-		tl.getItems().addAll(lyric);
-		
-		playingRefresh();
-
-		currentLrc = ps.getCurrent_song().getMusicTitle();
+		boolean exist = false;
+		try {
+			lyric = new LrcAnalyzer(sb.toString()).LrcGetList();
+			exist = true;
+		} catch (Exception e) {
+			Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+			_alert.setTitle("消息");
+			_alert.setHeaderText("该歌曲没有同名的lrc文件在同一目录哦  w(ﾟДﾟ)w");
+			 _alert.setContentText(e.getMessage());
+			 _alert.show();
+			 exist = false;
+		} finally {
+			if(exist) {				
+				playingRefresh();
+				tl.getItems().clear();
+				tl.getItems().addAll(lyric);
+			}
+			currentLrc = ps.getCurrent_song().getMusicTitle();
+		}
+		return exist;
 	}
 	
 	private static void playingRefresh() {
@@ -344,7 +356,15 @@ public class MainAction {
 				break;
 			}
 		}
-		tl.scrollTo(index);
+		if(index < 9 || index >= lyric.size() - 9){
+			int x = index;
+			if(index < 9 ) x = 0;
+			if(index >= lyric.size() - 9) x = lyric.size() - 18;
+			if(x < 0) x = 0;
+			tl.scrollTo(x);
+		}else {
+			tl.scrollTo(index - 9);
+		}
 		tl.getSelectionModel().select(index);
 	}
 	// -----------------------------------------List------------------------
