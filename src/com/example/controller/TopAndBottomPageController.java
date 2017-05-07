@@ -279,7 +279,6 @@ public class TopAndBottomPageController implements Controller{
 		Button_modeSwitch.getStyleClass().set(0, "buttonOrderPlay");
 		Button_pause.getStyleClass().set(0, "buttonPlay");
 		
-		Label_FXName.getStyleClass().add("lightLabel");
 		Label_currentTime.getStyleClass().add("lightLabel");
 		Label_totalTime.getStyleClass().add("lightLabel");
 		Label_playListNum.getStyleClass().add("lightLabel");

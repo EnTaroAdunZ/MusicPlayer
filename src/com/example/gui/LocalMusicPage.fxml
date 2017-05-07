@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="StackPane_center" fx:controller="com.example.controller.LocalMusicPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="StackPane_center" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LocalMusicPageController">
    <children>
       <VBox fx:id="VBox_LocalPage" prefHeight="724.0" prefWidth="1009.0">
          <children>
@@ -28,14 +27,9 @@
                            </font>
                         </Label>
                         <Label fx:id="Label_musicNum" prefHeight="95.0" prefWidth="118.0" text="%musicNum" />
-                        <Button fx:id="Button_selectDirectory" mnemonicParsing="false" onAction="#onSelectDirectory" prefHeight="30.0" prefWidth="100.0" text="选择目录">
-                           <HBox.margin>
-                              <Insets left="20.0" top="25.0" />
-                           </HBox.margin>
-                        </Button>
                         <Button fx:id="Button_playAll" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="30.0" prefWidth="100.0" text="播放全部">
                            <HBox.margin>
-                              <Insets left="20.0" top="25.0" />
+                              <Insets left="140.0" top="25.0" />
                            </HBox.margin>
                         </Button>
                         <TextField fx:id="TextField_localSearchText" promptText="搜索本地音乐">

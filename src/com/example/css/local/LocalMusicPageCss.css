@@ -75,7 +75,7 @@
 }
 
 .table-row-cell:selected{
-    -fx-background-color: #a6a6a6;
+    -fx-background-color: #4d4e53;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
     -fx-text-fill: white;

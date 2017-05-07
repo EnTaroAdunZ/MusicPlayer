@@ -16,8 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="StackPane_MusicListPage" fx:controller="com.example.controller.MusicListPageController" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="StackPane_MusicListPage" alignment="BOTTOM_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="724.0" prefWidth="1009.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MusicListPageController">
    <children>
       <ScrollPane fx:id="ScrollPane_totalPage" hbarPolicy="NEVER" prefHeight="724.0" prefWidth="1009.0">
          <content>
@@ -71,25 +70,11 @@
                                        </children>
                                     </HBox>
                                     <Label fx:id="Label_ListCreateTime" prefHeight="40.0" prefWidth="609.0" text="%createTime" />
-                                    <HBox prefHeight="210.0" prefWidth="609.0">
-                                       <children>
-                                          <Label fx:id="Label_introduction" prefHeight="24.0" prefWidth="68.0" style="-fx-text-fill: white;" text="简介：">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="Label_ListIntroduction" alignment="TOP_LEFT" prefHeight="235.0" prefWidth="552.0" text="%introduction">
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </HBox>
                                     <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="559.0">
                                        <children>
                                           <TextField fx:id="TextField_searchListMusic" prefHeight="30.0" prefWidth="224.0" promptText="搜索歌单音乐">
                                              <HBox.margin>
-                                                <Insets bottom="3.0" />
+                                                <Insets bottom="3.0" top="180.0" />
                                              </HBox.margin>
                                           </TextField>
                                           <Button fx:id="Button_searchMusic" mnemonicParsing="false" onAction="#onSearchMusic" prefHeight="30.0" prefWidth="30.0">

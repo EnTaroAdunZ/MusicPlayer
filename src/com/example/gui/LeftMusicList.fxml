@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorPane_left" prefHeight="724.0" prefWidth="293.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LeftMusicListController">
    <children>
@@ -42,8 +43,20 @@
                         <ImageView fx:id="ImageView_albumCover" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
                         <VBox fx:id="Vbox_leftTitleAndSinger" prefHeight="120.0" prefWidth="191.0">
                            <children>
-                              <Label fx:id="Label_musicTitle" prefHeight="60.0" prefWidth="190.0" text="%musicTitle" />
-                              <Label fx:id="Label_singer" prefHeight="60.0" prefWidth="190.0" text="%singer" />
+                              <Label fx:id="Label_musicTitle" alignment="BOTTOM_LEFT" prefHeight="60.0" prefWidth="185.0" text="%musicTitle">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" left="5.0" />
+                                 </VBox.margin></Label>
+                              <Label fx:id="Label_singer" alignment="TOP_LEFT" prefHeight="60.0" prefWidth="185.0" text="%singer">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin></Label>
                            </children>
                         </VBox>
                      </children>

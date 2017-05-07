@@ -58,9 +58,6 @@ public class MusicListPageController implements ContentController{
 	private Label Label_ListCreateTime;//歌单创建时间id
 	
 	@FXML
-	private Label Label_ListIntroduction;//歌单简介id
-	
-	@FXML
 	private AnchorPane AnchorPane_bottomPage;//下部分页面id
 	
 	@FXML
@@ -123,10 +120,6 @@ public class MusicListPageController implements ContentController{
 
 	public Label getLabel_ListCreateTime() {
 		return Label_ListCreateTime;
-	}
-
-	public Label getLabel_ListIntroduction() {
-		return Label_ListIntroduction;
 	}
 
 	public AnchorPane getAnchorPane_bottomPage() {
@@ -199,8 +192,7 @@ public class MusicListPageController implements ContentController{
 				
 		Label_ListName.getStyleClass().add("lightLabel");
 		Label_ListCreateTime.getStyleClass().add("lightLabel");
-		Label_ListIntroduction.getStyleClass().add("lightLabel");
-		ImageView_ListCover.setImage(new Image("com/example/css/musiclist/Favorite.png"));
+		ImageView_ListCover.setImage(new Image("com/example/css/musiclist/demoMusicList.jpg"));
 		
 		TableColumn_musicID.getStyleClass().add("tableColumn");
 		TableColumn_like.getStyleClass().add("tableColumn");

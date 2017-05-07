@@ -56,9 +56,6 @@ public class LocalMusicPageController implements ContentController{
 	private Label Label_localMusic;//“本地音乐”
 	
 	@FXML
-	private Button Button_selectDirectory;//“选择目录”的按钮id
-	
-	@FXML
 	private Button Button_playAll;//“播放全部”的按钮id
 	
 	@FXML
@@ -116,10 +113,6 @@ public class LocalMusicPageController implements ContentController{
 		return Label_musicNum;
 	}
 
-	public Button getButton_selectDirectory() {
-		return Button_selectDirectory;
-	}
-
 	public Button getButton_playAll() {
 		return Button_playAll;
 	}
@@ -169,11 +162,6 @@ public class LocalMusicPageController implements ContentController{
 	}
 
 	@FXML
-	private void onSelectDirectory(ActionEvent event){//“选择目录”按钮的响应方法
-		df.show();
-	}
-	
-	@FXML
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮的响应方法
 		
 	}
@@ -208,7 +196,6 @@ public class LocalMusicPageController implements ContentController{
 		
 		Label_localMusic.getStyleClass().add("lightLabel");
 		Label_musicNum.getStyleClass().add("lightLabel");
-		Button_selectDirectory.getStyleClass().add("lightButton");
 		Button_playAll.getStyleClass().add("lightButton");
 		TextField_localSearchText.getStyleClass().add("ListField");
 		

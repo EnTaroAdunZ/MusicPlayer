@@ -9,6 +9,37 @@
 	-fx-border-color: white;
 }
 
+#AnchorPane_playListPage{
+	-fx-background-color: #1b1d20;
+	-fx-border-color: white;
+}
+
+#AnchorPane_titlePane{
+	-fx-background-color: #1b1d20;
+	-fx-border-color: white;
+}
+
+#AnchorPane_infoArea{
+	-fx-background-color: #1b1d20;
+	-fx-border-color: white;
+}
+
+#TableColumn_song{
+	-fx-border-color: null;
+}
+
+#TableColumn_singer{
+	-fx-border-color: null;
+}
+
+#TableColumn_length{
+	-fx-border-color: null;
+}
+
+#TableView_playList .column-header{
+	-fx-border-color:white;
+}
+
 #Button_playListClose{
 	-fx-background-image: url("CloseDark.png")
 }

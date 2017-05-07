@@ -17,6 +17,16 @@
 	-fx-background-color : #1b1d20;
 }
 
+#TableView_lyricsArea > .placeholder > .label{
+	-fx-text-fill: null;
+}
+
+
+.tableViewBackGround > .placeholder{
+	-fx-background-image: url("TableBG.jpg");
+}
+
+
 .playclose{
 	-fx-background-image: url("PlayCloseDark.png");
 }

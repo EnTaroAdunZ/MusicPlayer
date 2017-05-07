@@ -14,6 +14,10 @@
 	-fx-background-image: url("Pause.png")
 }
 
+#Label_FXName{
+	-fx-background-image: url("title.jpg")
+}
+
 #Button_last{
 	-fx-background-image: url("LastDark.png")
 }
@@ -152,15 +156,15 @@
 
 //Î´²¥·Å
 .slider .track {
-      -fx-background-color:
-          -fx-shadow-highlight-color,
+      -fx-background-color: 
+           -fx-shadow-highlight-color,
           linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
           linear-gradient(to bottom, 
             derive(-fx-control-inner-background, -9%),
             derive(-fx-control-inner-background, 0%),
             derive(-fx-control-inner-background, -5%),
             derive(-fx-control-inner-background, -12%)
-          );
+          ); 
     -fx-background-insets: 0 0 -1 0, 0, 1;
     -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
     -fx-padding: 0.25em; /* 3 */

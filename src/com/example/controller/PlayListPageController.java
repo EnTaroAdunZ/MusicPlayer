@@ -129,10 +129,6 @@ public class PlayListPageController {
 		Label_title.getStyleClass().add("lightLabel");
 		Label_playListNum.getStyleClass().add("lightLabel");
 		
-		AnchorPane_playListPage.getStyleClass().add("paneStyleSet");
-		AnchorPane_infoArea.getStyleClass().add("paneStyleSet");
-//		AnchorPane_titlePane.getStyleClass().add("paneStyleSet");
-		
 		Button_playListClose.getStyleClass().remove(0);
 		Button_playListClear.getStyleClass().remove(0);
 		

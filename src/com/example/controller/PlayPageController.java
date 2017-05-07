@@ -24,12 +24,6 @@ import javafx.scene.layout.VBox;
 public class PlayPageController implements Controller{
 	//以下是各控件的ID
 	@FXML
-	private Button Button_like;//按钮“喜欢”的id
-	
-	@FXML
-	private Button Button_collect;//按钮“收藏”的id
-	
-	@FXML
 	private Button Button_PlayPage_back;//按钮“返回”的id
 	
 	@FXML
@@ -82,14 +76,6 @@ public class PlayPageController implements Controller{
 	
 	//以下是响应方法的接口
 	
-	public Button getButton_like() {
-		return Button_like;
-	}
-
-	public Button getButton_collect() {
-		return Button_collect;
-	}
-
 	public Button getButton_PlayPage_back() {
 		return Button_PlayPage_back;
 	}
@@ -149,16 +135,6 @@ public class PlayPageController implements Controller{
 	public VBox getVBox_rightVBox() {
 		return VBox_rightVBox;
 	}
-
-	@FXML
-	private void onLike(ActionEvent event){//按钮“喜欢”的响应方法
-		
-	}
-	
-	@FXML
-	private void onCollect(ActionEvent event){//按钮“收藏”的响应方法
-		
-	}
 	
 	@FXML
 	private void onPlayPageBack(ActionEvent event){//按钮“返回”的响应方法
@@ -170,6 +146,7 @@ public class PlayPageController implements Controller{
 		this.ma = ma;
 		TableColumn_lyric.setCellValueFactory(new PropertyValueFactory<>("lrcLine"));
 		TableColumn_lyric.setSortable(false);
+		
 	}
 	
 	public void setCss(){
@@ -180,8 +157,7 @@ public class PlayPageController implements Controller{
 		ImageView_albumCover.setImage(new Image("com/example/css/play/demoLarge.jpg"));
 		
 		Button_PlayPage_back.getStyleClass().set(0, "playclose");
-		Button_like.getStyleClass().set(0, "lightButton");
-		Button_collect.getStyleClass().set(0, "lightButton");
+		TableView_lyricsArea.getStyleClass().add("tableViewBackGround");
 	}
 	
 	private MainAction ma;
