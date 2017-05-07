@@ -32,17 +32,6 @@ public class SongDaoImpl implements SongDao{
 		XMLUtil.writeDoc(document);
 	}
 
-	@Override
-	public void deleteSongWithFile(String songPath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void changeSong(Song song) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public List<Song> getSongList(String songSheet) {
@@ -83,6 +72,7 @@ public class SongDaoImpl implements SongDao{
 	@Override
 	public void addSong(Song song, String menuName) {
 		Document document= XMLUtil.getDoc();
+		addMusicToLocal(song);
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
 		SongUtil.songToEle(song, element);
 		XMLUtil.writeDoc(document);
@@ -101,9 +91,37 @@ public class SongDaoImpl implements SongDao{
 	}
 
 
-	public static void main(String[] args) {
-		SongDaoImpl songDaoImpl=new SongDaoImpl();
-		songDaoImpl.deleteSong("我的最爱","D:\\CloudMusic\\10cm,大橋トリオ - Fine Thank You And You.mp3");
+//	public static void main(String[] args) {
+//		SongDao songUtil=new SongDaoImpl();
+//		boolean checkMusicExist = songUtil.checkMusicExist("D:\\CloudMusic\\amazarashi - 14歳.mp3","我最爱的音乐");
+//		System.out.println(checkMusicExist);
+//	}
+
+
+	@Override
+	public void addMusicToLocal(Song song) {
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='本地音乐']");
+		if(!checkMusicExist(song.getPath(),"本地音乐")){
+			SongUtil.songToEle(song, element);
+			XMLUtil.writeDoc(document);
+		}
 	}
+
+	//返回true说明存在，false不存在
+	@Override
+	public boolean checkMusicExist(String path, String menuName) {
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='"+menuName+"']");
+		List<Element> songs = element.elements();
+		for(Element s:songs){
+			Song song=SongUtil.eleToSong(s);
+			if(song.getPath().equals(path))
+				return true;
+		}
+		return false;
+	}
+	
+	
 }
  

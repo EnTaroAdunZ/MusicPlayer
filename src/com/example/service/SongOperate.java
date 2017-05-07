@@ -44,7 +44,6 @@ public class SongOperate {
 	//添加一个song，并返回实体
 	public static Song addSong(String path,String menuName){
 		//此处判断是否为合法路径以及合法音频格式
-		
 		Song song=new Song();
 		song.setPath(path);
 		File file=new File(path);
@@ -58,45 +57,70 @@ public class SongOperate {
 			tag = TagInfoUtil.Mp3InfoRead(path);
 			song.setTag(tag);
 		}
-		songDao.addSong(song,menuName);
-		return song;
+		if(!songDao.checkMusicExist(path, menuName)){
+			songDao.addSong(song,menuName);
+			if(!songDao.checkMusicExist(path, "本地音乐")){
+				songDao.addMusicToLocal(song);
+			}
+			return song;
+		}else{
+			throw new RuntimeException(path+"已经在"+menuName+"下啦！ ⊙﹏⊙‖∣° ");
+		}
 	}
 	
+	//添加某文件夹下的音乐
 	public static void addSongWithFile(String filePath,String menuName){
 		File files=new File(filePath);
 		List<Song> songList=new ArrayList<Song>();
+		int count=0;
+		boolean isRepet=false;
 		if(files.exists()&&files.isDirectory()){
 			for(File file:files.listFiles()){
 //				Media media=new Media(file.toString());
 				String absolutePath = file.getAbsolutePath();
-				if(file.isFile()){
-					if(absolutePath.endsWith(".flac")){
-						Tag tag = null ;
-						tag=TagInfoUtil.FlacInfoRead(absolutePath);
-						Song song=new Song();
-						song.setPath(absolutePath);
-						song.setLength(SongUtil.getLengthToMb(file.length()));
-						song.setTag(tag);
-						songList.add(song);
-					}
-					else if(absolutePath.endsWith(".mp3")){
-						Tag tag = null ;
-						tag= TagInfoUtil.Mp3InfoRead(absolutePath);
-						Song song=new Song();
-						song.setPath(absolutePath);
-						song.setLength(SongUtil.getLengthToMb(file.length()));
-						song.setTag(tag);
-						songList.add(song);
-					}
+				if(songDao.checkMusicExist(absolutePath, menuName)){
+					count++;
+					isRepet=true;
+				}
+				else{
+					if(file.isFile()){
+						if(absolutePath.endsWith(".flac")){
+							Tag tag = null ;
+							tag=TagInfoUtil.FlacInfoRead(absolutePath);
+							Song song=new Song();
+							song.setPath(absolutePath);
+							song.setLength(SongUtil.getLengthToMb(file.length()));
+							song.setTag(tag);
+							songList.add(song);
+							if(!songDao.checkMusicExist(absolutePath, "本地音乐")){
+								songDao.addMusicToLocal(song);
+							}
+						}
+						else if(absolutePath.endsWith(".mp3")){
+							Tag tag = null ;
+							tag= TagInfoUtil.Mp3InfoRead(absolutePath);
+							Song song=new Song();
+							song.setPath(absolutePath);
+							song.setLength(SongUtil.getLengthToMb(file.length()));
+							song.setTag(tag);
+							songList.add(song);
+							if(!songDao.checkMusicExist(absolutePath, "本地音乐")){
+								songDao.addMusicToLocal(song);
+							}
+						}
 
+					}
 				}
 			}
 		}
 		songDao.addSongWithFile(songList, menuName);
+		if(isRepet){
+			throw new RuntimeException(count+"首歌添加失败，歌单下已经添加了某些歌曲！ ⊙﹏⊙‖∣° ");
+		}
 	}
 	
 	public static void main(String[] args) {
-		addSong("D:\\Angel With a Shotgun.mp3", "我的最爱");
+//		addSong("D:\\Angel With a Shotgun.mp3", "我的最爱");
 		
 //		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
 //		for(SongMenu songMenu:allSongMenu){

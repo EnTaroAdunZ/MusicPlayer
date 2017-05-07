@@ -1,5 +1,8 @@
 package com.example.dao.impl;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.dom4j.Document;
@@ -23,7 +26,12 @@ public class SongMenuDaoImpl implements SongMenuDao{
 	@Override
 	public void addSongMenu(String songMenuName) {
 		Document document=XMLUtil.getDoc();
-		Element addElement = document.getRootElement().addElement("song-menu").addAttribute("songMenuName", songMenuName);
+		Element addElement = document.getRootElement().addElement("song-menu");
+		addElement.addAttribute("songMenuName", songMenuName);
+		Date date=new Date();
+		  DateFormat format=new SimpleDateFormat("yyyy年MM月dd日");
+		  String time=format.format(date);
+		addElement.addAttribute("createDate", time);
 		XMLUtil.writeDoc(document);
 	}
 
@@ -36,11 +44,6 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		XMLUtil.writeDoc(document);
 	}
 
-	@Override
-	public void alterSongMenu(String new_songMenuName, String old_songMenuName) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	//得到歌单以及歌单下的所有信息
 	@Override
@@ -50,6 +53,9 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		List<SongMenu> songMenus=new ArrayList<SongMenu>();
         if(elements!=null){
             for(Element e:elements){
+            	if(e.attributeValue("songMenuName").equals("本地音乐")){
+            		continue;
+            	}
             	SongMenu songMenu = new SongMenu();
             	List<Element> songElements = e.elements("song");
             	List<Song> songList = new ArrayList<Song>();
@@ -58,7 +64,6 @@ public class SongMenuDaoImpl implements SongMenuDao{
             	if(songElements!=null){
             		for(Element e2:songElements){
                         Song song=SongUtil.eleToSong(e2);
-
                         songList.add(song);
             		}
             		songMenu.setSongList(songList);
@@ -84,8 +89,14 @@ public class SongMenuDaoImpl implements SongMenuDao{
 				}
 			}
 		}
-
 		return songList;
+	}
+
+	@Override
+	public String getCreateDateBySongMenuName(String menuName) {
+		Document document= XMLUtil.getDoc();
+		Element menuList = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
+		return menuList.attributeValue("createDate");
 	}
 	
 	

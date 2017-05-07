@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.example.Global.PlayState;
 import com.example.dao.SongMenuDao;
 import com.example.dao.impl.SongMenuDaoImpl;
 import com.example.entity.Song;
@@ -21,10 +22,13 @@ public class SongMenuOperate {
 		songMenuDao=new SongMenuDaoImpl();
 	}
 	
-	//后面可以添加返回值判断是否添加成功
+	//抛异常判断是否出错
 	public static void addSongMenu(String songMenuName) throws RuntimeException{
 		//判断歌单是否重名，暂时不支持
 		List<Song> songByMenuName =null;
+		if(songMenuName=="本地音乐"||songMenuName=="我喜欢的音乐"){
+			throw new RuntimeException("非法访问！");
+		}
 		songByMenuName= songMenuDao.getSongByMenuName(songMenuName);
 		if(songByMenuName!=null){
 			throw new RuntimeException("歌单已存在！");
@@ -54,24 +58,40 @@ public class SongMenuOperate {
 	//通过歌单名删除歌单
 	public static void deleteSongMenuByName(String menuName){
 		List<Song> songByMenuName =null;
+		if(menuName=="我的最爱"){
+			throw new RuntimeException("该歌单无法删除！");
+		}
+		if(menuName=="本地音乐"){
+			throw new RuntimeException("非法访问！");
+		}
 		songByMenuName= songMenuDao.getSongByMenuName(menuName);
 		if(songByMenuName==null){
 			throw new RuntimeException("歌单不存在！不能删除！");
 		}
 		songMenuDao.deleteSongMenu(menuName);
 	}
-	
-	
-	public static void main(String[] args) {
-//		List<SongMenu> songMenu = getSongMenu();
-//		for(SongMenu s:songMenu)
-//		System.out.println(s.getSongMenuName());
-		
-//		addSongMenu("我的更爱");
-		
-//		deleteSongMenuByName("我的最爱");
-		
-		
+	//根据歌单名返回歌单的创建时间
+	public static String getCreateDateBySongMenuName(String menuName){
+		String createDateBySongMenuName = songMenuDao.getCreateDateBySongMenuName(menuName);
+		return createDateBySongMenuName;
 	}
+	
+	//返回本地音乐
+	public static List<MusicUtils> getLocalSong(){
+		List<Song> songByMenuName = songMenuDao.getSongByMenuName("本地音乐");
+		List<MusicUtils> songUtilMenu=new ArrayList<MusicUtils>();
+		Iterator<Song> iterator = songByMenuName.iterator();
+		while(iterator.hasNext()){
+			Song next = iterator.next();
+			MusicUtils songToMucic = SongUtil.songToMucic(next);
+			songUtilMenu.add(songToMucic);
+		}
+		return songUtilMenu;
+	}
+	
+//	public static void main(String[] args) {
+//		System.out.println(getCreateDateBySongMenuName("本地音乐"));
+//	}
+	
 }
  

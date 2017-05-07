@@ -15,6 +15,14 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
 public class SongMenu {
 	private String songMenuName;
 	private List<Song> songList;
+	private String createDate;
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 	public String getSongMenuName() {
 		return songMenuName;
 	}

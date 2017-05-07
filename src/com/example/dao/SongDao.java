@@ -19,7 +19,7 @@ public interface SongDao {
 	List<Song> getSongByName(String songName,String menuName);
 	Song getSongByArtist();
 	void deleteSong(String songPath,String songMenu);
-	void deleteSongWithFile(String songPath);
-	void changeSong(Song song);
+	void addMusicToLocal(Song song);
+	boolean checkMusicExist(String path,String menuName);
 }
  

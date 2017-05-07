@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <song-list>
-	<song-menu songMenuName="我的最爱">
+	<song-menu songMenuName="我的最爱" createData="2017.5.7">
 		<song id='1'>
 			<path>E://</path>
 			<length></length>

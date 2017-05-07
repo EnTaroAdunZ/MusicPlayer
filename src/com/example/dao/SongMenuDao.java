@@ -13,8 +13,8 @@ import com.example.entity.SongMenu;
 public interface SongMenuDao {
 	void addSongMenu(String songMenuName); 
 	void deleteSongMenu(String songMenuName); 
-	void alterSongMenu(String new_songMenuName,String old_songMenuName);
 	List<SongMenu> getAllSongMenu();
 	List<Song> getSongByMenuName(String menuName);
+	String getCreateDateBySongMenuName(String menuName);
 }
  
