@@ -36,7 +36,7 @@ public class SongOperate {
 		songDao.setAllIsLike(path, isLike);
 		if(!isLike){
 			//取消选择喜爱
-			songDao.deleteSong(path, "我喜欢的音乐");
+			songDao.deleteSong("我喜欢的音乐",path );
 		}
 		else{
 			addSong(path,"我喜欢的音乐");
@@ -44,14 +44,25 @@ public class SongOperate {
 	}
 	
 	
-	//搜索关键字获得任意歌单下的歌曲
-	public static List<Song> findSongByName(String songName,String menuName){
-		return songDao.getSongByName(songName, menuName);
+	//搜索名字关键字获得任意歌单下的歌曲
+	public static List<Song> findSongByName(String key,String menuName,int Mode){
+		if(Mode!=GlobalVariable.SEARCHMODE_HYBRID){
+			return songDao.getSong(menuName, key,Mode);
+		}
+		else{
+			return songDao.getSongHYBRID(menuName, key);
+		}
+		
 	}
 	
-	//搜索关键字获得本地音乐下的歌曲
-	public static List<Song> findLocalSong(String songName){
-		return songDao.getSongByName(songName,"本地管理");
+	//搜索名字关键字获得本地音乐下的歌曲
+	public static List<Song> findLocalSong(String key,int Mode){
+		if(Mode!=GlobalVariable.SEARCHMODE_HYBRID){
+			return songDao.getSong(key, "本地管理",Mode);
+		}
+		else{
+			return songDao.getSongHYBRID(key, "本地管理");
+		}
 	}
 	
 	public static void deleteSong(String menuName,String songPath) throws RuntimeException{
@@ -171,6 +182,7 @@ public class SongOperate {
 			throw new RuntimeException(count+"首歌添加失败，歌单下已经添加了某些歌曲！ ⊙﹏⊙‖∣° ");
 		}
 	}
+	
 	
 }
  

@@ -52,6 +52,8 @@ public class PlayOperate implements Observer {
 	public Player getMediaPlayer() {
 		return mediaPlayer;
 	}
+	
+	
 
 	public static boolean hasMedia() {
 		if (PlayOperate.getPlayOperate().getMediaPlayer() == null) {
@@ -96,7 +98,7 @@ public class PlayOperate implements Observer {
 				// System.out.println("开始播放");
 				
 				pauseMusic();
-				baseCurrentMillis=0;
+				
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PAUSEMUSIC) {
@@ -445,6 +447,10 @@ public class PlayOperate implements Observer {
 			// System.out.println("改变后的index"+nextIndex);
 		}
 
+	}
+	
+	public void setBaseCurrentMillis(long baseCurrentMillis) {
+		this.baseCurrentMillis = baseCurrentMillis;
 	}
 
 }

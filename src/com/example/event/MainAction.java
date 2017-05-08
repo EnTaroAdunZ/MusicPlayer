@@ -542,7 +542,7 @@ public class MainAction {
 
 	public static List<MusicUtils> searchsong(String key){
 		List<MusicUtils> ml = new ArrayList<>();
-		List<Song> sl = SongOperate.findSongByName(key, currentMenu.get());
+		List<Song> sl = SongOperate.findSongByName(key, currentMenu.get(),0);
 		for(Song s : sl) {
 			MusicUtils mu = SongUtil.songToMucic(s);
 			ml.add(mu);

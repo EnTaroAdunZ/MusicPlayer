@@ -48,6 +48,11 @@ public class Tag {
 		length="空";
 	}
 
+	@Override
+	public String toString() {
+		return "Tag [SongName=" + SongName + ", Artist=" + Artist + ", Album=" + Album + ", length=" + length + "]";
+	}
+
 	
 	
 	

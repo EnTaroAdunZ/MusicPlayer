@@ -49,8 +49,15 @@ public class Song {
 	public void setLength(String length) {
 		this.length = length;
 	}
+	@Override
+	public String toString() {
+		return "Song [tag=" + tag + ", path=" + path + ", length=" + length + ", isLike=" + isLike + "]";
+	}
 
-	
+	@Override
+	public int hashCode() {
+		return this.path.hashCode();
+	}
 	
 	
 	

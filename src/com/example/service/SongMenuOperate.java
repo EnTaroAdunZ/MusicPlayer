@@ -25,7 +25,7 @@ public class SongMenuOperate {
 	//抛异常判断是否出错
 	public static void addSongMenu(String songMenuName) throws RuntimeException{
 		List<Song> songByMenuName =null;
-		if(songMenuName=="本地音乐"||songMenuName=="我喜欢的音乐"){
+		if(songMenuName.equals("本地音乐")||songMenuName.equals("我喜欢的音乐")){
 			throw new RuntimeException("非法访问！");
 		}
 		songByMenuName= songMenuDao.getSongByMenuName(songMenuName);
@@ -57,10 +57,10 @@ public class SongMenuOperate {
 	//通过歌单名删除歌单
 	public static void deleteSongMenuByName(String menuName){
 		List<Song> songByMenuName =null;
-		if(menuName=="我的最爱"){
+		if(menuName.equals("我喜欢的音乐")){
 			throw new RuntimeException("该歌单无法删除！");
 		}
-		if(menuName=="本地音乐"){
+		if(menuName.equals("本地音乐")){
 			throw new RuntimeException("非法访问！");
 		}
 		songByMenuName= songMenuDao.getSongByMenuName(menuName);

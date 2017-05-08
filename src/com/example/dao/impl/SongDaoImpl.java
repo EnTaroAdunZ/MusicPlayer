@@ -8,12 +8,14 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
+import com.example.Global.GlobalVariable;
 import com.example.dao.SongDao;
 import com.example.entity.Song;
 import com.example.entity.Tag;
 import com.example.util.SongUtil;
 import com.example.util.XMLUtil;
 import com.sun.org.apache.bcel.internal.generic.I2F;
+import com.tulskiy.tta.Main;
 
 /** 
 * @author ZTF  
@@ -24,6 +26,7 @@ import com.sun.org.apache.bcel.internal.generic.I2F;
 public class SongDaoImpl implements SongDao{
 
 	
+
 
 	@Override
 	public void deleteSong(String menuName,String songPath) {
@@ -40,7 +43,6 @@ public class SongDaoImpl implements SongDao{
 				boolean remove = parent.remove(pathList.get(0));
 			}
 		}
-		
 		XMLUtil.writeDoc(document);
 	}
 
@@ -60,11 +62,16 @@ public class SongDaoImpl implements SongDao{
 	}
 
 	@Override
-	public List<Song> getSongByName(String songName,String menuName) {
-		Document document= XMLUtil.getDoc();		
-		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
-		List<Node> selectNodes = element.selectNodes("//tag[contains(songName,'"+songName+"')]");
-		Iterator<Node> iterator = selectNodes.iterator();
+	public List<Song> getSong(String key,String menuName,int Mode) {
+		Document document= XMLUtil.getDoc();	
+		List<Element> selectNodes=null;
+		if(Mode==GlobalVariable.SEARCHMODE_SONGNAME)
+		selectNodes = document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(songName,'"+key+"')]");
+		else if(Mode==GlobalVariable.SEARCHMODE_ALBUM)
+			selectNodes = document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(album,'"+key+"')]");
+		else if(Mode==GlobalVariable.SEARCHMODE_SINGER)
+			selectNodes = document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(artist,'"+key+"')]");
+		Iterator<Element> iterator = selectNodes.iterator();
 		List<Song> songList=new ArrayList<Song>();
 		while(iterator.hasNext()){
 			Element parent = iterator.next().getParent();
@@ -73,12 +80,13 @@ public class SongDaoImpl implements SongDao{
 		}
 		return songList;
 	}
+//	public static void main(String[] args) {
+//		SongDao songUtil=new SongDaoImpl();
+//	    songUtil.getSongByName("啦啦啦","我喜欢的音乐");
+//	}
 
-	@Override
-	public Song getSongByArtist() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	
 
 	@Override
 	public void addSong(Song song, String menuName) {
@@ -108,11 +116,6 @@ public class SongDaoImpl implements SongDao{
 	}
 
 
-//	public static void main(String[] args) {
-//		SongDao songUtil=new SongDaoImpl();
-//		boolean checkMusicExist = songUtil.checkMusicExist("D:\\CloudMusic\\amazarashi - 14歳.mp3","我最爱的音乐");
-//		System.out.println(checkMusicExist);
-//	}
 
 
 	@Override
@@ -169,7 +172,45 @@ public class SongDaoImpl implements SongDao{
 			return false;
 		}
 	}
+
+
+	@Override
+	public List<Song> getSongHYBRID(String key, String menuName) {
+		Document document= XMLUtil.getDoc();	
+		List<Element> selectNodes1=document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(songName,'"+key+"')]");;
+		Iterator<Element> iterator1 = selectNodes1.iterator();
+		List<Song> songList=new ArrayList<Song>();
+		while(iterator1.hasNext()){
+			Element parent = iterator1.next().getParent();
+			Song song=SongUtil.eleToSong(parent);
+			songList.add(song);
+		}
+		List<Element> selectNodes2=document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(album,'"+key+"')]");;
+		Iterator<Element> iterator2 = selectNodes2.iterator();
+		while(iterator2.hasNext()){
+			Element parent = iterator2.next().getParent();
+			Song song=SongUtil.eleToSong(parent);
+			if(!songList.contains(song))
+			songList.add(song);
+		}
+		List<Element> selectNodes3=document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(artist,'"+key+"')]");;
+		Iterator<Element> iterator3 = selectNodes3.iterator();
+		while(iterator3.hasNext()){
+			Element parent = iterator3.next().getParent();
+			Song song=SongUtil.eleToSong(parent);
+			if(!songList.contains(song))
+			songList.add(song);
+		}
+		return songList;
+	}
 	
+//	public static void main(String[] args) {
+//		SongDaoImpl songDaoImpl=new SongDaoImpl();
+//		List<Song> songHYBRID = songDaoImpl.getSongHYBRID("小","我喜欢的音乐");
+//		for(Song song :songHYBRID){
+//			System.out.println(song);
+//		}
+//	}
 	
 }
  

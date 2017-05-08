@@ -86,6 +86,7 @@ public class PlayState {
 	}
 
 	public void setCurrent_song(MusicUtils current_song) {
+		PlayOperate.getPlayOperate().setBaseCurrentMillis(0);
 		 String path = current_song.getPath();
 		if(path.endsWith(".flac")){
 			try {
@@ -193,7 +194,6 @@ public class PlayState {
 	// 从某首歌开始播放
 	public void setState_PLAYMUSIC() {
 		playState.current_state = GlobalVariable.SERVICE_PLAYMUSIC;
-		System.out.println("开始播放");
 		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
 		playState.setCurrent_index(indexOf);
 		

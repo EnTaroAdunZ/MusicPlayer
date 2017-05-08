@@ -52,6 +52,11 @@ public class GlobalVariable {
 	public static final int SEEKTOMUSIC = (i++); // 歌曲快进操作
 	public static final int SEEKTOMUSICWHENPAUSE = (i++); // 歌曲快进操作
 	
+	//搜索模式
+	public static final int SEARCHMODE_SONGNAME = (i++); 
+	public static final int SEARCHMODE_ALBUM= (i++); 
+	public static final int SEARCHMODE_SINGER= (i++); 
+	public static final int SEARCHMODE_HYBRID = (i++);
 	
 }
  

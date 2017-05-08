@@ -16,8 +16,8 @@ public interface SongDao {
 	void addSongWithFile(List<Song> songList,String menuName);
 	//根据歌单名称获得歌曲列表
 	List<Song> getSongList(String songSheet);
-	List<Song> getSongByName(String songName,String menuName);
-	Song getSongByArtist();
+	List<Song> getSong(String key,String menuName,int Mode);
+	List<Song> getSongHYBRID(String key,String menuName);
 	void deleteSong(String songPath,String songMenu);
 	void addMusicToLocal(Song song);
 	boolean checkMusicExist(String path,String menuName);
