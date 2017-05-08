@@ -9,6 +9,25 @@ public class Song {
 	private Tag tag;
 	private String path;
 	private String length;
+	private String isLike;
+	
+	public String getIsLike() {
+		return isLike;
+	}
+	public void setLike(String isLike) {
+		if(isLike.equals("YES")){
+			this.isLike = "YES";
+		}
+		else{
+			this.isLike = "NO";
+		}
+	}
+	public void setYesLike() {
+		this.isLike = "YES";
+	}
+	public void setNoLike() {
+		this.isLike = "NO";
+	}
 	public Tag getTag() {
 		if(tag==null){
 			tag=new Tag();

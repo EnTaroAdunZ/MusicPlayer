@@ -24,7 +24,6 @@ public class SongMenuOperate {
 	
 	//抛异常判断是否出错
 	public static void addSongMenu(String songMenuName) throws RuntimeException{
-		//判断歌单是否重名，暂时不支持
 		List<Song> songByMenuName =null;
 		if(songMenuName=="本地音乐"||songMenuName=="我喜欢的音乐"){
 			throw new RuntimeException("非法访问！");

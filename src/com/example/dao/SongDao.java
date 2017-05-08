@@ -21,5 +21,7 @@ public interface SongDao {
 	void deleteSong(String songPath,String songMenu);
 	void addMusicToLocal(Song song);
 	boolean checkMusicExist(String path,String menuName);
+	void setAllIsLike(String path,boolean isLike);
+	boolean checkPathIsLike(String path);
 }
  

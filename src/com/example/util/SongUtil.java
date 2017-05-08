@@ -33,6 +33,7 @@ public class SongUtil {
         Song song=new Song();
         song.setPath(element.elementText("path"));
         song.setLength(element.elementText("length"));
+        song.setLike(element.elementText("isLike"));
         Element tagElement = element.element("tag");
         Tag tag=new Tag();
         tag.setAlbum(tagElement.elementText("album"));
@@ -47,6 +48,7 @@ public class SongUtil {
 		Element node=parent.addElement("song");
 		node.addElement("path").setText(song.getPath());
 		node.addElement("length").setText(song.getLength());
+		node.addElement("isLike").setText(song.getIsLike());
 		Element tagElement = node.addElement("tag");
 		tagElement.addElement("album").setText(song.getTag().getAlbum().trim());
 		tagElement.addElement("artist").setText(song.getTag().getArtist().trim());
@@ -62,6 +64,12 @@ public class SongUtil {
 		musicUtils.setMusicTimeLength(song.getTag().getLength());
 		musicUtils.setMusicTitle(song.getTag().getSongName());
 		musicUtils.setPath(song.getPath());
+		if(song.getIsLike().equals("YES")){
+			musicUtils.setLike(true);
+		}
+		else{
+			musicUtils.setLike(false);
+		}
 		return musicUtils;
 	}
 	

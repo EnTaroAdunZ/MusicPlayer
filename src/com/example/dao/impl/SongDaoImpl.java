@@ -13,6 +13,7 @@ import com.example.entity.Song;
 import com.example.entity.Tag;
 import com.example.util.SongUtil;
 import com.example.util.XMLUtil;
+import com.sun.org.apache.bcel.internal.generic.I2F;
 
 /** 
 * @author ZTF  
@@ -26,9 +27,20 @@ public class SongDaoImpl implements SongDao{
 
 	@Override
 	public void deleteSong(String menuName,String songPath) {
+		if(menuName.equals("我喜欢的音乐")){
+			setAllIsLike(songPath,false);
+		}
 		Document document= XMLUtil.getDoc();
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']/song[contains(path,'"+songPath+"')]");
 		element.getParent().remove(element);
+		List<Element> pathList = document.selectNodes("//song[contains(path,'"+songPath+"')]");
+		if(pathList.size()==1){
+			Element parent = pathList.get(0).getParent();
+			if(parent.attributeValue("songMenuName").equals("本地音乐")){
+				boolean remove = parent.remove(pathList.get(0));
+			}
+		}
+		
 		XMLUtil.writeDoc(document);
 	}
 
@@ -49,8 +61,7 @@ public class SongDaoImpl implements SongDao{
 
 	@Override
 	public List<Song> getSongByName(String songName,String menuName) {
-		Document document= XMLUtil.getDoc();
-		
+		Document document= XMLUtil.getDoc();		
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
 		List<Node> selectNodes = element.selectNodes("//tag[contains(songName,'"+songName+"')]");
 		Iterator<Node> iterator = selectNodes.iterator();
@@ -73,6 +84,9 @@ public class SongDaoImpl implements SongDao{
 	public void addSong(Song song, String menuName) {
 		Document document= XMLUtil.getDoc();
 		addMusicToLocal(song);
+		if(menuName.equals("我喜欢的音乐")){
+			setAllIsLike(song.getPath(), true);
+		}
 		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='" + menuName + "']");
 		SongUtil.songToEle(song, element);
 		XMLUtil.writeDoc(document);
@@ -85,6 +99,9 @@ public class SongDaoImpl implements SongDao{
 		Iterator<Song> iterator = songList.iterator();
 		while(iterator.hasNext()){
 			Song song = iterator.next();
+			if(menuName.equals("我喜欢的音乐")){
+				setAllIsLike(song.getPath(), true);
+			}
 			SongUtil.songToEle(song, element);
 		}
 		XMLUtil.writeDoc(document);
@@ -120,6 +137,37 @@ public class SongDaoImpl implements SongDao{
 				return true;
 		}
 		return false;
+	}
+
+
+	@Override
+	public void setAllIsLike(String path, boolean isLike) {
+		Document document= XMLUtil.getDoc();
+		List<Element> parentList = document.selectNodes("//song[contains(path,'"+path+"')]");
+		for(Element list:parentList){
+			 Element element = (Element)list.selectSingleNode("isLike");
+			 if(isLike){
+				 element.setText("YES");
+			 }
+			 else{
+				 element.setText("NO");
+			 }
+		}
+		XMLUtil.writeDoc(document);
+	}
+
+
+	@Override
+	public boolean checkPathIsLike(String path) {
+		Document document= XMLUtil.getDoc();
+		Element element = (Element) document.selectSingleNode("//song-menu[@songMenuName='我喜欢的音乐']");
+		 Node selectSingleNode = element.selectSingleNode("//song[contains(path,'"+path+"')]");
+		if(selectSingleNode!=null){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	

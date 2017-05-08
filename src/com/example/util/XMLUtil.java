@@ -55,7 +55,7 @@ public class XMLUtil {
 						Date date=new Date();
 						  DateFormat format=new SimpleDateFormat("yyyy年MM月dd日");
 						  String time=format.format(date);
-						root.addElement("song-menu").addAttribute("songMenuName", "我最爱的音乐").addAttribute("createDate",time );
+						root.addElement("song-menu").addAttribute("songMenuName", "我喜欢的音乐").addAttribute("createDate",time );
 						root.addElement("song-menu").addAttribute("songMenuName", "本地音乐").addAttribute("createDate",time );
 					    XMLUtil.writeDoc(document);
 					

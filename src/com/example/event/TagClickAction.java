@@ -153,6 +153,7 @@ class ContextBox {
 					SongOperate.deleteSong(GlobalVariable.currentMenu.get(), m.getPath());
 					target.getItems().remove(m);
 				} catch (Exception e2) {
+					e2.printStackTrace();
 					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
 					_alert.setTitle("警告");
 					_alert.setHeaderText("歌曲还在播放中哦  w(ﾟДﾟ)w");

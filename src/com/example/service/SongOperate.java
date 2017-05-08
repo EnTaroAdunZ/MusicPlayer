@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.example.Global.GlobalVariable;
 import com.example.Global.PlayState;
 import com.example.dao.SongDao;
 import com.example.dao.impl.SongDaoImpl;
 import com.example.entity.Song;
 import com.example.entity.SongMenu;
 import com.example.entity.Tag;
+import com.example.gui.MusicUtils;
 import com.example.util.SongUtil;
 import com.example.util.TagInfoUtil;
 import com.sun.org.apache.bcel.internal.classfile.Field;
@@ -29,23 +31,57 @@ public class SongOperate {
 		songDao=new SongDaoImpl();
 	}
 	
+	//选择了是否喜欢
+	public static void setIsLike(String path,boolean isLike){
+		songDao.setAllIsLike(path, isLike);
+		if(!isLike){
+			//取消选择喜爱
+			songDao.deleteSong(path, "我喜欢的音乐");
+		}
+		else{
+			addSong(path,"我喜欢的音乐");
+		}
+	}
+	
+	
+	//搜索关键字获得任意歌单下的歌曲
 	public static List<Song> findSongByName(String songName,String menuName){
 		return songDao.getSongByName(songName, menuName);
 	}
 	
+	//搜索关键字获得本地音乐下的歌曲
+	public static List<Song> findLocalSong(String songName){
+		return songDao.getSongByName(songName,"本地管理");
+	}
+	
 	public static void deleteSong(String menuName,String songPath) throws RuntimeException{
-		String path = PlayState.getPlayState().getCurrent_song().getPath();
-		if(path==songPath){
-			throw new RuntimeException("正在播放，无法删除！");
+		MusicUtils current_song = PlayState.getPlayState().getCurrent_song();
+		if(current_song!=null){
+			String path = current_song.getPath();
+			if(PlayState.getPlayState().getCurrent_state()==GlobalVariable.PLAYINGMUSIC)
+			if(path==songPath){
+				throw new RuntimeException(",正在播放中!");
+			}
 		}
 		songDao.deleteSong(menuName, songPath);
 	}
 	
 	//添加一个song，并返回实体
-	public static Song addSong(String path,String menuName){
+	public static Song addSong(String path,String menuName) throws RuntimeException{
 		//此处判断是否为合法路径以及合法音频格式
 		Song song=new Song();
 		song.setPath(path);
+		if(menuName.equals("我喜欢的音乐")){
+			song.setYesLike();
+		}
+		else{
+			if(songDao.checkPathIsLike(path)){
+				song.setYesLike();
+			}
+			else{
+				song.setNoLike();
+			}
+		}
 		File file=new File(path);
 		song.setLength(SongUtil.getLengthToMb(file.length()));
 		Tag tag;
@@ -69,7 +105,7 @@ public class SongOperate {
 	}
 	
 	//添加某文件夹下的音乐
-	public static void addSongWithFile(String filePath,String menuName){
+	public static void addSongWithFile(String filePath,String menuName) throws RuntimeException{
 		File files=new File(filePath);
 		List<Song> songList=new ArrayList<Song>();
 		int count=0;
@@ -91,6 +127,17 @@ public class SongOperate {
 							song.setPath(absolutePath);
 							song.setLength(SongUtil.getLengthToMb(file.length()));
 							song.setTag(tag);
+							if(menuName.equals("我喜欢的音乐")){
+								song.setYesLike();
+							}
+							else{
+								if(songDao.checkPathIsLike(song.getPath())){
+									song.setYesLike();
+								}
+								else{
+									song.setNoLike();
+								}
+							}
 							songList.add(song);
 							if(!songDao.checkMusicExist(absolutePath, "本地音乐")){
 								songDao.addMusicToLocal(song);
@@ -103,6 +150,12 @@ public class SongOperate {
 							song.setPath(absolutePath);
 							song.setLength(SongUtil.getLengthToMb(file.length()));
 							song.setTag(tag);
+							if(menuName.equals("我喜欢的音乐")){
+								song.setYesLike();
+							}
+							else{
+								song.setNoLike();
+							}
 							songList.add(song);
 							if(!songDao.checkMusicExist(absolutePath, "本地音乐")){
 								songDao.addMusicToLocal(song);
@@ -117,40 +170,6 @@ public class SongOperate {
 		if(isRepet){
 			throw new RuntimeException(count+"首歌添加失败，歌单下已经添加了某些歌曲！ ⊙﹏⊙‖∣° ");
 		}
-	}
-	
-	public static void main(String[] args) {
-//		addSong("D:\\Angel With a Shotgun.mp3", "我的最爱");
-		
-//		List<SongMenu> allSongMenu = SongMenuOperate.getAllSongMenu();
-//		for(SongMenu songMenu:allSongMenu){
-//			System.out.println(songMenu.getSongMenuName());
-//			List<Song> songList = songMenu.getSongList();
-//			for(Song song:songList){
-//				System.out.println("--"+song.getPath());
-//				System.out.println("--"+song.getTag().getAlbum());
-//				System.out.println("--"+song.getTag().getArtist());
-//				System.out.println("--"+song.getTag().getSongName());
-//			}
-//		}
-		
-//		
-//		List<Song> songsByMenuName = SongMenuOperate.getSongsByMenuName("我的最爱");
-//		for(Song song:songsByMenuName){
-//			System.out.println("--"+song.getPath());
-//			System.out.println("--"+song.getTag().getAlbum());
-//			System.out.println("--"+song.getTag().getArtist());
-//			System.out.println("--"+song.getTag().getSongName());
-//		}
-		
-		
-//		addSongWithFile("D:\\CloudMusic","我的最爱");
-//		List<Song> findSongByName = findSongByName("心做","我的最爱");
-//		Iterator<Song> iterator = findSongByName.iterator();
-//		while(iterator.hasNext()){
-//			Song next = iterator.next();
-//			System.out.println(next.getTag().getSongName());
-//		}
 	}
 	
 }
