@@ -59,7 +59,11 @@ public class Song {
 		return this.path.hashCode();
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		Song other=(Song) obj;
+		return this.path.equals(other.path);
+	}
 	
 }
  

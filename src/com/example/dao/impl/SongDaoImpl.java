@@ -184,6 +184,7 @@ public class SongDaoImpl implements SongDao{
 		while(iterator1.hasNext()){
 			Element parent = iterator1.next().getParent();
 			Song song=SongUtil.eleToSong(parent);
+			if(!songList.contains(song))
 			songList.add(song);
 		}
 		List<Element> selectNodes2=document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(album,'"+key+"')]");;

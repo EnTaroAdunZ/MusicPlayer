@@ -48,7 +48,7 @@ public class SongOperate {
 	public static List<Song> findSongByName(String key,String menuName,int Mode){
 		System.out.println(key+":"+menuName);
 		if(Mode!=GlobalVariable.SEARCHMODE_HYBRID){
-			return songDao.getSong(menuName, key,Mode);
+			return songDao.getSong(key, menuName,Mode);
 		}
 		else{
 			return songDao.getSongHYBRID(menuName, key);
