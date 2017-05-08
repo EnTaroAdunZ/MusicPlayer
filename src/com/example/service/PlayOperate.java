@@ -19,6 +19,7 @@ import com.tulskiy.musique.model.Track;
 import com.tulskiy.musique.system.TrackIO;
 import com.tulskiy.musique.util.AudioMath;
 
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.concurrent.Task;
@@ -244,9 +245,16 @@ public class PlayOperate implements Observer {
 			new Thread(
 				new Task<Double>() {
 					{
-						updateValue(last_p);
-						cur_p.unbind();
-						cur_p.bind(valueProperty());
+						Platform.runLater(new Runnable() {
+							
+							@Override
+							public void run() {
+								updateValue(last_p);
+								cur_p.unbind();
+								cur_p.bind(valueProperty());
+							}
+						});
+		
 					}
 					@Override
 					protected Double call() throws Exception {
