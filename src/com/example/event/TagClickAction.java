@@ -121,9 +121,15 @@ class ContextBox {
 		});
 		play_all_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
-			int i = cl.indexOf(MainAction.ps.getCurrent_song());
-			cl.addAll(i+1, ml);	
-			MainAction.setCurrentList(ml);		
+			int i;
+			if(MainAction.ps.getCurrent_song() != null)
+				i = cl.indexOf(MainAction.ps.getCurrent_song());
+			else i = -1;
+			if(cl != null)
+				cl.addAll(i+1, ml);
+			else 
+				cl = new ArrayList<>(ml);
+			MainAction.setCurrentList(cl);		
 		});
 		play.setOnAction(e ->{
 			List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(GlobalVariable.currentMenu.get());
@@ -134,8 +140,14 @@ class ContextBox {
 		});
 		play_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
-			int i = cl.indexOf(MainAction.ps.getCurrent_song());
-			cl.addAll(i+1, ml);			
+			int i;
+			if(MainAction.ps.getCurrent_song() != null)
+				i = cl.indexOf(MainAction.ps.getCurrent_song());
+			else i = -1;
+			if(cl != null)
+				cl.addAll(i+1, ml);
+			else 
+				cl = new ArrayList<>(ml);
 			MainAction.setCurrentList(cl);
 		});
 		remove_list.setOnAction(e ->{
@@ -153,7 +165,6 @@ class ContextBox {
 					SongOperate.deleteSong(GlobalVariable.currentMenu.get(), m.getPath());
 					target.getItems().remove(m);
 				} catch (Exception e2) {
-					e2.printStackTrace();
 					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
 					_alert.setTitle("警告");
 					_alert.setHeaderText("歌曲还在播放中哦  w(ﾟДﾟ)w");
@@ -166,7 +177,7 @@ class ContextBox {
 			String p = ml.get(0).getPath();
 			System.err.println(p);
 			try {
-				Runtime.getRuntime().exec("explorer /select,"+ p);
+				Runtime.getRuntime().exec("explorer /select,\""+ p +'"');
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -206,6 +217,11 @@ class ContextBox {
 		String menuName = ((Button)listContext.getOwnerNode()).getText();
 		List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(menuName);
 		ml = l;
+		if(menuName.equals("我的最爱")) {
+			remove_list.setDisable(true);
+		}else {
+			remove_list.setDisable(false);
+		}
 	}
 	
 	void setMli(int index) {

@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 import com.example.Global.GlobalVariable;
 import com.example.Global.PlayState;
 import com.example.controller.*;
+import com.example.controller.Controller.ContentController;
+import com.example.controller.Controller.StackController;
 import com.example.controller.Page.SearchPage;
 import com.example.entity.Song;
 import com.example.gui.GUI;
@@ -72,11 +74,12 @@ public class MainAction {
 		show(p);
 	}
 	
-	public void search(Button b, TextField tf, ActionEvent e) {//FIXME
+	public void search(Button b, TextField tf, ActionEvent e) {
 		String key = tf.getText(); 
-		ArrayList<MusicUtils> sl = searchsong(key);
-		//FIXME
+		List<MusicUtils> sl = searchsong(key);
 		Page p = giveSearch(key);
+		SearchPageController c = ((SearchPageController)p.getCtrl());
+		c.getTableView_musicTable().getItems().addAll(sl);
 		((Page.SearchPage)p).setKey(key);
 		pq.add(p);
 		show(p);
@@ -146,8 +149,11 @@ public class MainAction {
 		int sec = progressTotalSec(tt.getText(), progress);
 		ct.setText(progressCal(sec, progress));
 		sl.setValue(progress * 100);
-		if(loadLrc())
-			scrollLrc(sec, progress);
+		if(!isExist()) {
+			loadLrc();
+			playingRefresh();
+		}
+		scrollLrc(sec, progress);
 	}
 	
 	private static String progressCal(int sec,double progress) {
@@ -173,6 +179,7 @@ public class MainAction {
 		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
 			return;
 		Page p = giveLocal();
+		((LocalMusicPageController)p.getCtrl()).getTableView_musicTable().getItems().addAll(SongMenuOperate.getLocalSong());
 		pq.add(p);
 		show(p);
 	}
@@ -181,15 +188,15 @@ public class MainAction {
 		if(currentMenu.get() == key && currentMenu.get().equals("")) 
 			return;
 		currentMenu.set(key);
-//		SongMenu sm = SongMenu.findSongmenuByName(key);
-//		String name = sm.getName();FIXME
-//		Date d = sm.getCreateDate();
-//		
-		String date = df.format(new Date());//FIXME
-		Page p = giveMusicList(key, date);
+		Page p = giveMusicList(key, SongMenuOperate.getCreateDateBySongMenuName(key));
 		((Page.MusicListPage)p).setKey(key);
 		pq.add(p);
-		((Page.MusicListPage)p).getController().getLabel_ListName().setText(key);
+		MusicListPageController c = ((Page.MusicListPage)p).getController();
+		c.getLabel_ListName().setText(key);		
+		if(c.getTableView_musicTable().getItems().size() >0 ) {
+			String path = c.getTableView_musicTable().getItems().get(0).getPath();
+			c.getImageView_ListCover().setImage(newImage(path));
+		}
 		show(p);
 	}
 	
@@ -217,12 +224,16 @@ public class MainAction {
 		List<File> selectedFile = fileChooser.showOpenMultipleDialog(GUI.staticStage);
 		List<MusicUtils> ml = new ArrayList<>();
 		if(selectedFile != null)
-			for(File file : selectedFile) {
-				Song s = SongOperate.addSong(file.getAbsolutePath(),currentMenu.get());
-				MusicUtils mu = SongUtil.songToMucic(s);
-				ml.add(mu);
+			try {
+				for(File file : selectedFile) {
+					Song s = SongOperate.addSong(file.getAbsolutePath(),currentMenu.get());
+					MusicUtils mu = SongUtil.songToMucic(s);
+					ml.add(mu);
+				}				
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-		TableView<MusicUtils> tv = GlobalVariable.currentCtrl.getTableView_musicTable();
+		TableView<MusicUtils> tv = ((ContentController)GlobalVariable.currentCtrl).getTableView_musicTable();
 		tv.getItems().addAll(FXCollections.observableArrayList(ml));
 	}
 	
@@ -270,7 +281,7 @@ public class MainAction {
 			if(tf.getText().length() > 0) {
 				try {
 					String key = tf.getText();
-					SongMenuOperate.addSongMenu(key/*, new Date()*/);
+					SongMenuOperate.addSongMenu(key);
 					Button nb = new Button(key);
 					createMusicList(nb);
 					addl.fire();
@@ -290,8 +301,6 @@ public class MainAction {
 	}
 	
 	private static boolean loadLrc() {
-		if(isExist()) 
-			return false;
 		String name = ps.getCurrent_song().getPath();
 		StringBuilder sb = new StringBuilder(name);
 		sb.delete(name.lastIndexOf('.'), name.length());
@@ -301,19 +310,13 @@ public class MainAction {
 			lyric = new LrcAnalyzer(sb.toString()).LrcGetList();
 			exist = true;
 		} catch (Exception e) {
-			Alert _alert = new Alert(Alert.AlertType.INFORMATION);
-			_alert.setTitle("消息");
-			_alert.setHeaderText("该歌曲没有同名的lrc文件在同一目录哦  w(ﾟДﾟ)w");
-			 _alert.setContentText(e.getMessage());
-			 _alert.show();
+			tl.getItems().clear();
 			 exist = false;
 		} finally {
 			if(exist) {				
-				playingRefresh();
 				tl.getItems().clear();
 				tl.getItems().addAll(lyric);
 			}
-			currentLrc = ps.getCurrent_song().getMusicTitle();
 		}
 		return exist;
 	}
@@ -322,12 +325,8 @@ public class MainAction {
 		if(isExist()) 
 			return;
 		MusicUtils m = ps.getCurrent_song();
-		String name = m.getPath();
-		StringBuilder sb = new StringBuilder(name);
-		sb.delete(name.lastIndexOf('.'), name.length());
-		sb.append(".jpg");
-		String url = new File(sb.toString()).toURI().toString();
-		Image image = new Image(url);
+		String path = m.getPath();
+		Image image = newImage(path);
 		piv.setImage(image);
 		liv.setImage(image);
 		pmt.setText(m.getMusicTitle());
@@ -336,6 +335,8 @@ public class MainAction {
 		pms.setText(m.getMusicSinger());
 		lms.setText(m.getMusicSinger());
 		pmc.setText(currentMenu.get());
+
+		currentLrc = ps.getCurrent_song().getMusicTitle();
 	}
 	
 	private static boolean isExist() {
@@ -344,6 +345,7 @@ public class MainAction {
 	}
 	
 	private static void scrollLrc(int totalSec, double progress) {
+		if(tl.getItems().size() == 0) return;
 		long cm = (long)(progress * 1000 * totalSec), pm;
 		int index = 0;
 		for(int i = 0; i < lyric.size(); i++) {
@@ -355,6 +357,8 @@ public class MainAction {
 				index = i-1;
 				break;
 			}
+			if(cm >= ld.timeMs)
+				index = i;
 		}
 		if(index < 9 || index >= lyric.size() - 9){
 			int x = index;
@@ -366,6 +370,7 @@ public class MainAction {
 			tl.scrollTo(index - 9);
 		}
 		tl.getSelectionModel().select(index);
+		System.out.println(index);
 	}
 	// -----------------------------------------List------------------------
 	public void playAll() {
@@ -438,6 +443,14 @@ public class MainAction {
 		return Page.newPage(Controller.SEARCH, searchpage, spC);
     }
     
+	private static Image newImage(String path){
+		StringBuilder sb = new StringBuilder(path);
+		sb.delete(path.lastIndexOf('.'), path.length());
+		sb.append(".jpg");
+		String url = new File(sb.toString()).toURI().toString();
+		return new Image(url);		
+	}
+	
 	public static boolean presskey(TextField t, KeyEvent e) {
 		if(e.getCode() == KeyCode.ENTER) {
 			t.deleteNextChar();
@@ -459,11 +472,9 @@ public class MainAction {
 		else if(p instanceof Page.PlayPage) {
 			gui.getPermanent().setCenter(gui.getPlaypage());
 			gui.getPermanent().leftProperty().set(null);
-			return;
 		}
 		else if(p instanceof Page.SettingPage) {
 			gui.getPermanent().leftProperty().set(null);
-			return;
 		}
 		else {
 			gui.getPermanent().setCenter(p.getPage());
@@ -502,6 +513,10 @@ public class MainAction {
 				return;
 			currentSearch.set(key);
 		}
+		StackPane sp = ((StackController)p.getCtrl()).getStackPane();
+		if(sp.getChildren().size() == 1) 
+			sp.getChildren().add(pl);
+		
 	}
 		
 	private static void refresh(int s) {
@@ -524,10 +539,14 @@ public class MainAction {
 		tt.setText(n);
 	}
 
-	public static ArrayList<MusicUtils> searchsong(String key){//FIXME
-		ArrayList<MusicUtils> sl = new ArrayList<>();
-		
-		return sl;
+	public static List<MusicUtils> searchsong(String key){
+		List<MusicUtils> ml = new ArrayList<>();
+		List<Song> sl = SongOperate.findSongByName(key, currentMenu.get());
+		for(Song s : sl) {
+			MusicUtils mu = SongUtil.songToMucic(s);
+			ml.add(mu);
+		}
+		return ml;
 	}
 	
 	public static void setCurrentList(List<MusicUtils> list) {
@@ -592,7 +611,7 @@ public class MainAction {
 			progressFeedBack((double)nv);
 			currentSong = ps.getCurrent_song();
 		});
-		pl.focusedProperty().addListener((o, ov, nv) ->{
+		pl.hoverProperty().addListener((o, ov, nv) ->{
 			if(nv == false) {
 				gui.getTabC().getButton_playList().fire();
 			}
@@ -601,6 +620,8 @@ public class MainAction {
 			gui.getTabC().getLabel_playListNum().setText(nv.toString());
 			gui.getPlC().getLabel_playListNum().setText("总"+nv.toString()+"首");
 		});
+		
+		local();
 	}
 	public static GUI gui;
 	private static MainAction ma;
@@ -617,7 +638,6 @@ public class MainAction {
 	
 	static Button addl;//指定left中的添加歌单
 	static Button adds, addd;//指定left中的添加歌曲和添加目录
-	//static ImageView iv;//指定left中的专面
 	static VBox vb;//指定left中的竖箱
 	static ListView<Button> ml;//指定left中的列表
 	static ImageView liv;//指定left中封面

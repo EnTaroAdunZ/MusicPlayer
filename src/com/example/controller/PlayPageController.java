@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.controller.Controller.*;
 import com.example.event.MainAction;
 import com.example.service.LrcAnalyzer.LrcData;
 
@@ -21,7 +22,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是fxml文件PlayPage.fxml 的控制类，用于声明各控件的id和方法接口  
  */
-public class PlayPageController implements Controller{
+public class PlayPageController implements Controller, StackController{
 	//以下是各控件的ID
 	@FXML
 	private Button Button_PlayPage_back;//按钮“返回”的id
@@ -134,6 +135,11 @@ public class PlayPageController implements Controller{
 
 	public VBox getVBox_rightVBox() {
 		return VBox_rightVBox;
+	}
+
+	@Override
+	public StackPane getStackPane() {
+		return getStackPane_playPage();
 	}
 	
 	@FXML

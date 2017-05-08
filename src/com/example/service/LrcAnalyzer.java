@@ -69,7 +69,7 @@ public class LrcAnalyzer {
     /** 
      * constract 
      * */  
-    public LrcAnalyzer(File file) throws FileNotFoundException{  
+    public LrcAnalyzer(File file) throws FileNotFoundException, IOException{  
             filein = new FileInputStream(file);  
             
             this.file = file;  
@@ -82,7 +82,7 @@ public class LrcAnalyzer {
     /** 
      * constract 
      * */  
-    public LrcAnalyzer(String path) throws FileNotFoundException{  
+    public LrcAnalyzer(String path) throws FileNotFoundException, IOException{  
             filein = new FileInputStream(path);  
   
             file = new File(path);  
@@ -92,7 +92,7 @@ public class LrcAnalyzer {
             LrcAnalyzeStart();  
     }  
   
-    private long LrcAnalyzeTimeStringToValue(String time) {  
+    private long LrcAnalyzeTimeStringToValue(String time) throws NumberFormatException{  
         // System.out.println(time.substring(0, time.lastIndexOf(":")));  
         // System.out.println(time.substring(time.indexOf(":") + 1,  
         // time.lastIndexOf(".")));  
@@ -167,8 +167,7 @@ public class LrcAnalyzer {
         }  
     }  
   
-    private void LrcAnalyzeStart() {  
-        try {  
+    private void LrcAnalyzeStart() throws IOException {  
             // new memory for file content  
             byte[] ContentForByte = new byte[(int) file.length()];  
         	
@@ -181,22 +180,7 @@ public class LrcAnalyzer {
   
             for (int i = 0; i < ContentLine.length; i++) {  
                 LrcAnalyzeLine(ContentLine[i]);  
-            }  
-        } catch (Exception e) {  
-            // TODO Auto-generated catch block  
-            e.printStackTrace();  
-        }  
-    }  
-  
-    public void toUTF8() {
-    	for(LrcData ld : LrcList) {
-    		try {
-    			byte[] charl = ld.lrcLine.getBytes("utf-8");
-				ld.lrcLine = new String(charl, "utf-8");
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-    	}
+            }
     }
     
     public List<LrcData> LrcGetList() {  

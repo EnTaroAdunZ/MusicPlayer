@@ -3,7 +3,7 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.controller.Controller.ContentController;
+import com.example.controller.Controller.*;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
@@ -35,7 +35,7 @@ import javafx.stage.Stage;
  * @author Tony Yao
  * 该类是LocalMusicPage.fxml 即程序本地音乐列表里控件的id和常用方法的操作类 
  */
-public class LocalMusicPageController implements ContentController{
+public class LocalMusicPageController implements ContentController, StackController{
 	//以下是各控件的ID
 	@FXML
 	private StackPane StackPane_center;//整个页面的pane的id
@@ -161,6 +161,10 @@ public class LocalMusicPageController implements ContentController{
 		return TableColumn_musicSize;
 	}
 
+	@Override
+	public StackPane getStackPane() {		
+		return getStackPane_center();
+	}
 	@FXML
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮的响应方法
 		
@@ -174,9 +178,9 @@ public class LocalMusicPageController implements ContentController{
 	public void initData(MainAction ma, List<MusicUtils> list){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
-		ArrayList<String> dirList = new ArrayList<>();
-		dirList.add("C:\\");
-		df.init(dirList);
+//		ArrayList<String> dirList = new ArrayList<>();
+//		dirList.add("C:\\");
+//		df.init(dirList);
 		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
 		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
 		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
@@ -188,7 +192,7 @@ public class LocalMusicPageController implements ContentController{
 		TableColumn_musicID.setSortable(false);
 	}
 	private MainAction ma;
-	static Dirfilter df = new Dirfilter();
+//	static Dirfilter df = new Dirfilter();
 	
 	private void setCss(){
 		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
@@ -209,50 +213,63 @@ public class LocalMusicPageController implements ContentController{
 	}
  }
 
-class Dirfilter{
-	static final String titlestr = "选择本地音乐文件夹",
-			introstr = "将自动扫描你勾选的目录，文件增删实时同步。";
-	static final Label title = new Label(titlestr), intro = new Label(introstr);
-	static final Button ok = new Button("确认"),
-			add = new Button("添加文件夹");
-	private HBox hb = new HBox();
-	private VBox vb = new VBox();
-	private ArrayList<String> dirList;
-	private ListView<CheckBox> diropt = new ListView<>();
-	private Stage stage;
-	
-	void init(ArrayList<String> list) {
-		dirList = list;
-		for(String s : dirList) {
-			CheckBox cb = new CheckBox(s);
-			cb.getStyleClass().add("checkbox");
-			diropt.getItems().add(cb);
-		}
-		setCss();
-		hb.getChildren().addAll(ok,add);
-		vb.getChildren().addAll(title,intro,diropt,hb);
-		
-		stage = new Stage();
-		stage.initModality(Modality.APPLICATION_MODAL);
-		Scene scene = new Scene(vb,400,400);
-		scene.getStylesheets().addAll("com/example/css/local/LocalMusicPageCss.css");
-		//stage.initStyle(StageStyle.UNDECORATED); //待后期实现按钮功能后去掉标题栏
-		stage.setScene(scene);
-	}
-	
-	void show() {
-		stage.show();
-		stage.requestFocus();
-	}
-	
-	void setCss(){
-		title.getStyleClass().add("lightLabel");
-		title.setFont(Font.font(20));
-		intro.getStyleClass().add("lightLabel");
-		ok.getStyleClass().add("lightButton");
-		add.getStyleClass().add("lightButton");
-		hb.setAlignment(Pos.CENTER); hb.setSpacing(150);
-		hb.getStyleClass().add("lightLabel");
-		vb.getStyleClass().add("lightLabel");
-	}
-}
+//class Dirfilter{
+//	static final String titlestr = "选择本地音乐文件夹",
+//			introstr = "将自动扫描你勾选的目录，文件增删实时同步。";
+//	static final Label title = new Label(titlestr), intro = new Label(introstr);
+//	static final Button ok = new Button("确认"),
+//			add = new Button("添加文件夹");	
+//	private static Dirfilter dirfilter;
+//	private HBox hb = new HBox();
+//	private VBox vb = new VBox();
+//	private ArrayList<String> dirList;
+//	private ListView<CheckBox> diropt = new ListView<>();
+//	private static ArrayList<String> defaultEmptyList = new ArrayList<>();
+//	private Stage stage;
+//	
+//	void init() {
+//		dirList = defaultEmptyList;
+//		setCss();
+//		hb.getChildren().addAll(ok,add);
+//		vb.getChildren().addAll(title,intro,diropt,hb);
+//		
+//		stage = new Stage();
+//		stage.initModality(Modality.APPLICATION_MODAL);
+//		Scene scene = new Scene(vb,400,400);
+//		scene.getStylesheets().addAll("com/example/css/local/LocalMusicPageCss.css");
+//		//stage.initStyle(StageStyle.UNDECORATED); //待后期实现按钮功能后去掉标题栏
+//		stage.setScene(scene);
+//	}
+//	
+//	public void setList(ArrayList<String> list) {
+//		dirList = list;
+//		for(String s : dirList) {
+//			CheckBox cb = new CheckBox(s);
+//			cb.getStyleClass().add("checkbox");
+//			diropt.getItems().add(cb);
+//		}
+//	}
+//	
+//	public static Dirfilter getDirfilter() {
+//		if(dirfilter == null) {
+//			dirfilter = new Dirfilter();
+//		}
+//		return dirfilter;
+//	}
+//	
+//	void show() {
+//		stage.show();
+//		stage.requestFocus();
+//	}
+//	
+//	void setCss(){
+//		title.getStyleClass().add("lightLabel");
+//		title.setFont(Font.font(20));
+//		intro.getStyleClass().add("lightLabel");
+//		ok.getStyleClass().add("lightButton");
+//		add.getStyleClass().add("lightButton");
+//		hb.setAlignment(Pos.CENTER); hb.setSpacing(150);
+//		hb.getStyleClass().add("lightLabel");
+//		vb.getStyleClass().add("lightLabel");
+//	}
+//}

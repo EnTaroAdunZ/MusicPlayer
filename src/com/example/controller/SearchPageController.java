@@ -2,7 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
-import com.example.controller.Controller.ContentController;
+import com.example.controller.Controller.*;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
  * @author Tony Yao
  * 该类是fxml文件SearchPage.fxml 的控制类，用于声明各控件的id和方法接口 
  */
-public class SearchPageController implements ContentController{
+public class SearchPageController implements ContentController, StackController{
 	@FXML
 	private StackPane StackPane_searchPage;//整个搜索页面的底层pane
 	
@@ -157,6 +157,10 @@ public class SearchPageController implements ContentController{
 		return ListView_lyricsPage;
 	}
 	
+	@Override
+	public StackPane getStackPane() {
+		return getStackPane_searchPage();
+	}
 	public void initData(MainAction ma, String name, List<MusicUtils> list){//初始化数据，待实现
 		this.ma = ma;
 		setCss();

@@ -35,11 +35,11 @@ public class Page{
 		this.page = page;
 	}
 
-	private ContentController ctrl;
-	public ContentController getCtrl() {
+	private Controller ctrl;
+	public Controller getCtrl() {
 		return ctrl;
 	}
-	protected void setCtrl(ContentController ctrl) {
+	protected void setCtrl(Controller ctrl) {
 		this.ctrl = ctrl;
 	}
 
@@ -100,6 +100,7 @@ public class Page{
 		
 		public PlayPage(PlayPageController controller) {
 			super();
+			setCtrl(controller);
 			setType(Controller.PLAY);
 		}
 	}

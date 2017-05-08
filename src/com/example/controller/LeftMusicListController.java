@@ -187,6 +187,8 @@ public class LeftMusicListController implements Controller{
 			MainAction.pq.add(pp);
 			MainAction.show(pp);
 		});
+		Label_musicTitle.setText("....");
+		Label_singer.setText("....");
 //		initPlayer();
 	}
 	
@@ -201,7 +203,7 @@ public class LeftMusicListController implements Controller{
 		Button_addMusicList.getStyleClass().remove(0);
 		Button_addMusicList.getStyleClass().add("AddList");
 		
-		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.jpg"));
+		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.png"));
 		
 	}
 	

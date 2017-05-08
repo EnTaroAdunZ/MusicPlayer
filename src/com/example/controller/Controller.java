@@ -6,6 +6,7 @@ package com.example.controller;
 import com.example.gui.MusicUtils;
 
 import javafx.scene.control.TableView;
+import javafx.scene.layout.StackPane;
 
 /**
  * The interface of controllers
@@ -18,5 +19,9 @@ public interface Controller{
 	
 	public interface ContentController extends Controller{
 		TableView<MusicUtils> getTableView_musicTable();
+	}
+	
+	public interface StackController extends Controller{
+		StackPane getStackPane();
 	}
 }

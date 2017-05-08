@@ -2,7 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
-import com.example.controller.Controller.ContentController;
+import com.example.controller.Controller.*;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
@@ -23,7 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class MusicListPageController implements ContentController{
+public class MusicListPageController implements ContentController, StackController{
 	@FXML
 	private StackPane StackPane_MusicListPage;//底层paneid
 	
@@ -49,7 +49,7 @@ public class MusicListPageController implements ContentController{
 	private Button Button_searchMusic;//“搜索音乐”按钮id
 	
 	@FXML
-	private Button Button_addMusic;//“+”添加音乐按钮id
+	private Button Button_playAllNext;//“+”添加音乐按钮id
 	
 	@FXML
 	private TextField TextField_searchListMusic;//“搜索音乐”文本框id
@@ -154,11 +154,26 @@ public class MusicListPageController implements ContentController{
 		return TableColumn_musicTimeLength;
 	}
 	
+	@Override
+	public StackPane getStackPane() {
+		return getStackPane_MusicListPage();
+	}	
 	@FXML
+	
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮id
-		
+		ma.playAll();
 	}
 	
+	@FXML
+	private void onPlayAllNext(ActionEvent event){//“稍后播放”按钮id
+		ma.playAllNext();
+	}
+	
+	@FXML
+	private void onSearchMusic(ActionEvent event){//“查找音乐”按钮id
+		
+	}
+		
 	public void initData(MainAction ma, String name, String date, List<MusicUtils> list){
 		setCss();
 		this.ma = ma;
@@ -179,14 +194,6 @@ public class MusicListPageController implements ContentController{
 		TableView_musicTable.focusedProperty().addListener(new MainAction.TableCleaner<MusicUtils>(TableView_musicTable));
 	}
 	
-	public void onSearchMusic(ActionEvent event){//“查找音乐”按钮id
-		
-	}
-	
-	public void onAddMusic(ActionEvent event){//“添加音乐”按钮方法
-		
-	}
-	
 	private void setCss(){
 		TableView_musicTable.getSelectionModel().setSelectionMode(javafx.scene.control.SelectionMode.MULTIPLE);
 				
@@ -202,7 +209,7 @@ public class MusicListPageController implements ContentController{
 		TableColumn_musicTimeLength.getStyleClass().add("tableColumn");
 		
 		Button_PlayAll.getStyleClass().set(0, "lightButton");
-		Button_addMusic.getStyleClass().set(0, "lightButton");
+		Button_playAllNext.getStyleClass().set(0, "lightButton");
 		Button_searchMusic.getStyleClass().remove(0);
 		
 		TextField_searchListMusic.getStyleClass().add("ListField");

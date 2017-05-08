@@ -62,7 +62,7 @@
                                                 <Insets top="20.0" />
                                              </HBox.margin>
                                           </Button>
-                                          <Button fx:id="Button_addMusic" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onAddMusic" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
+                                          <Button fx:id="Button_playAllNext" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onPlayAllNext" prefHeight="40.0" prefWidth="40.0" text="+" textAlignment="CENTER">
                                              <HBox.margin>
                                                 <Insets left="5.0" top="20.0" />
                                              </HBox.margin>
