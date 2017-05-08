@@ -1,5 +1,10 @@
 package com.example.gui;
 
+import com.example.service.SongOperate;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 /**
  * @author Tony Yao
  * 该类是歌曲总表的各项音乐的实体类
@@ -16,12 +21,20 @@ public class MusicUtils {
 	private String musicTimeLength;
 	private String musicSize;
 	private String path;
-	
-	public boolean isLike() {
+	private BooleanProperty likeProperty = new SimpleBooleanProperty(false);
+	private int modcount = 0;
+ 	public boolean isLike() {
 		return like;
 	}
 	public void setLike(boolean like) {
 		this.like = like;
+		likeProperty.set(like);
+		if(modcount == 0) {
+			likeProperty.addListener((o, ov, nv) ->{
+				SongOperate.setIsLike(path, nv);
+			});
+		}
+		modcount++;
 	}
 	public String getMusicTitle() {
 		return musicTitle;
@@ -58,6 +71,9 @@ public class MusicUtils {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public BooleanProperty likeProperty() {
+		return likeProperty;
 	}
 	
 	@Override

@@ -178,6 +178,7 @@ public class MainAction {
 	public void local() {
 		if(pq.getSize() > 0 && pq.getPage() instanceof Page.LocalPage ) 
 			return;
+		currentMenu.set("本地音乐");
 		Page p = giveLocal();
 		((LocalMusicPageController)p.getCtrl()).getTableView_musicTable().getItems().addAll(SongMenuOperate.getLocalSong());
 		pq.add(p);
@@ -694,7 +695,7 @@ public class MainAction {
 		@Override
 		public ObservableValue<Boolean> call(Integer param) {
 			MusicUtils m = tv.getItems().get(param);
-			ObservableValue<Boolean> ob = new SimpleBooleanProperty(m.isLike());
+			ObservableValue<Boolean> ob = m.likeProperty();
 			return ob;
 		}
 	}

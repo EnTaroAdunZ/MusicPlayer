@@ -178,7 +178,7 @@ public class MusicListPageController implements ContentController, StackControll
 		setCss();
 		this.ma = ma;
 		Label_ListName.setText(name);
-		Label_ListCreateTime.setText(date);
+		Label_ListCreateTime.setText(date + "创建");
 		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
 		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
 		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));

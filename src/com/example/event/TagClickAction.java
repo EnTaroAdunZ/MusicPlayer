@@ -217,7 +217,7 @@ class ContextBox {
 		String menuName = ((Button)listContext.getOwnerNode()).getText();
 		List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(menuName);
 		ml = l;
-		if(menuName.equals("我的最爱")) {
+		if(menuName.equals("我喜欢的音乐")) {
 			remove_list.setDisable(true);
 		}else {
 			remove_list.setDisable(false);
