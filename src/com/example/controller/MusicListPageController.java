@@ -2,7 +2,9 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.Global.GlobalVariable;
 import com.example.controller.Controller.*;
+import com.example.event.EnterAction;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
@@ -158,8 +160,8 @@ public class MusicListPageController implements ContentController, StackControll
 	public StackPane getStackPane() {
 		return getStackPane_MusicListPage();
 	}	
-	@FXML
 	
+	@FXML	
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮id
 		ma.playAll();
 	}
@@ -171,7 +173,9 @@ public class MusicListPageController implements ContentController, StackControll
 	
 	@FXML
 	private void onSearchMusic(ActionEvent event){//“查找音乐”按钮id
-		
+		TableView_musicTable.getItems().clear();
+		List<MusicUtils> ml = MainAction.searchsong(TextField_searchListMusic.getText(), GlobalVariable.SEARCHMODE_HYBRID);
+		TableView_musicTable.getItems().addAll(ml);
 	}
 		
 	public void initData(MainAction ma, String name, String date, List<MusicUtils> list){
@@ -179,6 +183,7 @@ public class MusicListPageController implements ContentController, StackControll
 		this.ma = ma;
 		Label_ListName.setText(name);
 		Label_ListCreateTime.setText(date + "创建");
+		TextField_searchListMusic.setOnKeyPressed(new EnterAction(TextField_searchListMusic, Button_searchMusic));
 		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
 		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
 		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
@@ -191,7 +196,7 @@ public class MusicListPageController implements ContentController, StackControll
 		TableColumn_like.setSortable(false);TableColumn_musicID.setSortable(false);
 		
 		TableView_musicTable.setOnMouseClicked(ma.tca);
-		TableView_musicTable.focusedProperty().addListener(new MainAction.TableCleaner<MusicUtils>(TableView_musicTable));
+		TableView_musicTable.focusedProperty().addListener(new MainAction.TableSelectorCleaner<MusicUtils>(TableView_musicTable));
 	}
 	
 	private void setCss(){

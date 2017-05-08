@@ -46,6 +46,7 @@ public class SongOperate {
 	
 	//搜索名字关键字获得任意歌单下的歌曲
 	public static List<Song> findSongByName(String key,String menuName,int Mode){
+		System.out.println(key+":"+menuName);
 		if(Mode!=GlobalVariable.SEARCHMODE_HYBRID){
 			return songDao.getSong(menuName, key,Mode);
 		}

@@ -37,7 +37,7 @@
                <children>
                   <HBox fx:id="HBox_titleHBox" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="685.0" text="%musicTitle">
+                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="685.0" text="....">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -56,7 +56,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Label_albumName" prefHeight="50.0" prefWidth="190.0" text="%albumName" />
+                        <Label fx:id="Label_albumName" prefHeight="50.0" prefWidth="190.0" text="...." />
                         <Label prefHeight="50.0" prefWidth="60.0" style="-fx-text-fill: white;" text="歌手：">
                            <font>
                               <Font size="18.0" />
@@ -65,7 +65,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="Label_singer" prefHeight="50.0" prefWidth="190.0" text="%singer" />
+                        <Label fx:id="Label_singer" prefHeight="50.0" prefWidth="190.0" text="...." />
                         <Label prefHeight="50.0" prefWidth="60.0" style="-fx-text-fill: white;" text="来源：">
                            <font>
                               <Font size="18.0" />
@@ -74,7 +74,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="Label_source" prefHeight="50.0" prefWidth="190.0" text="%source" />
+                        <Label fx:id="Label_source" prefHeight="50.0" prefWidth="190.0" text="...." />
                      </children>
                   </HBox>
                   <AnchorPane fx:id="AnchorPane_lyricBottom" prefHeight="577.0" prefWidth="2250.0">

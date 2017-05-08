@@ -2,11 +2,14 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.Global.GlobalVariable;
 import com.example.controller.Controller.*;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +19,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -161,11 +165,13 @@ public class SearchPageController implements ContentController, StackController{
 	public StackPane getStackPane() {
 		return getStackPane_searchPage();
 	}
-	public void initData(MainAction ma, String name, List<MusicUtils> list){//初始化数据，待实现
+	
+	public void initData(MainAction ma, String key, List<MusicUtils> list){//初始化数据，待实现
 		this.ma = ma;
 		setCss();
-		target = name;
-		//FIXME
+		target = key;
+		ChangingTab ct = new ChangingTab(TabPane_tabPane);
+		
 		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
 		TableColumn_search_ID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
 		TableColumn_search_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
@@ -174,6 +180,47 @@ public class SearchPageController implements ContentController, StackController{
 		TableColumn_search_timeLength.setCellValueFactory(new PropertyValueFactory<>("musicTimeLength"));
 		
 		TableColumn_search_ID.setSortable(false);
+		TableView_musicTable.setOnMouseClicked(ma.tca);
+		
+		Tab_singleMusic.setOnSelectionChanged(ct);
+		Tab_musicSinger.setOnSelectionChanged(ct);
+		Tab_album.setOnSelectionChanged(ct);
+	}
+	
+	class ChangingTab implements EventHandler<Event>{
+		
+		public ChangingTab(TabPane tp) {
+			this.tp = tp;
+		}
+		private TabPane tp;
+		
+		public TabPane getTp() {
+			return tp;
+		}
+
+		@Override
+		public void handle(Event event) {
+			int select = tp.getSelectionModel().getSelectedIndex();
+			for(Tab t : tp.getTabs())
+				t.setContent(null);
+			Tab st =tp.getSelectionModel().getSelectedItem();
+			st.setContent(TableView_musicTable);
+			switch (select) {
+			default:
+				select = GlobalVariable.SEARCHMODE_SONGNAME;
+				break;
+			case 1:
+				select = GlobalVariable.SEARCHMODE_ALBUM;
+				break;
+			case 2:
+				select = GlobalVariable.SEARCHMODE_SINGER;
+				break;
+			}
+			List<MusicUtils> ml = MainAction.searchsong(target, select);
+			TableView_musicTable.getItems().clear();
+			TableView_musicTable.getItems().addAll(ml);
+			Label_searchResult.setText("搜索\""+ target +"\", 找到" + ml.size() + "首单曲");
+		}
 	}
 	
 	private String target = null;

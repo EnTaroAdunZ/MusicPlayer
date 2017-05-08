@@ -160,7 +160,7 @@ public class PlayPageController implements Controller, StackController{
 		Label_albumName.getStyleClass().set(0, "lightLabel");
 		Label_singer.getStyleClass().set(0, "lightLabel");
 		Label_source.getStyleClass().set(0, "lightLabel");
-		ImageView_albumCover.setImage(new Image("com/example/css/play/demoLarge.jpg"));
+		ImageView_albumCover.setImage(new Image("com/example/css/left/demo.png"));
 		
 		Button_PlayPage_back.getStyleClass().set(0, "playclose");
 		TableView_lyricsArea.getStyleClass().add("tableViewBackGround");

@@ -73,6 +73,7 @@ public class SongDaoImpl implements SongDao{
 			selectNodes = document.selectNodes("//song-menu[@songMenuName='" + menuName + "']//tag[contains(artist,'"+key+"')]");
 		Iterator<Element> iterator = selectNodes.iterator();
 		List<Song> songList=new ArrayList<Song>();
+		System.out.println("搜索结果"+songList.size());
 		while(iterator.hasNext()){
 			Element parent = iterator.next().getParent();
 			Song song=SongUtil.eleToSong(parent);
@@ -80,10 +81,10 @@ public class SongDaoImpl implements SongDao{
 		}
 		return songList;
 	}
-//	public static void main(String[] args) {
-//		SongDao songUtil=new SongDaoImpl();
-//	    songUtil.getSongByName("啦啦啦","我喜欢的音乐");
-//	}
+	public static void main(String[] args) {
+		SongDao songUtil=new SongDaoImpl();
+	    songUtil.getSong("nine","我喜欢的音乐",GlobalVariable.SEARCHMODE_SONGNAME);
+	}
 
 
 	

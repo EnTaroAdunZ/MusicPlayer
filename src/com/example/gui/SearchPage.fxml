@@ -31,24 +31,12 @@
                      </content>
                   </Tab>
                   <Tab fx:id="Tab_musicSinger" text="                  歌手                 ">
-                     <content>
-                        <ListView fx:id="ListView_SingerPage" prefHeight="509.0" prefWidth="820.0" />
-                     </content>
                   </Tab>
                   <Tab fx:id="Tab_album" text="                 专辑                 ">
-                     <content>
-                        <ListView fx:id="ListView_albumPage" prefHeight="509.0" prefWidth="820.0" />
-                     </content>
                   </Tab>
                   <Tab fx:id="Tab_musicList" text="                 歌单                 ">
-                     <content>
-                        <ListView fx:id="ListView_musicListPage" prefHeight="509.0" prefWidth="820.0" />
-                     </content>
                   </Tab>
                   <Tab fx:id="Tab_musicLyrics" text="                歌词                ">
-                     <content>
-                        <ListView fx:id="ListView_lyricsPage" prefHeight="509.0" prefWidth="820.0" />
-                     </content>
                   </Tab>
                </tabs>
             </TabPane>

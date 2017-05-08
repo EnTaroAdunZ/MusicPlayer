@@ -1,34 +1,27 @@
 package com.example.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.example.Global.GlobalVariable;
 import com.example.controller.Controller.*;
+import com.example.event.EnterAction;
 import com.example.event.MainAction;
 import com.example.gui.MusicUtils;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -165,14 +158,17 @@ public class LocalMusicPageController implements ContentController, StackControl
 	public StackPane getStackPane() {		
 		return getStackPane_center();
 	}
+	
 	@FXML
 	private void onPlayAll(ActionEvent event){//“播放全部”按钮的响应方法
-		
+		ma.playAll();
 	}
 	
 	@FXML
 	private void onLocalSearch(ActionEvent event){//“本地搜索”按钮的响应方法
-		
+		TableView_musicTable.getItems().clear();
+		List<MusicUtils> ml = MainAction.searchsong(TextField_localSearchText.getText(), GlobalVariable.SEARCHMODE_HYBRID);
+		TableView_musicTable.getItems().addAll(ml);
 	}
 	
 	public void initData(MainAction ma, List<MusicUtils> list){//初始化数据，待实现
@@ -181,6 +177,7 @@ public class LocalMusicPageController implements ContentController, StackControl
 //		ArrayList<String> dirList = new ArrayList<>();
 //		dirList.add("C:\\");
 //		df.init(dirList);
+		TextField_localSearchText.setOnKeyPressed(new EnterAction(TextField_localSearchText, Button_localSearch));
 		TableView_musicTable.setItems(FXCollections.observableArrayList(list));
 		TableColumn_musicID.setCellValueFactory(new MainAction.IndexFactory<MusicUtils>(TableView_musicTable));
 		TableColumn_musicTitle.setCellValueFactory(new PropertyValueFactory<>("musicTitle"));
@@ -190,6 +187,7 @@ public class LocalMusicPageController implements ContentController, StackControl
 		TableColumn_musicSize.setCellValueFactory(new PropertyValueFactory<>("musicSize"));
 		
 		TableColumn_musicID.setSortable(false);
+		TableView_musicTable.setOnMouseClicked(ma.tca);
 	}
 	private MainAction ma;
 //	static Dirfilter df = new Dirfilter();

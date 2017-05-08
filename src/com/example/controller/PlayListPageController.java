@@ -8,17 +8,13 @@ import com.example.gui.MusicUtils;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class PlayListPageController {
@@ -107,7 +103,7 @@ public class PlayListPageController {
 
 	@FXML
 	private void onButtonPlayListClear(ActionEvent event){//播放列表里“清空”按钮响应方法
-		ma.setCurrentList(defaultEmptyList);
+		MainAction.setCurrentList(defaultEmptyList);
 	}
 	
 	

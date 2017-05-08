@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.Global.GlobalVariable;
+import com.example.controller.Controller;
 import com.example.entity.SongMenu;
-import com.example.gui.GUI;
 import com.example.gui.MusicUtils;
 import com.example.service.SongMenuOperate;
 import com.example.service.SongOperate;
@@ -113,6 +113,7 @@ class ContextBox {
 		});
 		
 		play_all.setOnAction(e ->{
+			if(ml.size() == 0) return;
 			MainAction.ps.setCurrent_songMenu(ml);
 			MainAction.ps.setCurrent_song(ml.get(0));
 			GlobalVariable.currentSong = ml.get(0);
@@ -120,6 +121,7 @@ class ContextBox {
 			action.getMa().pause();
 		});
 		play_all_next.setOnAction(e ->{
+			if(ml.size() == 0) return;
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
 			int i;
 			if(MainAction.ps.getCurrent_song() != null)
@@ -210,6 +212,11 @@ class ContextBox {
 			path.setDisable(false);
 		}else {
 			path.setDisable(true);
+		}
+		if(GlobalVariable.PageType == Controller.SEARCH) {
+			remove_song.setDisable(true);
+		} else {
+			remove_song.setDisable(false);
 		}
 	}
 	

@@ -1,8 +1,5 @@
 package com.example.controller;
 
-
-import com.example.controller.Controller.ContentController;
-
 import javafx.scene.Parent;
 
 /**
