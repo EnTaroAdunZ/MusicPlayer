@@ -15,7 +15,11 @@
 }
 
 #Label_FXName{
-	-fx-background-image: url("title.jpg")
+	-fx-background-image: url("title.png")
+}
+
+#Label_FXName:hover{
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
 }
 
 #Button_last{
@@ -134,7 +138,7 @@
 
 #AnchorPane_top{
 	-fx-background-color: #1b1d20;
-	-fx-border-color: linear-gradient( #800000 0%, red 100%);;
+	-fx-border-color: linear-gradient( #800000 0%, red 100%);
 	-fx-border-width: 0 0 3 0;
 }
 

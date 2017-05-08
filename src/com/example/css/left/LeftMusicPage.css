@@ -19,6 +19,15 @@
 	-fx-border-width: 0 1 1 1;
 }
 
+#ImageView_albumCover:hover{
+	-fx-effect: dropshadow(three-pass-box , white, 10, 0.0 , 0, 0);
+	//-fx-effect: innershadow(two-pass-box , white , 10, 0.0 , 0, 0);
+}
+
+#Label_musicTitle, #Label_singer, #Label_albumName, #Label_source{
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
 .AddList{
 	-fx-pref-width: 40;
 	-fx-pref-height: 40;
@@ -40,11 +49,21 @@
 .listButton{
 	-fx-text-fill: #bfbfbf;
 	-fx-font-size: 20;
-	-fx-pref-width:253;
-	-fx-pref-height:40;
+	-fx-pref-width:290;
+	-fx-pref-height:50;
+	-fx-padding: 5 0 5 15;
 }
-.listButton:hover , listButton:pressed, .listButton:focused{
+.listButton:pressed, .listButton:focused{
 	-fx-text-fill: white;
+	-fx-background-color: #525252;
+	-fx-border-width:0 0 0 7;
+	-fx-border-color: linear-gradient( #800000 0%, red 100%);
+	-fx-padding: 5 0 5 8;
+}
+
+.listButton:hover{
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
 }
 
 .CloseList{
@@ -59,6 +78,11 @@
 .list-view{
 	-fx-background-color: #1b1d20;
 	-fx-border-color:#bfbfbf;
+	-fx-padding: 0;
+}
+
+
+.list-cell{
 	-fx-padding: 0;
 }
 
@@ -87,6 +111,7 @@
 .lightButton:hover{
 	-fx-text-fill: white;
 	-fx-background-color: #42444a;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
 }
 .lightButton:pressed{
 	-fx-text-fill: white;

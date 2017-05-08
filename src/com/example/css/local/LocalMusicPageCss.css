@@ -163,6 +163,7 @@
 .lightButton:hover{
 	-fx-text-fill: white;
 	-fx-background-color: #42444a;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 8, 0.0 , 0, 0);
 }
 .lightButton:pressed{
 	-fx-text-fill: white;
