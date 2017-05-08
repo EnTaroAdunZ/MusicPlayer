@@ -128,10 +128,14 @@
 
 #AnchorPane_bottom{
 	-fx-background-color: #1b1d20;
+	-fx-border-width: 2 0 0 0;
+	-fx-border-color: #bfbfbf;
 }
 
 #AnchorPane_top{
 	-fx-background-color: #1b1d20;
+	-fx-border-color: linear-gradient( #800000 0%, red 100%);;
+	-fx-border-width: 0 0 3 0;
 }
 
 #BorderPane_mainPage{

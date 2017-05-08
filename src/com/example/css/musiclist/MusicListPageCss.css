@@ -1,6 +1,6 @@
 
 #ImageView_ListCover{
-	-fx-border-color: #ffffff;
+	-fx-border-color: #bfbfbf;
 }
 
 #Button_searchMusic{
@@ -12,5 +12,20 @@
 
 #AnchorPane_topPage{
 	-fx-background-color: #1b1d20;
+	-fx-border-width: 0 0 0 0;
 }
 
+#AnchorPane_totalPage{
+	-fx-background-color: #1b1d20;
+	-fx-border-width: 0 0 0 0;
+}
+
+#VBox_MusicListPage{
+	-fx-border-color: #bfbfbf;
+	-fx-border-width: 0 1 0 0;
+}
+
+#StackPane_MusicListPage{
+	-fx-border-color: #bfbfbf;
+	-fx-border-width: 0 1 0 0;
+}

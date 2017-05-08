@@ -58,7 +58,7 @@ public class LocalMusicPageController implements ContentController, StackControl
 	private Button Button_localSearch;//“本地搜索”按钮的id
 	
 	@FXML
-	private ScrollPane ScrollPane_localMusicList;//本地音乐列表的滚动区域id
+	private AnchorPane AnchorPane_localMusicList;//本地音乐列表的滚动区域id
 	
 	@FXML
 	private HBox HBox_centerMusicListAndScroll;//控制横向排序的id
@@ -118,8 +118,8 @@ public class LocalMusicPageController implements ContentController, StackControl
 		return Button_localSearch;
 	}
 
-	public ScrollPane getScrollPane_localMusicList() {
-		return ScrollPane_localMusicList;
+	public AnchorPane getAnchorPane_localMusicList() {
+		return AnchorPane_localMusicList;
 	}
 
 	public HBox getHBox_centerMusicListAndScroll() {

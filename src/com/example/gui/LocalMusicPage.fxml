@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -19,22 +18,22 @@
          <children>
             <AnchorPane fx:id="topLocalTitle" prefHeight="75.0" prefWidth="1009.0">
                <children>
-                  <HBox fx:id="HBox_localButton" prefHeight="100.0" prefWidth="1007.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="HBox_localButton" prefHeight="75.0" prefWidth="995.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label fx:id="Label_localMusic" alignment="CENTER" prefHeight="74.0" prefWidth="174.0" text="本地音乐">
                            <font>
                               <Font size="36.0" />
                            </font>
                         </Label>
-                        <Label fx:id="Label_musicNum" prefHeight="95.0" prefWidth="118.0"/>
+                        <Label fx:id="Label_musicNum" prefHeight="95.0" prefWidth="118.0" />
                         <Button fx:id="Button_playAll" mnemonicParsing="false" onAction="#onPlayAll" prefHeight="30.0" prefWidth="100.0" text="播放全部">
                            <HBox.margin>
-                              <Insets left="140.0" top="25.0" />
+                              <Insets left="20.0" top="25.0" />
                            </HBox.margin>
                         </Button>
                         <TextField fx:id="TextField_localSearchText" promptText="搜索本地音乐">
                            <HBox.margin>
-                              <Insets left="180.0" top="25.0" />
+                              <Insets left="300.0" top="25.0" />
                            </HBox.margin>
                         </TextField>
                         <Button fx:id="Button_localSearch" mnemonicParsing="false" onAction="#onLocalSearch" prefHeight="30.0" prefWidth="30">
@@ -46,24 +45,27 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <ScrollPane fx:id="ScrollPane_localMusicList" hbarPolicy="NEVER" prefHeight="649.0" prefWidth="1009.0">
-               <content>
+            <AnchorPane fx:id="AnchorPane_localMusicList" prefHeight="649.0" prefWidth="1009.0">
+               <children>
                   <HBox fx:id="HBox_centerMusicListAndScroll" prefHeight="649.0" prefWidth="1009.0">
                      <children>
                         <TableView fx:id="TableView_musicTable" prefHeight="649.0" prefWidth="1009.0">
                            <columns>
-                              <TableColumn fx:id="TableColumn_musicID" maxWidth="154.0" minWidth="-1.0" prefWidth="54.0" resizable="false" />
-                              <TableColumn fx:id="TableColumn_musicTitle" prefWidth="429.0" resizable="false" text="音乐标题" />
-                              <TableColumn fx:id="TableColumn_musicSinger" prefWidth="156.0" resizable="false" text="歌手" />
-                              <TableColumn fx:id="TableColumn_albumName" prefWidth="150.0" resizable="false" text="专辑" />
-                              <TableColumn fx:id="TableColumn_musicTimeLength" prefWidth="100.0" resizable="false" text="时长" />
-                              <TableColumn fx:id="TableColumn_musicSize" prefWidth="100.0" resizable="false" text="大小" />
+                              <TableColumn fx:id="TableColumn_musicID" maxWidth="54.0" minWidth="-1.0" prefWidth="54.0" resizable="false" />
+                              <TableColumn fx:id="TableColumn_musicTitle" maxWidth="426.0" prefWidth="426.0" resizable="false" text="音乐标题" />
+                              <TableColumn fx:id="TableColumn_musicSinger" maxWidth="156.0" prefWidth="156.0" resizable="false" text="歌手" />
+                              <TableColumn fx:id="TableColumn_albumName" maxWidth="150.0" prefWidth="150.0" resizable="false" text="专辑" />
+                              <TableColumn fx:id="TableColumn_musicTimeLength" maxWidth="100.0" prefWidth="100.0" resizable="false" text="时长" />
+                              <TableColumn fx:id="TableColumn_musicSize" maxWidth="100.0" prefWidth="100.0" resizable="false" text="大小" />
                            </columns>
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin>
                         </TableView>
                      </children>
                   </HBox>
-               </content>
-            </ScrollPane>
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
    </children>

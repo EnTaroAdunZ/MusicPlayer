@@ -12,7 +12,7 @@
 
 <BorderPane fx:id="BorderPane_mainPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.TopAndBottomPageController">
    <top>
-      <AnchorPane fx:id="AnchorPane_top" prefHeight="52.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_top" prefHeight="52.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="Hbox_topItemHbox" prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -58,7 +58,7 @@
       </AnchorPane>
    </top>
    <bottom>
-      <AnchorPane fx:id="AnchorPane_bottom" prefHeight="74.0" prefWidth="1300.0" style="-fx-border-color: black;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="AnchorPane_bottom" prefHeight="74.0" prefWidth="1300.0" BorderPane.alignment="CENTER">
          <children>
             <HBox fx:id="HBox_bottomItems" layoutX="35.0" layoutY="18.0" prefHeight="92.0" prefWidth="1335.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
                <children>

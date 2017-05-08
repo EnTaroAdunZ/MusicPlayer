@@ -1,15 +1,22 @@
 
 #AnchorPane_left{
 	-fx-background-color: #1b1d20;
+	-fx-border-width: 0 1 1 0;
 }
 
 #AnchorPane_CurrentSongInfo{
 	-fx-background-color: #1b1d20;
+	-fx-border-color: #bfbfbf;
+	-fx-border-width: 1 1 0 1;
 }
 
 #HBox_leftManageField{
 	-fx-background-color: #1b1d20;
 	-fx-border-color:#bfbfbf;
+}
+
+#Button_localMusic{
+	-fx-border-width: 0 1 1 1;
 }
 
 .AddList{
@@ -27,7 +34,7 @@
 	-fx-background-color: #1b1d20;
 	-fx-text-fill: white;
 	-fx-text-size: 50;
-	-fx-border-color: #ffffff;
+	-fx-border-color: #bfbfbf;
 }
 
 .listButton{

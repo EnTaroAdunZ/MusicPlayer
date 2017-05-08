@@ -36,7 +36,7 @@
                   <ListView fx:id="ListView_musicList" prefHeight="404.0" prefWidth="293.0" />
                </children>
             </VBox>
-            <AnchorPane fx:id="AnchorPane_CurrentSongInfo" prefHeight="120.0" prefWidth="293.0" style="-fx-border-color: black;">
+            <AnchorPane fx:id="AnchorPane_CurrentSongInfo" prefHeight="120.0" prefWidth="293.0">
                <children>
                   <HBox fx:id="Hbox_leftImageAndTitle" prefHeight="120.0" prefWidth="289.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>

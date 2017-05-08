@@ -1,10 +1,13 @@
 
+
 #topLocalTitle{
 	-fx-background-color: #1b1d20;
+	-fx-border-width: 0 1 0 1;
 }
 
-#ScrollPane_localMusicList{
+#AnchorPane_localMusicList{
 	-fx-background-color: #1b1d20;
+	-fx-border-width: 0 1 0 1;
 }
 
 #Button_localSearch{
@@ -33,8 +36,9 @@
    -fx-background-color: #1b1d20;
 }
 
-.table-view:focused{
-    -fx-background-color: #1b1d20;
+
+.table-view .column-header-background .filler {
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
 }
 
 .table-view .column-header-background{
@@ -55,7 +59,7 @@
 }
 
 .table-view .column-header {
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
 }
 
 .table-view .table-cell{
@@ -133,7 +137,7 @@
 
 
 #AnchorPane_center{
-	-fx-border-color:#42444a
+	-fx-border-color:#42444a;
 }
 
 .lightLabel{

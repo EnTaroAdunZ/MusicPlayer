@@ -21,7 +21,7 @@
          <children>
             <VBox fx:id="VBox_MusicListPage" prefHeight="724.0" prefWidth="1005.0">
                <children>
-                  <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="1005.0">
+                  <AnchorPane fx:id="AnchorPane_topPage" prefHeight="535.0" prefWidth="1005.0" style="-: #1b1d20;">
                      <children>
                         <HBox prefHeight="333.0" prefWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>

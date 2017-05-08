@@ -30,7 +30,7 @@ public class MusicListPageController implements ContentController, StackControll
 	private StackPane StackPane_MusicListPage;//底层paneid
 	
 	@FXML
-	private ScrollPane ScrollPane_totalPage;//整个歌单滚动页面id
+	private AnchorPane AnchorPane_totalPage;//整个歌单滚动页面id
 	
 	@FXML
 	private AnchorPane AnchorPane_topPage;//上部分页面id
@@ -88,8 +88,8 @@ public class MusicListPageController implements ContentController, StackControll
 		return StackPane_MusicListPage;
 	}
 
-	public ScrollPane getScrollPane_totalPage() {
-		return ScrollPane_totalPage;
+	public AnchorPane getAnchorPane_totalPage() {
+		return AnchorPane_totalPage;
 	}
 
 	public AnchorPane getAnchorPane_topPage() {
