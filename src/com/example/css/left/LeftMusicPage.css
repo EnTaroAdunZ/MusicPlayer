@@ -46,6 +46,8 @@
 	-fx-border-color: #bfbfbf;
 }
 
+//以下是歌单按钮的三种状态的各自样式
+
 .listButton{
 	-fx-text-fill: #bfbfbf;
 	-fx-font-size: 20;
@@ -56,14 +58,53 @@
 .listButton:pressed, .listButton:focused{
 	-fx-text-fill: white;
 	-fx-background-color: #525252;
-	-fx-border-width:0 0 0 7;
-	-fx-border-color: linear-gradient( #800000 0%, red 100%);
-	-fx-padding: 5 0 5 8;
 }
 
 .listButton:hover{
 	-fx-text-fill: white;
 	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
+.listButtonPlay{
+	-fx-text-fill: #bfbfbf;
+	-fx-font-size: 20;
+	-fx-pref-width:290;
+	-fx-pref-height:50;
+	-fx-padding: 5 0 5 15;
+	-fx-background-image: url(hornBG.png);
+}
+.listButtonPlay:pressed, .listButtonPlay:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #525252;
+}
+
+.listButtonPlay:hover{
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
+.listButtonPlayAndSelected{
+	-fx-background-image: url(hornBG.png);
+	-fx-font-size: 20;
+	-fx-pref-width:290;
+	-fx-pref-height:50;
+	-fx-text-fill: white;
+	-fx-background-color: #525252;
+	-fx-border-width:0 0 0 7;
+	-fx-border-color: linear-gradient( #800000 0%, red 100%);
+	-fx-padding: 5 0 5 8;
+}
+
+.listButtonSelected{
+	-fx-background-image: null;
+	-fx-font-size: 20;
+	-fx-pref-width:290;
+	-fx-pref-height:50;
+	-fx-text-fill: white;
+	-fx-background-color: #525252;
+	-fx-border-width:0 0 0 7;
+	-fx-border-color: linear-gradient( #800000 0%, red 100%);
+	-fx-padding: 5 0 5 8;
 }
 
 .CloseList{
@@ -103,6 +144,8 @@
 	-fx-text-fill: white;
 }
 
+
+
 .lightButton{
 	-fx-text-fill: #bfbfbf;
 	-fx-background-color: #1b1d20;
@@ -118,6 +161,27 @@
 	-fx-background-color: #42444a;
 }
 .lightButton:focused{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+
+
+.localButtonHorn{
+	-fx-text-fill: #bfbfbf;
+	-fx-background-color: #1b1d20;
+	-fx-border-color:#bfbfbf;
+	-fx-background-image: url("localHorn.png");
+}
+.localButtonHorn:hover{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+.localButtonHorn:pressed{
+	-fx-text-fill: white;
+	-fx-background-color: #42444a;
+}
+.localButtonHorn:focused{
 	-fx-text-fill: white;
 	-fx-background-color: #42444a;
 }

@@ -141,6 +141,7 @@ class ContextBox {
 			MainAction.ps.setCurrent_song(ml.get(mli));
 			MainAction.setCurrentList(l);
 			MainAction.pause();
+			MainAction.changeHorn(GlobalVariable.currentMenu.get());
 		});
 		play_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();

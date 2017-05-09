@@ -273,11 +273,27 @@ public class MainAction {
 	}
 
 	public void createMusicList(Button nb) {
-		nb.getStyleClass().remove(0);
-		nb.getStyleClass().add("listButton");
+		nb.getStyleClass().set(0,"listButton");
 		ml.getItems().add(nb);
 		nb.setOnAction(nbe -> {
 			musiclist(nb.getText());
+
+			for(Button m : ml.getItems()){
+				if(m.getStyleClass().get(0).equals("listButtonPlayAndSelected")){
+					m.getStyleClass().set(0, "listButtonPlay");
+				}
+				else if(m.getStyleClass().get(0).equals("listButtonPlay")){
+					continue;
+				}
+				else{
+					m.getStyleClass().set(0, "listButton");
+				}
+			}
+			if(nb.getStyleClass().get(0).equals("listButtonPlay")){
+				nb.getStyleClass().set(0,"listButtonPlayAndSelected");
+			}else{
+				nb.getStyleClass().set(0,"listButtonSelected");
+			}
 		});
 		nb.setOnMouseClicked(tca);
 	}
@@ -767,4 +783,23 @@ public class MainAction {
 			ma = new MainAction(GUI.getGui());
 		return ma;
 	}
+
+	public static void changeHorn(String musicListName) {//给播放歌单添加小喇叭
+		Button btn = gui.getLlC().getButton_localMusic();
+		if(musicListName.equals("本地音乐")){
+			btn.getStyleClass().set(0, "localButtonHorn");
+			for(Button m : ml.getItems()){
+				m.getStyleClass().set(0, "listButton");
+			}
+		}else{
+			btn.getStyleClass().set(0, "lightButton");
+			for(Button m : ml.getItems()){
+				m.getStyleClass().set(0, "listButton");
+				if(m.getText().equals(musicListName)){
+					m.getStyleClass().set(0, "listButtonPlayAndSelected");
+				}
+			}
+		}
+	}
+	
 }
