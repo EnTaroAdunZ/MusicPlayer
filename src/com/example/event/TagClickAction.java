@@ -90,6 +90,7 @@ class ContextBox {
 	private int mli;
 	private ContextMenu listContext = new ContextMenu();
 	private ContextMenu songContext = new ContextMenu();
+	private boolean isPlayList;
 	public static Menu add = new Menu("\u6dfb\u52a0\u5230\u6b4c\u5355");
 	public static MenuItem play_all = new MenuItem("\u5168\u90e8\u64ad\u653e");
 	public static MenuItem play_all_next = new MenuItem("\u7a0d\u540e\u64ad\u653e");
@@ -99,7 +100,7 @@ class ContextBox {
 	public static MenuItem remove_song = new MenuItem("\u79fb\u9664\u6b4c\u66f2");
 	public static MenuItem remove_list = new MenuItem("\u79fb\u9664\u6b4c\u5355");
 	
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ContextBox(TagClickAction action) {
 		this.action = action;
 		
@@ -160,13 +161,19 @@ class ContextBox {
 			action.getListVessel().getItems().remove(target);
 		});
 		remove_song.setOnAction(e ->{
-			TableView target = (TableView)songContext.getOwnerNode();
+			TableView<MusicUtils> target = (TableView<MusicUtils>)songContext.getOwnerNode();
 			if(target == null) return;
-			
+			target.getItems().removeAll(ml);
+			if(isPlayList) {
+				List<MusicUtils> cl = new ArrayList<>();
+				for(MusicUtils m : target.getItems())
+					cl.add(m);
+				MainAction.setCurrentList(cl);
+				return;
+			}
 			for(MusicUtils m : ml) {
 				try {
 					SongOperate.deleteSong(GlobalVariable.currentMenu.get(), m.getPath());
-					target.getItems().remove(m);
 				} catch (Exception e2) {
 					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
 					_alert.setTitle("警告");
@@ -192,7 +199,7 @@ class ContextBox {
 	private boolean refreshMenuS(boolean isPlayList) {
 		TableView<MusicUtils> tv = (TableView<MusicUtils>)songContext.getOwnerNode();
 		ObservableList<MusicUtils> l0 = tv.getSelectionModel().getSelectedItems();
-		mli = l0.indexOf(l0.get(0));//FIXME
+		mli = l0.indexOf(l0.get(0));
 		List<MusicUtils> l1 = new ArrayList<>();
 		for(MusicUtils m : l0) 
 			l1.add(m);
@@ -219,6 +226,7 @@ class ContextBox {
 		} else {
 			remove_song.setDisable(false);
 		}
+		this.isPlayList = isPlayList;
 		return isPlayList;
 	}
 	

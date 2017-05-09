@@ -648,7 +648,7 @@ public class MainAction {
 			progressFeedBack((double)nv);
 			currentSong = ps.getCurrent_song();
 		});
-		pl.hoverProperty().addListener((o, ov, nv) ->{
+		pl.focusedProperty().addListener((o, ov, nv) ->{
 			if(nv == false) {
 				gui.getTabC().getButton_playList().fire();
 			}
