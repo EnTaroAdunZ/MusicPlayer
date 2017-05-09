@@ -86,7 +86,7 @@ public class MainAction {
 		Thread.sleep(100);	
 	}
 	
-	public void pause() {
+	public static void pause() {
 		int s = PlayState.getPlayState().getCurrent_state();
 		if(s == PAUSINGMUSIC) {
 			System.out.println("播放");
@@ -220,7 +220,7 @@ public class MainAction {
 				} catch (Exception e) {
 					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
 					_alert.setTitle("警告");
-					_alert.setHeaderText("存在格式不正规的音乐文件  w(ﾟДﾟ)w");
+					_alert.setHeaderText("有点问题  w(ﾟДﾟ)w");
 					_alert.setContentText("[" + file.getAbsolutePath() + "]" + e.getMessage());
 					_alert.show();
 					break;
@@ -234,13 +234,27 @@ public class MainAction {
 		DirectoryChooser fileChooser = new DirectoryChooser();
 		fileChooser.setTitle("打开音乐文件夹");
 		File selectedFile = fileChooser.showDialog(GUI.staticStage);
+		List<MusicUtils> ml = new ArrayList<>();
 		if(selectedFile != null) {
 			ArrayList<File> fl = new ArrayList<>();
 			loopDirectory(selectedFile, fl);
 			for(File file : fl) {
-				SongOperate.addSong(file.getAbsolutePath(),currentMenu.get());
+				try {
+					Song s = SongOperate.addSong(file.getAbsolutePath(), currentMenu.get());
+					MusicUtils mu = SongUtil.songToMucic(s);
+					ml.add(mu);
+				} catch (Exception e) {
+					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+					_alert.setTitle("警告");
+					_alert.setHeaderText("有点问题  w(ﾟДﾟ)w");
+					_alert.setContentText("[" + file.getAbsolutePath() + "]" + e.getMessage());
+					_alert.show();
+					break;
+				}
 			}
 		}
+		TableView<MusicUtils> tv = ((ContentController)GlobalVariable.currentCtrl).getTableView_musicTable();
+		tv.getItems().addAll(FXCollections.observableArrayList(ml));
 	}
 	
 	private void loopDirectory(File file, ArrayList<File> fl) {
@@ -327,8 +341,9 @@ public class MainAction {
 		pmb.setText(m.getAlbumName());
 		pms.setText(m.getMusicSinger());
 		lms.setText(m.getMusicSinger());
-		pmc.setText(currentMenu.get());
+		pmc.setText("本地音乐");
 
+		tt.setText(ps.getCurrent_song().getMusicTimeLength());
 		currentLrc = ps.getCurrent_song().getMusicTitle();
 	}
 	
@@ -526,13 +541,13 @@ public class MainAction {
 		
 	}
 		
-	private static void refresh(int s) {
+	private static void refresh(int playState) {
 		//pb and lb and nb
-		if(s == PLAYINGMUSIC){
+		if(playState == PLAYINGMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPlay");
 		}
-		if(s == PAUSINGMUSIC){
+		if(playState == PAUSINGMUSIC){
 			pb.getStyleClass().remove(0);
 			pb.getStyleClass().add("buttonPause");
 		}
@@ -570,6 +585,12 @@ public class MainAction {
 		ps.setCurrent_songMenu(list);
 		gui.getPlC().getTableView_playList().getItems().clear();
 		gui.getPlC().getTableView_playList().getItems().addAll(list);
+		if(ps.getCurrent_songMenu().size() == 0)
+			pause();
+	}
+	
+	public boolean ishoverPlayList() {
+		return pl.isHover() & listOn;
 	}
 	
 	public MainAction(GUI gui) {

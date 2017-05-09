@@ -109,7 +109,8 @@ class ContextBox {
 			refreshMenuL();
 		});
 		songContext.setOnShowing(e ->{
-			refreshMenuS();
+			boolean b = refreshMenuS(action.getMa().ishoverPlayList());
+			System.out.println(b);
 		});
 		
 		play_all.setOnAction(e ->{
@@ -118,7 +119,7 @@ class ContextBox {
 			MainAction.ps.setCurrent_song(ml.get(0));
 			GlobalVariable.currentSong = ml.get(0);
 			MainAction.setCurrentList(ml);
-			action.getMa().pause();
+			MainAction.pause();
 		});
 		play_all_next.setOnAction(e ->{
 			if(ml.size() == 0) return;
@@ -138,7 +139,7 @@ class ContextBox {
 			MainAction.ps.setCurrent_songMenu(l);
 			MainAction.ps.setCurrent_song(ml.get(mli));
 			MainAction.setCurrentList(l);
-			action.getMa().pause();
+			MainAction.pause();
 		});
 		play_next.setOnAction(e ->{
 			List<MusicUtils> cl = MainAction.ps.getCurrent_songMenu();
@@ -188,7 +189,7 @@ class ContextBox {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void refreshMenuS() {
+	private boolean refreshMenuS(boolean isPlayList) {
 		TableView<MusicUtils> tv = (TableView<MusicUtils>)songContext.getOwnerNode();
 		ObservableList<MusicUtils> l0 = tv.getSelectionModel().getSelectedItems();
 		mli = l0.indexOf(l0.get(0));//FIXME
@@ -218,6 +219,7 @@ class ContextBox {
 		} else {
 			remove_song.setDisable(false);
 		}
+		return isPlayList;
 	}
 	
 	private void refreshMenuL() {

@@ -81,10 +81,10 @@ public class SongDaoImpl implements SongDao{
 		}
 		return songList;
 	}
-	public static void main(String[] args) {
-		SongDao songUtil=new SongDaoImpl();
-	    songUtil.getSong("nine","我喜欢的音乐",GlobalVariable.SEARCHMODE_SONGNAME);
-	}
+//	public static void main(String[] args) {
+//		SongDao songUtil=new SongDaoImpl();
+//	    songUtil.getSong("nine","我喜欢的音乐",GlobalVariable.SEARCHMODE_SONGNAME);
+//	}
 
 
 	

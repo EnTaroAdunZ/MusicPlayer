@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import com.example.Global.PlayState;
 import com.example.controller.*;
 import com.example.event.*;
 

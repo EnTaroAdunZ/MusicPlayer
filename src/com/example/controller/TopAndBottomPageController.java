@@ -189,7 +189,7 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private void onButtonPause(ActionEvent event){//按钮“暂停”的响应方法
-		ma.pause();		
+		MainAction.pause();		
 	}
 	
 	@FXML
@@ -261,6 +261,9 @@ public class TopAndBottomPageController implements Controller{
 		});
 		sum.addListener((o, ov, nv) ->{
 			Label_playListNum.setText("总"+ (int) nv+"首");
+		});
+		Label_FXName.setOnMouseClicked(e ->{
+			ma.local();
 		});
 	}
 	

@@ -185,6 +185,13 @@ public class LeftMusicListController implements Controller{
 		});
 		Label_musicTitle.setText("....");
 		Label_singer.setText("....");
+//		ListView_musicList.hoverProperty().addListener((o, ov, nv) ->{
+//			if(nv == false) {
+////				ListView_musicList.getSelectionModel().selectLast();
+////				ListView_musicList.getFocusModel().focusNext();
+//				System.out.println(ListView_musicList.getFocusModel().getFocusedIndex());
+//			}
+//		});
 //		initPlayer();
 	}
 	
@@ -208,7 +215,7 @@ public class LeftMusicListController implements Controller{
 		if(!list.isEmpty()){
 			for(SongMenu item : list){
 				Button nb = new Button(item.getSongMenuName());
-				ma.createMusicList(nb);//FIXME new date先假设
+				ma.createMusicList(nb);
 			}
 		}
 	}
