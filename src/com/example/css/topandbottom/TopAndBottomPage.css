@@ -52,6 +52,22 @@
 	-fx-background-image: url("Close.png")
 }
 
+.Button_changeVolumn{
+	-fx-background-image: url("VolumnDark.png")
+}
+
+.Button_changeVolumn:hover{
+	-fx-background-image: url("Volumn.png")
+}
+
+.Button_changeVolumn_zero{
+	-fx-background-image: url("VolumnZeroDark.png")
+}
+
+.Button_changeVolumn_zero:hover{
+	-fx-background-image: url("VolumnZero.png")
+}
+
 
 .buttonRepeatInOne{
 	-fx-background-image: url("RepeatInOneDark.png")
@@ -147,50 +163,48 @@
 }
 
 //以下是横滑动条的样式设置
-//拖动点
 .slider .thumb {
-    -fx-background-color: 
-        linear-gradient(to bottom, derive(-fx-text-box-border, -20%), derive(-fx-text-box-border, -30%)),
-        -fx-inner-border,
-        -fx-body-color;
+    -fx-pref-height: 20;
+	-fx-min-height: 20;
+	-fx-max-height: 20;
+	-fx-pref-width: 20;
+	-fx-min-width: 20;
+	-fx-max-width: 20;
+	-fx-background-color: white;
+    -fx-background-image:  url("progress.png");
     -fx-background-insets: 0, 1, 2;
-    -fx-background-radius: 1.0em; /* makes sure this remains circular */
+    -fx-background-radius: 2.0em; /* makes sure this remains circular */
     -fx-padding: 0.583333em;  /* 7 */
-    -fx-effect: dropshadow(two-pass-box , rgba(0, 0, 0, 0.1), 5, 0.0 , 0, 2);
 }
-.slider:focused .thumb {
+.slider .thumb:focused , .slider .thumb:hover{
+	-fx-effect: dropshadow(three-pass-box , white, 20, 0.0 , 0, 0);
     -fx-background-radius: 1.0em; /* makes sure this remains circular */
 }
 
-//未播放
 .slider .track {
-      -fx-background-color: 
-           -fx-shadow-highlight-color,
-          linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
-          linear-gradient(to bottom, 
-            derive(-fx-control-inner-background, -9%),
-            derive(-fx-control-inner-background, 0%),
-            derive(-fx-control-inner-background, -5%),
-            derive(-fx-control-inner-background, -12%)
-          ); 
-    -fx-background-insets: 0 0 -1 0, 0, 1;
-    -fx-background-radius: 0.25em, 0.25em, 0.166667em; /* 3 3 2 */
-    -fx-padding: 0.25em; /* 3 */
-}
-.slider:vertical .track {
-    -fx-background-color: 
-          -fx-shadow-highlight-color,
-          -fx-text-box-border,
-          linear-gradient(to right, 
-            derive(-fx-control-inner-background, -9%),
-            -fx-control-inner-background,
-            derive(-fx-control-inner-background, -9%)
-          );
+    -fx-background-color:null;  /* Hide the track */
+    -fx-background-insets: 1 0 -1 0, 0, 1;
+    -fx-background-radius: 2.5, 2.5, 1.5;
+    -fx-padding: 0.208333em; /* 2.5 */
 }
 
-.slider .axis {
-    -fx-tick-label-fill: red;// derive(-fx-text-background-color, 30%);
-    -fx-tick-length: 5px;
-    -fx-minor-tick-length: 3px;
-    -fx-border-color: null;
+.progress-bar > .bar{
+	-fx-pref-height: 15;
+	-fx-min-height: 15;
+	-fx-max-height: 15;
+}
+.progress-bar:determinate > .bar {
+    -fx-background-color: red;
+}
+
+.progress-bar:indeterminate > .bar {
+    -fx-background-color: #408080;
+}
+
+.progress-bar > .track{
+	-fx-pref-height: 15;
+	-fx-min-height: 15;
+	-fx-max-height: 15;
+	-fx-border-width: 0 0 0 0;
+	-fx-background-color: #606060;
 }

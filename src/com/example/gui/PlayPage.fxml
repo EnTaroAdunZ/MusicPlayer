@@ -81,7 +81,7 @@
                      <children>
                         <TableView fx:id="TableView_lyricsArea" editable="false" prefHeight="528.0" prefWidth="722.0">
                         	<columns>
-                              <TableColumn fx:id="TableColumn_lyric" maxWidth="719.0" minWidth="-1.0" prefWidth="720.0" resizable="false" text="歌词" />
+                              <TableColumn fx:id="TableColumn_lyric" maxWidth="700.0" minWidth="-1.0" prefWidth="700.0" resizable="false" text="歌词" />
                             </columns>
                         </TableView>
                      </children>

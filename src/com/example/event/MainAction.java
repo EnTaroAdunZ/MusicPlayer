@@ -143,6 +143,7 @@ public class MainAction {
 		int sec = progressTotalSec(tt.getText(), progress);
 		ct.setText(progressCal(sec, progress));
 		sl.setValue(progress * 100);
+		pbb.setProgress(progress); 
 		if(!isExist()) {
 			loadLrc();
 			playingRefresh();
@@ -384,14 +385,14 @@ public class MainAction {
 			if(cm >= ld.timeMs)
 				index = i;
 		}
-		if(index < 9 || index >= lyric.size() - 9){
+		if(index < 7 || index >= lyric.size() - 7){
 			int x = index;
-			if(index < 9 ) x = 0;
-			if(index >= lyric.size() - 9) x = lyric.size() - 18;
+			if(index < 7 ) x = 0;
+			if(index >= lyric.size() - 7) x = lyric.size() - 16;
 			if(x < 0) x = 0;
 			tl.scrollTo(x);
 		}else {
-			tl.scrollTo(index - 9);
+			tl.scrollTo(index - 7);
 		}
 		tl.getSelectionModel().select(index);
 	}
@@ -628,6 +629,7 @@ public class MainAction {
 		sl = gui.getTabC().getSlider_songProgress();
 		ct = gui.getTabC().getLabel_currentTime();
 		tt = gui.getTabC().getLabel_totalTime();
+		pbb = gui.getTabC().getProgressBar_songProgress();
 		cp = new SimpleDoubleProperty(0);
 		cp.unbind();
 		cp.bind(PlayOperate.cur_p);
@@ -705,6 +707,7 @@ public class MainAction {
 	static TableView<LrcData> tl;//指定play的歌词版
 	static Label pmt, pmb, pms, pmc;//指定play中的标题，专辑，歌手，来源
 	static ImageView piv;//指定play中的封面
+	static ProgressBar pbb;//指定topandbottom中的背景进度红条
 	
 	public final static Image defaultEmptyImage = new Image("com/example/css/left/demo.png");
 	

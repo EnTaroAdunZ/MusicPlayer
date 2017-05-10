@@ -11,11 +11,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Tony Yao
@@ -23,6 +25,7 @@ import javafx.scene.layout.HBox;
  * 即程序上下侧控制列表里控件的id和常用方法的操作类 
  */
 public class TopAndBottomPageController implements Controller{
+
 	//以下是各控件的ID
 	@FXML
 	private Button Button_last;//“上一首”按钮的id
@@ -58,6 +61,9 @@ public class TopAndBottomPageController implements Controller{
 	private Button Button_playList;//按钮“播放列表”的id
 	
 	@FXML
+	private Button Button_changeVolumn;//按钮“音量键”的id
+	
+	@FXML
 	private Label Label_playListNum;//文本“播放列表”按钮旁边的播放列表歌曲数量id
 	
 	@FXML
@@ -86,6 +92,18 @@ public class TopAndBottomPageController implements Controller{
 	
 	@FXML
 	private BorderPane BorderPane_mainPage;//主页面的底层id
+	
+	@FXML
+	private StackPane StackPane_songProgress;//进度条的背景
+	
+	@FXML
+	private StackPane StackPane_volumn;//音量条的背景
+	
+	@FXML
+	private ProgressBar ProgressBar_songProgress;//进度条的红条
+	
+	@FXML
+	private ProgressBar ProgressBar_volumn;//音量条的红条
 	
 	@FXML
 	private HBox Hbox_topItemHbox;//顶部横向排序的id
@@ -130,6 +148,10 @@ public class TopAndBottomPageController implements Controller{
 	public Button getButton_playList() {
 		return Button_playList;
 	}
+	
+	public Button getButton_ChangeVolumn(){
+		return Button_changeVolumn;
+	}
 
 	public Label getLabel_currentTime() {
 		return Label_currentTime;
@@ -157,6 +179,10 @@ public class TopAndBottomPageController implements Controller{
 
 	public Slider getSlider_volumn() {
 		return Slider_volumn;
+	}
+	
+	public ProgressBar getProgressBar_songProgress(){
+		return ProgressBar_songProgress;
 	}
 
 	public AnchorPane getAnchorPane_top() {
@@ -241,24 +267,33 @@ public class TopAndBottomPageController implements Controller{
 		System.exit(0);
 	}
 	
+	@FXML
+	private void onButtonChangeVolumn(ActionEvent event){//按钮“音量键”id
+		double d = Slider_volumn.getValue();
+		if(d == 0){
+			d = lastVolumnValues;
+			Slider_volumn.setValue(d);
+			ProgressBar_volumn.setProgress(d/100);
+			Button_changeVolumn.getStyleClass().set(0,"Button_changeVolumn");
+			int i = Math.round((float)(double)d);
+			ma.modiVolume(i);
+		}
+		else{
+			lastVolumnValues = d;
+			Slider_volumn.setValue(0);
+			ProgressBar_volumn.setProgress(0/100);
+			Button_changeVolumn.getStyleClass().set(0,"Button_changeVolumn_zero");
+			int i = Math.round((float)(double)0);
+			ma.modiVolume(i);
+		}
+	}
+	
 	public void initData(MainAction ma){//初始化数据，待实现
 		setCss();
 		this.ma = ma;
-		Slider_volumn.setValue(100);
 		ma.modiVolume(100);
 		TextField_searchSong.setOnKeyPressed(new EnterAction(TextField_searchSong, Button_search));
-		Slider_songProgress.setOnMouseClicked(e ->{
-			double d = Slider_songProgress.getValue();
-			if(d!=progressOldValue){
-				ma.modiProgress(d);
-			}
-			
-			progressOldValue=d;
-		});
-		Slider_volumn.valueProperty().addListener((o, ov, nv)->{
-			int i = Math.round((float)(double)nv);
-			ma.modiVolume(i);
-		});
+		setSlider();
 		sum.addListener((o, ov, nv) ->{
 			Label_playListNum.setText("总"+ (int) nv+"首");
 		});
@@ -267,6 +302,51 @@ public class TopAndBottomPageController implements Controller{
 		});
 	}
 	
+	private void setSlider() {
+		Slider_volumn.setValue(100);
+		ProgressBar_volumn.setProgress(1);
+		
+		Slider_songProgress.setOnMouseClicked(e ->{
+			double d = Slider_songProgress.getValue();
+			if(d!=progressOldValue){
+				ma.modiProgress(d);
+			}
+			ProgressBar_songProgress.setProgress(d/100);
+			progressOldValue=d;
+		});
+		Slider_songProgress.setOnMouseDragged(e ->{
+			double d = Slider_songProgress.getValue();
+			ProgressBar_songProgress.setProgress(d/100);
+		});
+		Slider_songProgress.setOnMouseDragEntered(e ->{
+			double d = Slider_songProgress.getValue();
+			ProgressBar_songProgress.setProgress(d/100);
+		});
+		Slider_songProgress.setOnMouseDragExited(e ->{
+			double d = Slider_songProgress.getValue();
+			ProgressBar_songProgress.setProgress(d/100);
+		});
+		
+		Slider_volumn.valueProperty().addListener((o, ov, nv)->{
+			double d = Slider_volumn.getValue();
+			ProgressBar_volumn.setProgress(d/100);
+			int i = Math.round((float)(double)nv);
+			ma.modiVolume(i);
+		});
+		Slider_volumn.setOnMouseDragged(e ->{
+			double d = Slider_volumn.getValue();
+			ProgressBar_volumn.setProgress(d/100);
+		});
+		Slider_volumn.setOnMouseDragEntered(e ->{
+			double d = Slider_volumn.getValue();
+			ProgressBar_volumn.setProgress(d/100);
+		});
+		Slider_volumn.setOnMouseDragExited(e ->{
+			double d = Slider_volumn.getValue();
+			ProgressBar_volumn.setProgress(d/100);
+		});
+	}
+
 	private void setCss(){
 		
 		Button_last.getStyleClass().remove(0);
@@ -281,6 +361,7 @@ public class TopAndBottomPageController implements Controller{
 		
 		Button_modeSwitch.getStyleClass().set(0, "buttonOrderPlay");
 		Button_pause.getStyleClass().set(0, "buttonPlay");
+		Button_changeVolumn.getStyleClass().set(0,"Button_changeVolumn");
 		
 		Label_currentTime.getStyleClass().add("lightLabel");
 		Label_totalTime.getStyleClass().add("lightLabel");
@@ -291,5 +372,6 @@ public class TopAndBottomPageController implements Controller{
 	private MainAction ma;
 	private double progressOldValue;
 	private IntegerProperty sum = new SimpleIntegerProperty(0);
+	private double lastVolumnValues = 50;
 }
 
