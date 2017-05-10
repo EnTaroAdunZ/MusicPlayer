@@ -136,7 +136,10 @@ class ContextBox {
 			MainAction.setCurrentList(cl);		
 		});
 		play.setOnAction(e ->{
-			List<MusicUtils> l = SongMenuOperate.getSongsByMenuName(GlobalVariable.currentMenu.get());
+			ObservableList<MusicUtils> ol = ((TableView<MusicUtils>)songContext.getOwnerNode()).getItems();
+			List<MusicUtils> l = new ArrayList<>();
+			for(MusicUtils m : ol)
+				l.add(m);
 			MainAction.ps.setCurrent_songMenu(l);
 			MainAction.ps.setCurrent_song(ml.get(mli));
 			MainAction.setCurrentList(l);
