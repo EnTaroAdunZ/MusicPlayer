@@ -192,7 +192,7 @@ public class PlayState {
 	}
 
 	// 从某首歌开始播放
-	public void setState_PLAYMUSIC() {
+	public void setState_PLAYMUSIC() throws RuntimeException{
 		playState.current_state = GlobalVariable.SERVICE_PLAYMUSIC;
 		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
 		playState.setCurrent_index(indexOf);

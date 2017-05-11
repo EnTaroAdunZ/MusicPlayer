@@ -32,7 +32,7 @@ public class SongOperate {
 	}
 	
 	//选择了是否喜欢
-	public static void setIsLike(String path,boolean isLike){
+	public static void setIsLike(String path,boolean isLike) throws RuntimeException{
 		songDao.setAllIsLike(path, isLike);
 		if(!isLike){
 			//取消选择喜爱
@@ -51,7 +51,7 @@ public class SongOperate {
 			return songDao.getSong(key, menuName,Mode);
 		}
 		else{
-			return songDao.getSongHYBRID(menuName, key);
+			return songDao.getSongHYBRID(key,menuName );
 		}
 		
 	}

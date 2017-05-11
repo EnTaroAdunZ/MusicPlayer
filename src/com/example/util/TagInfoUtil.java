@@ -74,7 +74,7 @@ public class TagInfoUtil {
 			    return tag;
 			} catch (IOException | TagException | ReadOnlyFileException 
 					| InvalidAudioFrameException | CannotReadException e) {
-				throw new RuntimeException("获取Mp3 tag信息出错！");
+				throw new RuntimeException("本地文件不存在！ >_<|||");
 				
 			} 
 

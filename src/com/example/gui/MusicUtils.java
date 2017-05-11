@@ -4,6 +4,7 @@ import com.example.service.SongOperate;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.Alert;
 
 /**
  * @author Tony Yao
@@ -31,7 +32,16 @@ public class MusicUtils {
 		likeProperty.set(like);
 		if(modcount == 0) {
 			likeProperty.addListener((o, ov, nv) ->{
-				SongOperate.setIsLike(path, nv);
+				try {
+					SongOperate.setIsLike(path, nv);
+				} catch (Exception e) {
+					Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+					_alert.setTitle("警告");
+					_alert.setHeaderText("添加喜爱失败啦  w(ﾟДﾟ)w");
+					 _alert.setContentText(e.getMessage());
+					 _alert.show();
+				}
+				
 			});
 		}
 		modcount++;

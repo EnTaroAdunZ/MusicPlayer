@@ -142,7 +142,16 @@ class ContextBox {
 			MainAction.ps.setCurrent_songMenu(l);
 			MainAction.ps.setCurrent_song(ml.get(mli));
 			MainAction.setCurrentList(l);
-			MainAction.pause();
+			try {
+				MainAction.pause();
+			} catch (Exception e2) {
+				Alert _alert = new Alert(Alert.AlertType.INFORMATION);
+				_alert.setTitle("警告");
+				_alert.setHeaderText("播放失败啦  w(ﾟДﾟ)w");
+				 _alert.setContentText(e2.getMessage());
+				 _alert.show();
+			}
+			
 			MainAction.changeHorn(GlobalVariable.currentMenu.get());
 		});
 		play_next.setOnAction(e ->{

@@ -78,7 +78,7 @@ public class PlayOperate implements Observer {
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) throws RuntimeException{
 		// System.out.println("收到了订阅");
 		if (arg instanceof PlayState) {
 			if (PlayState.getPlayState().getCurrent_op() == GlobalVariable.ALTERVOLUME) {
@@ -207,7 +207,7 @@ public class PlayOperate implements Observer {
 
 		if (!songFile.exists()) {
 			alterNextMusic();
-			throw new RuntimeException("文件不存在!");
+			throw new RuntimeException("文件不存在! >_<|||");
 		}
 
 		try {

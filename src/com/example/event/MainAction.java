@@ -88,7 +88,7 @@ public class MainAction {
 		Thread.sleep(100);	
 	}
 	
-	public static void pause() {
+	public static void pause() throws RuntimeException{
 		int s = PlayState.getPlayState().getCurrent_state();
 		if(s == PAUSINGMUSIC) {
 			System.out.println("播放");
