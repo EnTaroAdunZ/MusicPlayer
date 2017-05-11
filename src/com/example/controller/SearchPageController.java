@@ -210,10 +210,10 @@ public class SearchPageController implements ContentController, StackController{
 				select = GlobalVariable.SEARCHMODE_SONGNAME;
 				break;
 			case 1:
-				select = GlobalVariable.SEARCHMODE_ALBUM;
+				select = GlobalVariable.SEARCHMODE_SINGER;
 				break;
 			case 2:
-				select = GlobalVariable.SEARCHMODE_SINGER;
+				select = GlobalVariable.SEARCHMODE_ALBUM;
 				break;
 			}
 			List<MusicUtils> ml = MainAction.searchsong(target, select);

@@ -110,8 +110,7 @@ class ContextBox {
 			refreshMenuL();
 		});
 		songContext.setOnShowing(e ->{
-			boolean b = refreshMenuS(action.getMa().ishoverPlayList());
-			System.out.println(b);
+			refreshMenuS(action.getMa().ishoverPlayList());
 		});
 		
 		play_all.setOnAction(e ->{

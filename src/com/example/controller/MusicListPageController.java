@@ -175,6 +175,7 @@ public class MusicListPageController implements ContentController, StackControll
 	private void onSearchMusic(ActionEvent event){//“查找音乐”按钮id
 		TableView_musicTable.getItems().clear();
 		List<MusicUtils> ml = MainAction.searchsong(TextField_searchListMusic.getText(), GlobalVariable.SEARCHMODE_HYBRID);
+		System.out.println(ml.size());
 		TableView_musicTable.getItems().addAll(ml);
 	}
 		

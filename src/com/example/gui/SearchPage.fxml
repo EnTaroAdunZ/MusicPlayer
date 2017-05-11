@@ -17,7 +17,7 @@
             <Label fx:id="Label_searchResult" prefHeight="47.0" prefWidth="820.0" text="%searchResult" />
             <TabPane fx:id="TabPane_tabPane" prefHeight="687.0" prefWidth="820.0" tabClosingPolicy="UNAVAILABLE">
                <tabs>
-                  <Tab fx:id="Tab_singleMusic" text="                  单曲                 ">
+                  <Tab fx:id="Tab_singleMusic" text="                  标题                 ">
                      <content>
                         <TableView fx:id="TableView_musicTable" prefHeight="200.0" prefWidth="200.0">
                            <columns>

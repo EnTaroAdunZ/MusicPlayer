@@ -73,6 +73,8 @@ public class MainAction {
 	
 	public void search(Button b, TextField tf, ActionEvent e) {
 		String key = tf.getText(); 
+		if(key.equals("")) 
+			return;
 		Page p = giveSearch(key);
 		((Page.SearchPage)p).setKey(key);
 		pq.add(p);
@@ -107,6 +109,8 @@ public class MainAction {
 	
 	public void modiProgress(double progress) {
 		System.out.println("用户点击了:"+progress);
+		if(ps.getCurrent_song() == null)
+			return;
 		ps.setProgress(progress);
 	}
 	
@@ -180,7 +184,7 @@ public class MainAction {
 	}
 	
 	public void musiclist(String key) {
-		if(currentMenu.get() == key && currentMenu.get().equals("")) 
+		if(currentMenu.get().equals(key)) 
 			return;
 		currentMenu.set(key);
 		Page p = giveMusicList(key, SongMenuOperate.getCreateDateBySongMenuName(key));
@@ -325,6 +329,8 @@ public class MainAction {
 	}
 	
 	private static boolean loadLrc() {
+		if(ps.getCurrent_song() == null)
+			return false;
 		String name = ps.getCurrent_song().getPath();
 		StringBuilder sb = new StringBuilder(name);
 		sb.delete(name.lastIndexOf('.'), name.length());
@@ -365,6 +371,8 @@ public class MainAction {
 	}
 	
 	private static boolean isExist() {
+		if(ps.getCurrent_song() == null)
+			return true;
 		String name = ps.getCurrent_song().getMusicTitle();
 		return name.equals(currentLrc);
 	}
@@ -573,6 +581,8 @@ public class MainAction {
 			buttonDis(true, pb, lb, nb);
 		else 
 			buttonDis(false, pb, lb, nb);
+		if(ps.getCurrent_song() == null)
+			return;
 		//tt
 		String n = ps.getCurrent_song().getMusicTimeLength();
 		tt.setText(n);
@@ -604,6 +614,7 @@ public class MainAction {
 		gui.getPlC().getTableView_playList().getItems().addAll(list);
 		if(ps.getCurrent_songMenu().size() == 0)
 			pause();
+		refresh(ps.getCurrent_state());
 	}
 	
 	public boolean ishoverPlayList() {
