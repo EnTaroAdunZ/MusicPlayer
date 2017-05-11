@@ -62,11 +62,23 @@
     -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
 }
 
+
+
 .table-view .table-cell{
     -fx-text-fill: #c0c0c0;
+    -fx-font-size: 18;
 }
 
+.table-row-cell:hover .text{
+	-fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
+
+
 .table-row-cell{
+    -fx-text-fill: #c0c0c0;
+	-fx-pref-height: 30;
     -fx-background-color: #1b1d20; 
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; 

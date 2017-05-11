@@ -37,7 +37,7 @@
                <children>
                   <HBox fx:id="HBox_titleHBox" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="685.0" text="....">
+                        <Label fx:id="Label_musicTitle" prefHeight="100.0" prefWidth="710" text="....">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -79,9 +79,9 @@
                   </HBox>
                   <AnchorPane fx:id="AnchorPane_lyricBottom" prefHeight="577.0" prefWidth="2250.0">
                      <children>
-                        <TableView fx:id="TableView_lyricsArea" editable="false" prefHeight="528.0" prefWidth="722.0">
+                        <TableView fx:id="TableView_lyricsArea" editable="false" prefHeight="528.0" prefWidth="750">
                         	<columns>
-                              <TableColumn fx:id="TableColumn_lyric" maxWidth="700.0" minWidth="-1.0" prefWidth="700.0" resizable="false" text="歌词" />
+                              <TableColumn fx:id="TableColumn_lyric" maxWidth="725" minWidth="-1.0" prefWidth="725" resizable="false" text="歌词" />
                             </columns>
                         </TableView>
                      </children>

@@ -393,14 +393,14 @@ public class MainAction {
 			if(cm >= ld.timeMs)
 				index = i;
 		}
-		if(index < 7 || index >= lyric.size() - 7){
+		if(index < 4 || index >= lyric.size() - 4){
 			int x = index;
-			if(index < 7 ) x = 0;
-			if(index >= lyric.size() - 7) x = lyric.size() - 16;
+			if(index < 4 ) x = 0;
+			if(index >= lyric.size() - 4) x = lyric.size() - 10;
 			if(x < 0) x = 0;
 			tl.scrollTo(x);
 		}else {
-			tl.scrollTo(index - 7);
+			tl.scrollTo(index - 4);
 		}
 		tl.getSelectionModel().select(index);
 	}

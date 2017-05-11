@@ -50,12 +50,6 @@ public class SearchPageController implements ContentController, StackController{
 	private Tab Tab_album;//“专辑”标签的id
 	
 	@FXML
-	private Tab Tab_musicList;//“歌单”标签的id
-	
-	@FXML
-	private Tab Tab_musicLyrics;//“歌词”标签的id
-	
-	@FXML
 	private TableView<MusicUtils> TableView_musicTable;//单曲栏下的歌表id
 	
 	@FXML
@@ -111,14 +105,6 @@ public class SearchPageController implements ContentController, StackController{
 
 	public Tab getTab_album() {
 		return Tab_album;
-	}
-
-	public Tab getTab_musicList() {
-		return Tab_musicList;
-	}
-
-	public Tab getTab_musicLyrics() {
-		return Tab_musicLyrics;
 	}
 
 	public TableView<MusicUtils> getTableView_musicTable() {
@@ -201,10 +187,13 @@ public class SearchPageController implements ContentController, StackController{
 		@Override
 		public void handle(Event event) {
 			int select = tp.getSelectionModel().getSelectedIndex();
-			for(Tab t : tp.getTabs())
+			for(Tab t : tp.getTabs()){
 				t.setContent(null);
+				t.getStyleClass().set(0, "tab");
+			}
 			Tab st =tp.getSelectionModel().getSelectedItem();
 			st.setContent(TableView_musicTable);
+			st.getStyleClass().set(0, "tabFocused");
 			switch (select) {
 			default:
 				select = GlobalVariable.SEARCHMODE_SONGNAME;
@@ -233,7 +222,7 @@ public class SearchPageController implements ContentController, StackController{
 		TableColumn_search_singer.getStyleClass().add("tableColumn"); 
 		TableColumn_search_albumName.getStyleClass().add("tableColumn"); 
 		TableColumn_search_timeLength.getStyleClass().add("tableColumn"); 
-		
+		Tab_singleMusic.getStyleClass().set(0, "tabFocused");
 		Label_searchResult.getStyleClass().add("lightLabel"); 
 	}
 	

@@ -45,7 +45,7 @@
                                     <Insets left="20.0" />
                                  </padding>
                               </Label>
-                              <Button fx:id="Button_playListClear" mnemonicParsing="false" onAction="#onButtonPlayListClear" prefHeight="40.0" prefWidth="84.0" >
+                              <Button fx:id="Button_playListClear" mnemonicParsing="false" onAction="#onButtonPlayListClear" prefHeight="40.0" prefWidth="84.0">
                                  <HBox.margin>
                                     <Insets left="450.0" />
                                  </HBox.margin>
@@ -56,7 +56,7 @@
                            <columns>
                               <TableColumn fx:id="TableColumn_song" editable="false" prefWidth="450.0" sortable="false" text="歌名" />
                               <TableColumn fx:id="TableColumn_singer" editable="false" prefWidth="125.0" sortable="false" text="歌手" />
-                              <TableColumn fx:id="TableColumn_length" editable="false" prefWidth="125.0" sortable="false" text="时长" />
+                              <TableColumn fx:id="TableColumn_length" editable="false" prefWidth="100.0" sortable="false" text="时长" />
                            </columns>
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />

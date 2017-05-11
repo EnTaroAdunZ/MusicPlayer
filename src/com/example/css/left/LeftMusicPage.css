@@ -144,26 +144,21 @@
 	-fx-text-fill: white;
 }
 
-
-
 .lightButton{
 	-fx-text-fill: #bfbfbf;
 	-fx-background-color: #1b1d20;
 	-fx-border-color:#bfbfbf;
 }
-.lightButton:hover{
+.lightButton:hover, .lightButton:pressed, .lightButton:focused{
 	-fx-text-fill: white;
 	-fx-background-color: #42444a;
-	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 10, 0.0 , 0, 0);
 }
-.lightButton:pressed{
-	-fx-text-fill: white;
-	-fx-background-color: #42444a;
+
+.lightButton:hover .text{
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 10, 0.0 , 0, 0);
 }
-.lightButton:focused{
-	-fx-text-fill: white;
-	-fx-background-color: #42444a;
-}
+
 
 
 .localButtonHorn{

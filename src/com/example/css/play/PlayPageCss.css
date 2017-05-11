@@ -31,6 +31,7 @@
 
 #TableView_lyricsArea{
    -fx-background-color: #1b1d20;
+   -fx-border-color: white;
 }
 
 
@@ -71,7 +72,7 @@
     -fx-background-insets: 0;
     -fx-background-radius: 1;
     -fx-text-fill: white;
-    -fx-font-size: 22;
+    -fx-font-size: 24;
     -fx-font-weight: lighter ;
     -fx-effect: dropshadow(three-pass-box , red, 8, 0.0 , 0, 0);
 }
@@ -82,6 +83,7 @@
 
 
 #TableView_lyricsArea .table-row-cell{
+	-fx-pref-height: 50;
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em; 
     -fx-font-size: 20;

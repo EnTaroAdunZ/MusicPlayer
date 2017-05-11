@@ -6,9 +6,20 @@
 
 .tab {
 	-fx-background-color: #1b1d20;
+	-fx-border-color: null;
 }
 
-.tab:hover,.tab:disabled,.tab:show-mnemonic, .tab:focused,.tab:pressed{
+.tab:hover{
+	-fx-background-color: #555555;
+}
+
+.tab:hover .text{
+	-fx-background-color: #555555;
+	-fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
+.tabFocused{
+	-fx-border-color: null;
 	-fx-background-color: #b72525;
 }
 
@@ -23,3 +34,4 @@
 .tab-header-background {
 	-fx-background-color: #1b1d20;
 }
+
