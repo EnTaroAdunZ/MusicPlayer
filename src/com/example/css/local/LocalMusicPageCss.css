@@ -62,19 +62,18 @@
     -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
 }
 
-
-
 .table-view .table-cell{
     -fx-text-fill: #c0c0c0;
     -fx-font-size: 18;
 }
 
-.table-row-cell:hover .text{
+.table-row-cell .text{
 	-fx-alignment: center;
-    -fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
 }
 
-
+.table-row-cell:hover .text, .table-row-cell:selected .text{
+    -fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
 
 .table-row-cell{
     -fx-text-fill: #c0c0c0;
@@ -121,6 +120,11 @@
     -fx-opacity: 1;
     -fx-padding: 0 0 0 0;
 }
+
+.check-box-table-cell > .check-box:hover {
+    -fx-effect: dropshadow(three-pass-box , -fx-shadow-highlight-color, 5, 0.0 , 0, 0);
+}
+
 .check-box-table-cell > .check-box > .box {
 	-fx-pref-height: 19;
 	-fx-pref-width: 19;

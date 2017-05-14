@@ -18,10 +18,13 @@
          <children>
             <HBox fx:id="Hbox_topItemHbox" prefHeight="102.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="Label_FXName" alignment="CENTER" prefHeight="50.0" prefWidth="187.0" />
+                  <Label fx:id="Label_FXName" alignment="CENTER" prefHeight="50.0" prefWidth="187.0">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin></Label>
                   <Button fx:id="Button_back" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="30.0">
                      <HBox.margin>
-                        <Insets left="100.0" top="10.0" />
+                        <Insets left="80.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                   <Button fx:id="Button_forward" mnemonicParsing="false" onAction="#onForward" prefHeight="30.0" prefWidth="30.0">

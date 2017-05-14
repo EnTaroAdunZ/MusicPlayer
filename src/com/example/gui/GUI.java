@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -131,6 +132,8 @@ public class GUI extends Application{
         cssList.add("com/example/css/musiclist/MusicListPageCss.css");
         cssList.add("com/example/css/playList/PlayListPageCss.css");
         scene.getStylesheets().addAll(cssList);
+        
+        stage.getIcons().add(new Image("com/example/css/topandbottom/desktopTitle.png"));  
         
         stage.show();
         
