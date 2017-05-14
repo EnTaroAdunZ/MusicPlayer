@@ -7,6 +7,7 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
 
@@ -14,6 +15,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import com.example.entity.Tag;
+import com.tulskiy.musique.audio.AudioFileReader;
+import com.tulskiy.musique.model.Track;
+import com.tulskiy.musique.system.TrackIO;
+import com.tulskiy.musique.util.AudioMath;
 
 import myorg.jaudiotagger.audio.AudioFile;
 import myorg.jaudiotagger.audio.exceptions.CannotReadException;
@@ -132,10 +137,11 @@ public class TagInfoUtil {
 //			System.out.println(album);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new RuntimeException("读取Flac信息时出错！");
 		} 
 	}
+	
 	
 	public static Image getFlacPicture(String flacpath) throws RuntimeException{
 		try {
@@ -155,7 +161,7 @@ public class TagInfoUtil {
 			fos.close();
 			return image;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new RuntimeException("读取Flac图片时出错！");
 		}
 	}
@@ -169,9 +175,53 @@ public class TagInfoUtil {
 		    ImageIO.write(bi, "JPG", file);
 		} catch ( IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
+	
+	public static Tag getOtherTag(String filePath) throws RuntimeException{
+		try {
+			File sourceFile = new File(filePath);
+			Tag tag=new Tag();
+			AudioFileReader audioFileReader = TrackIO
+					.getAudioFileReader(sourceFile.getName());
+			Track track = audioFileReader.read(sourceFile);
+			double totalMS = AudioMath.samplesToMillis(track.getTrackData()
+					.getTotalSamples(), track.getTrackData().getSampleRate());
+			long duration = Math.round(totalMS);
+			String durationStr = formatTime((int) duration);
+			String displayName = sourceFile.getName();
+			int index = displayName.lastIndexOf(".");
+			displayName = displayName.substring(0, index);
+			String artist = "";
+			String title = "";
+			if (displayName.contains("-")) {
+				String[] titleArr = displayName.split("-");
+				System.out.println(titleArr.length);
+				artist = titleArr[0].trim();
+				title = titleArr[1].trim();
+			} else {
+				title = displayName;
+			}
+			tag.setAlbum("未知专辑");
+			tag.setArtist(artist);
+			tag.setLength(durationStr);
+			tag.setSongName(title);
+			return tag;
+		} catch (Exception e) {
+			throw new RuntimeException("其他格式读取错误");
+		}
 
+		
+	}
+	
+	public static String formatTime(int time) {
+		time /= 1000;
+		int minute = time / 60;
+		int second = time % 60;
+		minute %= 60;
+		return String.format("%02d:%02d", minute, second);
+	}
+ 
 }
  
