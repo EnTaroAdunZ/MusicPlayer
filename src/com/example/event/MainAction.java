@@ -109,7 +109,7 @@ public class MainAction {
 	
 	public void modiProgress(double progress) {
 		System.out.println("用户点击了:"+progress);
-		if(ps.getCurrent_song() == null)
+		if(currentSong == null)
 			return;
 		ps.setProgress(progress);
 	}
@@ -144,7 +144,7 @@ public class MainAction {
 	}
 	
 	public static void progressFeedBack(double progress) {
-		int sec = progressTotalSec(tt.getText(), progress);
+		int sec = progressTotalSec(currentSong.getMusicTimeLength(), progress);
 		ct.setText(progressCal(sec, progress));
 		sl.setValue(progress * 100);
 		pbb.setProgress(progress); 
@@ -329,9 +329,9 @@ public class MainAction {
 	}
 	
 	private static boolean loadLrc() {
-		if(ps.getCurrent_song() == null)
+		if(currentSong == null)
 			return false;
-		String name = ps.getCurrent_song().getPath();
+		String name = currentSong.getPath();
 		StringBuilder sb = new StringBuilder(name);
 		sb.delete(name.lastIndexOf('.'), name.length());
 		sb.append(".lrc");
@@ -354,7 +354,9 @@ public class MainAction {
 	private static void playingRefresh() {
 		if(isExist()) 
 			return;
-		MusicUtils m = ps.getCurrent_song();
+		MusicUtils m = currentSong;
+		if(m == null)
+			return;
 		String path = m.getPath();
 		Image image = newImage(path);
 		piv.setImage(image);
@@ -366,14 +368,14 @@ public class MainAction {
 		lms.setText(m.getMusicSinger());
 		pmc.setText("本地音乐");
 
-		tt.setText(ps.getCurrent_song().getMusicTimeLength());
-		currentLrc = ps.getCurrent_song().getMusicTitle();
+		tt.setText(m.getMusicTimeLength());
+		currentLrc = m.getMusicTitle();
 	}
 	
 	private static boolean isExist() {
-		if(ps.getCurrent_song() == null)
+		if(currentSong == null)
 			return true;
-		String name = ps.getCurrent_song().getMusicTitle();
+		String name = currentSong.getMusicTitle();
 		return name.equals(currentLrc);
 	}
 	
@@ -419,6 +421,8 @@ public class MainAction {
 	public void playList() {
 		listOn = !listOn;
 		gui.getPlaylist().setVisible(listOn);
+		if(gui.getPlC().getTableView_playList().getItems().size() == 0) 
+			return;
 		gui.getPlC().getTableView_playList().getSelectionModel().select(currentSong);
 	}
 
@@ -583,9 +587,6 @@ public class MainAction {
 			buttonDis(false, pb, lb, nb);
 		if(ps.getCurrent_song() == null)
 			return;
-		//tt
-		String n = ps.getCurrent_song().getMusicTimeLength();
-		tt.setText(n);
 	}
 
 	public static List<MusicUtils> searchsong(String key, int mode){
@@ -612,9 +613,29 @@ public class MainAction {
 		ps.setCurrent_songMenu(list);
 		gui.getPlC().getTableView_playList().getItems().clear();
 		gui.getPlC().getTableView_playList().getItems().addAll(list);
-		if(ps.getCurrent_songMenu().size() == 0)
+		if(list.size() == 0) {
 			pause();
+			playingReset();
+		}
 		refresh(ps.getCurrent_state());
+	}
+	
+	private static void playingReset() {
+		piv.setImage(defaultEmptyImage);
+		liv.setImage(defaultEmptyImage);
+		pmt.setText("....");
+		lmt.setText("....");
+		pmb.setText("....");
+		pms.setText("....");
+		lms.setText("....");
+		pmc.setText("....");
+		tt.setText("--:--");
+		ct.setText("--:--");
+		
+		currentLrc = "";
+		currentSong = null;
+		refresh(ps.getCurrent_state());
+		sl.setValue(0);
 	}
 	
 	public boolean ishoverPlayList() {
@@ -674,8 +695,8 @@ public class MainAction {
 		btn.setOnAction(new Extension());
 		tf.setOnKeyPressed(new EnterAction(tf, btn));
 		cp.addListener((o, ov, nv) ->{
-			progressFeedBack((double)nv);
 			currentSong = ps.getCurrent_song();
+			progressFeedBack((double)nv);
 		});
 		pl.focusedProperty().addListener((o, ov, nv) ->{
 			if(nv == false) {
