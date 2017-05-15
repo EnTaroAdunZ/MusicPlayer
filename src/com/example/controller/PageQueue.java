@@ -67,6 +67,7 @@ public class PageQueue{
 		size.set(pagestack.size()); 
 		if(pagestack.size() > 10 ) {
 			pagestack.removeFirst();
+			System.gc();
 			ss(size);
 			ss(index);
 		}
@@ -76,6 +77,7 @@ public class PageQueue{
 	private void save() {
 		while(pagestack.size() > index.get() + 1) {
 			pagestack.removeLast();
+			System.gc();
 			ss(size);
 		}
 	}
