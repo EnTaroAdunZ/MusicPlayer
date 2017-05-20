@@ -1,3 +1,4 @@
+//按钮“播放”状态
 .buttonPlay{
 	-fx-background-image: url("PlayDark.png");
 }
@@ -6,6 +7,7 @@
 	-fx-background-image: url("Play.png");
 }
 
+//按钮“暂停”状态
 .buttonPause{
 	-fx-background-image: url("PauseDark.png")
 }
@@ -52,6 +54,7 @@
 	-fx-background-image: url("Close.png")
 }
 
+//按钮“音量键”
 .Button_changeVolumn{
 	-fx-background-image: url("VolumnDark.png")
 }
@@ -60,6 +63,7 @@
 	-fx-background-image: url("Volumn.png")
 }
 
+//按钮“音量键”静音状态
 .Button_changeVolumn_zero{
 	-fx-background-image: url("VolumnZeroDark.png")
 }
@@ -68,7 +72,7 @@
 	-fx-background-image: url("VolumnZero.png")
 }
 
-
+//按钮“播放模式”单曲循环状态
 .buttonRepeatInOne{
 	-fx-background-image: url("RepeatInOneDark.png")
 }
@@ -77,6 +81,7 @@
 	-fx-background-image: url("RepeatInOne.png")
 }
 
+//按钮“播放模式”列表循环状态
 .buttonRepeat{
 	-fx-background-image: url("RepeatDark.png")
 }
@@ -85,6 +90,7 @@
 	-fx-background-image: url("Repeat.png")
 }
 
+//按钮“播放模式”顺序播放状态
 .buttonOrderPlay{
 	-fx-background-image: url("OrderPlayDark.png")
 }
@@ -93,6 +99,7 @@
 	-fx-background-image: url("OrderPlay.png")
 }
 
+//按钮“播放模式”随机播放状态
 .buttonRandomPlay{
 	-fx-background-image: url("RandomPlayDark.png")
 }
@@ -101,6 +108,7 @@
 	-fx-background-image: url("RandomPlay.png")
 }
 
+//通用文本设置
 .lightLabel{
 	-fx-text-fill: white;
 	-fx-background-color : null;
@@ -188,6 +196,7 @@
     -fx-padding: 0.208333em; /* 2.5 */
 }
 
+//以下是拖动条背后的进度条设置
 .progress-bar > .bar{
 	-fx-pref-height: 15;
 	-fx-min-height: 15;
