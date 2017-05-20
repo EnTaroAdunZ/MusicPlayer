@@ -40,7 +40,7 @@ import myorg.jaudiotagger.tag.images.Artwork;
 */
 public class TagInfoUtil {
 
-	
+	//获得MP3的Tag
 	public static Tag Mp3InfoRead(String path){
 		    MP3File file;
 			try {
@@ -87,7 +87,7 @@ public class TagInfoUtil {
 //		    System.out.println("歌手"+singer);  
 //		    System.out.println("专辑:"+author);  
 	}
-	
+	//获得MP3中的图片
 	public static Image getMp3Picture(String mp3path) throws RuntimeException{
 		Image img;
 		try {
@@ -113,7 +113,7 @@ public class TagInfoUtil {
 		} 
 	    return img;
 	}
-	
+	//获得flac的Tag
 	public static Tag FlacInfoRead(String path){
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
@@ -141,8 +141,7 @@ public class TagInfoUtil {
 			throw new RuntimeException("读取Flac信息时出错！");
 		} 
 	}
-	
-	
+	//获得flac的图片
 	public static Image getFlacPicture(String flacpath) throws RuntimeException{
 		try {
 			FlacFileReader fileReader=new FlacFileReader();
@@ -165,7 +164,7 @@ public class TagInfoUtil {
 			throw new RuntimeException("读取Flac图片时出错！");
 		}
 	}
-	
+	//向存储器写入图片
 	public static void writePhoto(Image image,String pathName){
 		File file=new File("E://MusicPlay//current_image.jpg");
 		
@@ -178,7 +177,7 @@ public class TagInfoUtil {
 //			e.printStackTrace();
 		}
 	}
-	
+	//获得其他格式的Tag
 	public static Tag getOtherTag(String filePath) throws RuntimeException{
 		try {
 			File sourceFile = new File(filePath);
@@ -214,7 +213,7 @@ public class TagInfoUtil {
 
 		
 	}
-	
+	//格式化时间
 	public static String formatTime(int time) {
 		time /= 1000;
 		int minute = time / 60;

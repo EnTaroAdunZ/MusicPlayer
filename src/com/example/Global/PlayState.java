@@ -34,11 +34,120 @@ public class PlayState {
 	private int current_volume;// 当前音量
 	private double progress = 0;// 当前播放进度：百分比、用于响应设置
 	private long progress_long=0;// 当前播放进度：毫秒
-	private int current_op;
+	private int current_op;//当前控线播放状态
 	private int current_index;//当前索引号
-	private boolean isBeginPlay;
-	private Image current_image;
+	private boolean isBeginPlay;//是否在播放中
+	private Image current_image;//当前播放歌曲的图片
 
+	//返回当前播放状态的实例对象
+	public static PlayState getPlayState() {
+		if (playState == null) {
+			playState = new PlayState();
+			// 初始化
+			playState.current_state = GlobalVariable.PAUSINGMUSIC;
+			playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
+			playState.current_op=GlobalVariable.HASDONOTHING;
+			playState.current_volume=0;
+			
+			// 测试用初始化
+			// playState.current_songMenu=SongMenuOperate.getSongsByMenuName("我的最爱");
+			// playState.current_song=playState.current_songMenu.get(0);
+
+		}
+		return playState.playState;
+	}
+
+	// 返回播放状态
+	public int getState() {
+		return playState.current_state;
+	}
+
+	// 在播放与暂停切换
+	public void setState_PAUSEMUSIC() {
+		playState.current_state = GlobalVariable.SERVICE_PAUSEMUSIC;
+		System.out.println("設置暫停");
+		ObserverManage.getObserver().setMessage(playState);
+	}
+
+	// 从某首歌开始播放
+	public void setState_PLAYMUSIC() throws RuntimeException{
+		playState.current_state = GlobalVariable.SERVICE_PLAYMUSIC;
+		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
+		playState.setCurrent_index(indexOf);
+		
+//		System.out.println(indexOf);
+//		Iterator<MusicUtils> iterator = playState.getCurrent_songMenu().iterator();
+//		int i=0;
+//		while(iterator.hasNext()){
+//			System.out.println(iterator.next().getPath()+":"+i++);
+//			
+//		}
+//		System.out.println(current_song.getPath());
+//		System.out.println("設置播放");
+		ObserverManage.getObserver().setMessage(playState);
+	}
+
+	// 设置上一首
+	public void setState_PREMUSIC() {
+		System.out.println("设置上一首");
+		setCurProgress(0);
+		setProgress_long(0);
+		
+		playState.current_state = GlobalVariable.PREMUSIC;
+		ObserverManage.getObserver().setMessage(playState);
+	}
+
+	// 设置下一首
+	public void setState_NEXTMUSIC() {
+		System.out.println("设置下一首");
+		setCurProgress(0);
+		setProgress_long(0);
+		playState.current_state = GlobalVariable.NEXTMUSIC;
+		
+//		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
+//		System.out.println(indexOf);
+//		Iterator<MusicUtils> iterator = playState.getCurrent_songMenu().iterator();
+//		int i=0;
+//		while(iterator.hasNext()){
+//			System.out.println(iterator.next().getPath()+":"+i++);
+//			
+//		}
+		ObserverManage.getObserver().setMessage(playState);
+	}
+
+	// 设置列表循环
+	public void setPlAYMODE_LISTLOOP() {
+		System.out.println("列表循环");
+		setCurProgress(0);
+		setProgress_long(0);
+		playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
+	}
+
+	// 设置单曲循环
+	public void setPlAYMODE_SINGLELOOP() {
+		System.out.println("单曲循环");
+		playState.current_mode = GlobalVariable.PlAYMODE_SINGLELOOP;
+	}
+
+	// 设置循环播放
+	public void setPlAYMODE_SEQUENCEPLAY() {
+		System.out.println("循环循环");
+		playState.current_mode = GlobalVariable.PlAYMODE_SEQUENCEPLAY;
+	}
+
+	// 设置随机播放
+	public void setPlAYMODE_RAMDOMPLAY() {
+		System.out.println("随机循环");
+		playState.current_mode = GlobalVariable.PlAYMODE_RAMDOMPLAY;
+	}
+
+	// 退出播放器
+	public void setEXITMUSIC() {
+		System.out.println("播放器已经退出！");
+		playState.current_mode = GlobalVariable.EXITMUSIC;
+	}
+
+	
 	public Image getCurrent_image() {
 		return current_image;
 	}
@@ -162,111 +271,5 @@ public class PlayState {
 		return current_volume;
 	}
 
-	public static PlayState getPlayState() {
-		if (playState == null) {
-			playState = new PlayState();
-			// 初始化
-			playState.current_state = GlobalVariable.PAUSINGMUSIC;
-			playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
-			playState.current_op=GlobalVariable.HASDONOTHING;
-			playState.current_volume=0;
-			
-			// 测试用初始化
-			// playState.current_songMenu=SongMenuOperate.getSongsByMenuName("我的最爱");
-			// playState.current_song=playState.current_songMenu.get(0);
-
-		}
-		return playState.playState;
-	}
-
-	// 返回播放状态
-	public int getState() {
-		return playState.current_state;
-	}
-
-	// 在播放与暂停切换
-	public void setState_PAUSEMUSIC() {
-		playState.current_state = GlobalVariable.SERVICE_PAUSEMUSIC;
-		System.out.println("設置暫停");
-		ObserverManage.getObserver().setMessage(playState);
-	}
-
-	// 从某首歌开始播放
-	public void setState_PLAYMUSIC() throws RuntimeException{
-		playState.current_state = GlobalVariable.SERVICE_PLAYMUSIC;
-		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
-		playState.setCurrent_index(indexOf);
-		
-//		System.out.println(indexOf);
-//		Iterator<MusicUtils> iterator = playState.getCurrent_songMenu().iterator();
-//		int i=0;
-//		while(iterator.hasNext()){
-//			System.out.println(iterator.next().getPath()+":"+i++);
-//			
-//		}
-//		System.out.println(current_song.getPath());
-//		System.out.println("設置播放");
-		ObserverManage.getObserver().setMessage(playState);
-	}
-
-	// 设置上一首
-	public void setState_PREMUSIC() {
-		System.out.println("设置上一首");
-		setCurProgress(0);
-		setProgress_long(0);
-		
-		playState.current_state = GlobalVariable.PREMUSIC;
-		ObserverManage.getObserver().setMessage(playState);
-	}
-
-	// 设置下一首
-	public void setState_NEXTMUSIC() {
-		System.out.println("设置下一首");
-		setCurProgress(0);
-		setProgress_long(0);
-		playState.current_state = GlobalVariable.NEXTMUSIC;
-		
-//		int indexOf = playState.current_songMenu.indexOf(playState.current_song);
-//		System.out.println(indexOf);
-//		Iterator<MusicUtils> iterator = playState.getCurrent_songMenu().iterator();
-//		int i=0;
-//		while(iterator.hasNext()){
-//			System.out.println(iterator.next().getPath()+":"+i++);
-//			
-//		}
-		ObserverManage.getObserver().setMessage(playState);
-	}
-
-	// 设置列表循环
-	public void setPlAYMODE_LISTLOOP() {
-		System.out.println("列表循环");
-		setCurProgress(0);
-		setProgress_long(0);
-		playState.current_mode = GlobalVariable.PlAYMODE_LISTLOOP;
-	}
-
-	// 设置单曲循环
-	public void setPlAYMODE_SINGLELOOP() {
-		System.out.println("单曲循环");
-		playState.current_mode = GlobalVariable.PlAYMODE_SINGLELOOP;
-	}
-
-	// 设置循环播放
-	public void setPlAYMODE_SEQUENCEPLAY() {
-		System.out.println("循环循环");
-		playState.current_mode = GlobalVariable.PlAYMODE_SEQUENCEPLAY;
-	}
-
-	// 设置随机播放
-	public void setPlAYMODE_RAMDOMPLAY() {
-		System.out.println("随机循环");
-		playState.current_mode = GlobalVariable.PlAYMODE_RAMDOMPLAY;
-	}
-
-	// 退出播放器
-	public void setEXITMUSIC() {
-		System.out.println("播放器已经退出！");
-		playState.current_mode = GlobalVariable.EXITMUSIC;
-	}
-
+	
 }

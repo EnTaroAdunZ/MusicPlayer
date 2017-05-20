@@ -1,48 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <song-list>
-	<song-menu songMenuName="我的最爱" createData="2017.5.7">
-		<song id='1'>
+	<song-menu songMenuName="我的最爱" createData="2017年05月08日">
+		<song>
 			<path>E://</path>
-			<length></length>
+			<length>12.72M</length>
+			<isLike>YES</isLike>  
 			<tag>
 				<album>XX专辑</album>
-				<comment>XX评论</comment>
 				<artist>XX作者</artist>
 				<songName>XX名字</songName>
-				<year>XX年</year>
-			</tag>
-		</song>
-		<song id='1'>
-			<path>E://</path>
-			<tag>
-				<album>XX专辑</album>
-				<comment>XX评论</comment>
-				<artist>XX作者</artist>
-				<songName>XX名字</songName>
-				<year>XX年</year>
-			</tag>
-		</song>
-	</song-menu>
-	<song-menu songMenuName="我的最爱">
-	<song id='1'>
-		<path>E://</path>
-		<tag>
-			<album>XX专辑</album>
-			<comment>XX评论</comment>
-			<artist>XX作者</artist>
-			<songName>XX名字</songName>
-			<year>XX年</year>
-		</tag>
-		</song>
-		<song id='1'>
-			<path>E://</path>
-			<tag>
-				<album>XX专辑</album>
-				<comment>XX评论</comment>
-				<artist>XX作者</artist>
-				<songName>XX名字</songName>
-				<year>XX年</year>
+				<length>05:12</length> 
 			</tag>
 		</song>
 	</song-menu>

@@ -42,20 +42,19 @@ public class PlayOperate implements Observer {
 	private String length_temp=null;
 	private int i=0;
 	
+	//获得进程ID
 	public UUID getOverThread() {
 		return overThread;
 	}
-
+	//设置进程ID
 	public void setOverThread() {
 		this.overThread = UUID.randomUUID();
 	}
-
+	//获得当前播放器对象
 	public Player getMediaPlayer() {
 		return mediaPlayer;
 	}
-	
-	
-
+	//当前播放器是否已经被创建
 	public static boolean hasMedia() {
 		if (PlayOperate.getPlayOperate().getMediaPlayer() == null) {
 			return false;
@@ -63,12 +62,12 @@ public class PlayOperate implements Observer {
 			return true;
 		}
 	}
-
+	//初始化
 	public PlayOperate() {
 		initPlayer();
 		ObserverManage.getObserver().addObserver(this);
 	}
-
+	//获得当前播放服务实例
 	public static PlayOperate getPlayOperate() {
 		if (playOperate == null) {
 			playOperate = new PlayOperate();
@@ -76,7 +75,7 @@ public class PlayOperate implements Observer {
 		// System.out.println("初始化成功");
 		return playOperate;
 	}
-
+	//用于接收订阅的消息做出改变
 	@Override
 	public void update(Observable o, Object arg) throws RuntimeException{
 		// System.out.println("收到了订阅");
@@ -97,9 +96,7 @@ public class PlayOperate implements Observer {
 			}
 			if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PLAYMUSIC) {
 				// System.out.println("开始播放");
-				
 				pauseMusic();
-				
 				playInfoMusic(PlayState.getPlayState().getCurrent_song());
 				PlayState.getPlayState().setCurrent_state(GlobalVariable.PLAYINGMUSIC);
 			} else if (PlayState.getPlayState().getState() == GlobalVariable.SERVICE_PAUSEMUSIC) {
@@ -125,7 +122,7 @@ public class PlayOperate implements Observer {
 
 		}
 	}
-
+	//暂停时的快进
 	private void seekToWhenPause() {
 		try {
 			if (mediaPlayer == null) {;
@@ -141,7 +138,7 @@ public class PlayOperate implements Observer {
 			// TODO: handle exception
 		}
 	}
-
+	//切换到
 	private void alterPreMusic() {
 		int playIndex = PlayState.getPlayState().getCurrent_index();
 		int size = PlayState.getPlayState().getCurrent_songMenu().size();
@@ -169,7 +166,7 @@ public class PlayOperate implements Observer {
 			System.out.println("改变后的index" + nextIndex);
 		}
 	}
-
+	//播放时的快进
 	private void seekTo() {
 		try {
 			if (mediaPlayer != null) {
@@ -324,13 +321,13 @@ public class PlayOperate implements Observer {
 			mediaPlayer.getAudioOutput().setVolume((float) (PlayState.getPlayState().getCurrent_volume() * 1.0 / 100));
 		}
 	}
-
+	//更改音量
 	private void alterVolume(int volume) {
 		if (mediaPlayer != null) {
 			mediaPlayer.getAudioOutput().setVolume((float) (volume * 1.0 / 100));
 		}
 	}
-
+	//暂停播放
 	private void pauseMusic() {
 
 		try {
@@ -348,7 +345,7 @@ public class PlayOperate implements Observer {
 			// TODO: handle exception
 		}
 	}
-
+	//停止播放
 	private void stopMusic() {
 		PlayState.getPlayState().setBeginPlay(false);
 		try {
@@ -364,7 +361,7 @@ public class PlayOperate implements Observer {
 		PlayState.getPlayState().setProgress_long(0);
 		baseCurrentMillis = 0;
 	}
-
+	//下一首
 	private void nextMusic() {
 		int playIndex = PlayState.getPlayState().getCurrent_index();
 		int size = PlayState.getPlayState().getCurrent_songMenu().size();
@@ -425,7 +422,7 @@ public class PlayOperate implements Observer {
 			break;
 		}
 	}
-
+	//根据播放模式决定下一首的位置
 	private void alterNextMusic() {
 		int playIndex = PlayState.getPlayState().getCurrent_index();
 		System.out.println(playIndex);
@@ -456,7 +453,7 @@ public class PlayOperate implements Observer {
 		}
 
 	}
-	
+	//设定当前播放的进度
 	public void setBaseCurrentMillis(long baseCurrentMillis) {
 		this.baseCurrentMillis = baseCurrentMillis;
 	}

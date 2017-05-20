@@ -23,6 +23,7 @@ import com.example.util.XMLUtil;
 */
 public class SongMenuDaoImpl implements SongMenuDao{
 
+	//添加歌单
 	@Override
 	public void addSongMenu(String songMenuName) {
 		Document document=XMLUtil.getDoc();
@@ -34,7 +35,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		addElement.addAttribute("createDate", time);
 		XMLUtil.writeDoc(document);
 	}
-
+	//删除歌单
 	@Override
 	public void deleteSongMenu(String songMenuName) {
 		Document document=XMLUtil.getDoc();
@@ -43,7 +44,6 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		parent.remove(menuList);
 		XMLUtil.writeDoc(document);
 	}
-
 
 	//得到歌单以及歌单下的所有信息
 	@Override
@@ -73,7 +73,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		return songMenus;
 	}
 
-
+	//通过歌单名得到歌单
 	@Override
 	public List<Song> getSongByMenuName(String menuName) {
 		List<Song> songList = null;
@@ -91,7 +91,7 @@ public class SongMenuDaoImpl implements SongMenuDao{
 		}
 		return songList;
 	}
-
+	//得到创建日期
 	@Override
 	public String getCreateDateBySongMenuName(String menuName) {
 		Document document= XMLUtil.getDoc();

@@ -27,7 +27,7 @@ public class GlobalVariable {
 	public static String currentLrc;
 	public static Controller currentCtrl = null;
 	
-	
+	//播放模式
 	public static final int PlAYMODE_SINGLELOOP= 0;//单曲循环
 	public static final int PlAYMODE_LISTLOOP = 1;//列表循环	
 	public static final int PlAYMODE_SEQUENCEPLAY = 2;//循环播放

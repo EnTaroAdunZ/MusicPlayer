@@ -24,10 +24,7 @@ import com.tulskiy.tta.Main;
 * @Description:   
 */
 public class SongDaoImpl implements SongDao{
-
-	
-
-
+	//删除歌曲
 	@Override
 	public void deleteSong(String menuName,String songPath) {
 		if(menuName.equals("我喜欢的音乐")){
@@ -45,8 +42,7 @@ public class SongDaoImpl implements SongDao{
 		}
 		XMLUtil.writeDoc(document);
 	}
-
-
+	//添加歌曲列表
 	@Override
 	public List<Song> getSongList(String songSheet) {
         Document document= XMLUtil.getDoc();
@@ -60,7 +56,7 @@ public class SongDaoImpl implements SongDao{
         }
         return songList;
 	}
-
+	//搜索
 	@Override
 	public List<Song> getSong(String key,String menuName,int Mode) {
 		Document document= XMLUtil.getDoc();	
@@ -81,14 +77,7 @@ public class SongDaoImpl implements SongDao{
 		}
 		return songList;
 	}
-//	public static void main(String[] args) {
-//		SongDao songUtil=new SongDaoImpl();
-//	    songUtil.getSong("nine","我喜欢的音乐",GlobalVariable.SEARCHMODE_SONGNAME);
-//	}
-
-
-	
-
+	//添加歌曲
 	@Override
 	public void addSong(Song song, String menuName) {
 		Document document= XMLUtil.getDoc();
@@ -100,7 +89,7 @@ public class SongDaoImpl implements SongDao{
 		SongUtil.songToEle(song, element);
 		XMLUtil.writeDoc(document);
 	}
-
+	//根据文件添加歌曲
 	@Override
 	public void addSongWithFile(List<Song> songList, String menuName) {
 		Document document= XMLUtil.getDoc();
@@ -115,10 +104,7 @@ public class SongDaoImpl implements SongDao{
 		}
 		XMLUtil.writeDoc(document);
 	}
-
-
-
-
+	//添加歌曲到本地音乐
 	@Override
 	public void addMusicToLocal(Song song) {
 		Document document= XMLUtil.getDoc();
@@ -142,8 +128,7 @@ public class SongDaoImpl implements SongDao{
 		}
 		return false;
 	}
-
-
+	//设置喜爱
 	@Override
 	public void setAllIsLike(String path, boolean isLike) {
 		Document document= XMLUtil.getDoc();
@@ -160,7 +145,6 @@ public class SongDaoImpl implements SongDao{
 		XMLUtil.writeDoc(document);
 	}
 
-
 	@Override
 	public boolean checkPathIsLike(String path) {
 		Document document= XMLUtil.getDoc();
@@ -173,7 +157,6 @@ public class SongDaoImpl implements SongDao{
 			return false;
 		}
 	}
-
 
 	@Override
 	public List<Song> getSongHYBRID(String key, String menuName) {
@@ -205,14 +188,6 @@ public class SongDaoImpl implements SongDao{
 		}
 		return songList;
 	}
-	
-//	public static void main(String[] args) {
-//		SongDaoImpl songDaoImpl=new SongDaoImpl();
-//		List<Song> songHYBRID = songDaoImpl.getSongHYBRID("小","我喜欢的音乐");
-//		for(Song song :songHYBRID){
-//			System.out.println(song);
-//		}
-//	}
 	
 }
  
